@@ -1,62 +1,8 @@
-<!doctype html>
+{% extends 'base.html' %}
 
-   <html class="no-js">
-pe" content="text/html;charset=utf-8" />
-      <head>
-         <meta charset="utf-8">
-         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-         <meta name="viewport"
-            content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
-         <meta name="google-site-verification" content="J-umpeUDLWNqngoamsU6fPWYKraq5hCa2nJ0Cx0YjrI" />
-         <title>
-            Handmade Birthday Cards - Bespoke and Personalised | Lotus Art Studio
-         </title>
-         <meta name="description"
-            content="Unique personalised handmade birthday cards, including luxury boxed birthday cards and birthday photo cards. Handmade in Britain from finest materials using high quality card stocks.">
-         <meta name="robots" content="index, follow">
-         <link rel="canonical" href="handmade-birthday-cards.html">
-         <meta name="google-site-verification" content="J-umpeUDLWNqngoamsU6fPWYKraq5hCa2nJ0Cx0YjrI" />
-         <link rel="preconnect" href="http://cdn.shopify.com/" crossorigin>
-         <link rel="preconnect" href="http://fonts.gstatic.com/" crossorigin>
-         <link rel="shortcut icon" href="../cdn/shop/files/logo-icon_32x32faa5.png?v=1613162098" type="image/png">
-         <meta property="og:type" content="website">
-         <meta property="og:title" content="Handmade Birthday Cards - Bespoke and Personalised">
-         <meta property="og:description"
-            content="Unique personalised handmade birthday cards, including luxury boxed birthday cards and birthday photo cards. Handmade in Britain from finest materials using high quality card stocks.">
-         <meta property="og:url" content="https://www.lotusartstudio.co.uk/collections/handmade-birthday-cards">
-         <meta property="og:site_name" content="Lotus Art Studio">
-         <meta name="twitter:card" content="summary">
-         <link
-            href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|Roboto:300,400,700|Crimson+Text:300,400,700|Crimson+Text:300,400,700"
-            rel="stylesheet" type="text/css" media="all" />
-         <script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');</script>
-         <meta name="google-site-verification" content="J-umpeUDLWNqngoamsU6fPWYKraq5hCa2nJ0Cx0YjrI">
-         <meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/14842792/digital_wallets/dialog">
-         <meta name="shopify-checkout-api-token" content="0cbf809bc9b83e76bbb889ed44f26272">
-         <meta id="in-context-paypal-metadata" data-shop-id="14842792" data-venmo-supported="false"
-            data-environment="production" data-locale="en_US" data-paypal-v4="true" data-currency="GBP">
-         <link rel="alternate" type="application/atom+xml" title="Feed" href="handmade-birthday-cards.atom" />
-         <link rel="next" href="handmade-birthday-cards4658.html?page=2">
-         <link rel="alternate" type="application/json+oembed" href="handmade-birthday-cards.oembed">
-         <script async="async" src="../checkouts/internal/preloads6116.js?locale=en-GB"></script>
-         <script async="async" src="https://shop.app/checkouts/internal/preloads.js?locale=en-GB&amp;shop_id=14842792"
-            crossorigin="anonymous"></script>
-         <style id="shopify-dynamic-checkout-cart">
-            @media screen and (min-width: 750px) {
-            #dynamic-checkout-cart {
-            min-height: 50px;
-            }
-            }
-            @media screen and (max-width: 750px) {
-            #dynamic-checkout-cart {
-            min-height: 180px;
-            }
-            }
-         </style>
-         <script src="./cdn/shop/t/64/assets/lazysizes.min295b.js?v=174358363404432586981553156437" async></script>
-         <link href="./cdn/shop/t/64/assets/theme.scssf4b4.css?v=150387887927523304061698934776" rel="stylesheet"
-            type="text/css" media="all" />
-      </head>
+{% load static %}
+{% block title %}Collection for now{% endblock %}
+{% block content %}
       <body class="kagami--v5 template-collection ">
          <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1"
             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -937,7 +883,7 @@ pe" content="text/html;charset=utf-8" />
             display: none;
             }
          </style>
-      <script type="text/javascript" src="./scripts/data.js" ></script>
+      <script type="text/javascript" src="{% static 'scripts/data.js' %}" ></script>
          <script>
       document.addEventListener('DOMContentLoaded', function() {
 
@@ -945,6 +891,9 @@ pe" content="text/html;charset=utf-8" />
             const productsContainer=document.getElementById('collection')
             console.log(productsContainer)
    datas.forEach((data)=>{
+   console.log(data.image)
+   var image=data.image
+   console.log(`${% static '${image}' %}`)
    const productItemHtml = `
     <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/3--lap-and-up">
       <div class="product-item__inner">
@@ -953,9 +902,9 @@ pe" content="text/html;charset=utf-8" />
         <a href="product.html?product_name=${data.name}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
-              <img class="lazyload image--fade-in" data-sizes="auto" data-src="${data.image}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="${data.name}">
+              <img class="lazyload image--fade-in" data-sizes="auto" data-src="{% static  '${data.image}' %}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="${data.name}">
               <noscript>
-                <img src="${data.image}" alt="${data.name}">
+                <img src="{% static '${data.image}' %}" alt="${data.name}">
               </noscript>
             </div>
           </div>
@@ -977,5 +926,4 @@ pe" content="text/html;charset=utf-8" />
          </script>
 
       </body>
-      <!-- Mirrored from www.lotusartstudio.co.uk/collections/handmade-birthday-cards by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 30 Apr 2024 04:02:26 GMT -->
-   </html>
+{% endblock %}
