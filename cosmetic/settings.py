@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cosmetic.urls'
-
+AUTH_USER_MODEL='account.Account'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -129,3 +130,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+
+
+# for email verfication and sending 
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='bishalmurmu150@gmail.com'
+EMAIL_HOST_PASSWORD="bishalmurmu098"
+EMAIL_USE_TLS=True
