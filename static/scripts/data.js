@@ -9,7 +9,7 @@ function returnData() {
         details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/vegas.avif",
+    image: "assets/vegas.avif",
     large_image:"../assets/vegas_lg.avif",
   },
   {

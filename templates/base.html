@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html class="no-js">
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport"
+         content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+      <title>
+      {% block title %}{% endblock %}
+      </title>
+      <meta name="robots" content="index, follow">
+      <link rel="canonical" href="index.html">
+      <link rel="preconnect" href="https://cdn.shopify.com/" crossorigin>
+      <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+      <link rel="shortcut icon" href="{% static 'cdn/shop/files/logo.png' %}" type="image/png">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Handmade Greeting Cards - Bespoke and Personalised">
+      <link
+         href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|Roboto:300,400,700|Crimson+Text:300,400,700|Crimson+Text:300,400,700"
+         rel="stylesheet" type="text/css" media="all" />
+      <script async="async" src="{% static 'checkouts/internal/preloads6116.js' %}"></script>
+      <script async="async" src="{% static 'https://shop.app/checkouts/internal/preloads.js' %}"
+         crossorigin="anonymous"></script>
+      <script integrity="sha256-n5Uet9jVOXPHGd4hH4B9Y6+BxkTluaaucmYaxAjUcvY=" data-source-attribution="shopify.loadfeatures"
+         defer="defer"
+         src="{% static 'cdn/shopifycloud/shopify/assets/storefront/load_feature-9f951eb7d8d53973c719de211f807d63af81c644e5b9a6ae72661ac408d472f6.js' %}"
+         crossorigin="anonymous"></script>
+      <script crossorigin="anonymous" defer="defer"
+         src="{% static 'cdn/shopifycloud/shopify/assets/shopify_pay/storefront-80e528be853eac23af2454534897ca9536b1d3d04aa043b042f34879a3c111c8b805.js' %}"></script>
+      <script integrity="sha256-HAs5a9TQVLlKuuHrahvWuke+s1UlxXohfHeoYv8G2D8="
+         data-source-attribution="shopify.dynamic-checkout" defer="defer"
+         src="{% static 'cdn/shopifycloud/shopify/assets/storefront/features-1c0b396bd4d054b94abae1eb6a1bd6ba47beb35525c57a217c77a862ff06d83f.js' %}"
+         crossorigin="anonymous"></script>
+      <style id="shopify-dynamic-checkout-cart">
+         @media screen and (min-width: 750px) {
+         #dynamic-checkout-cart {
+         min-height: 50px;
+         }
+         }
+         @media screen and (max-width: 750px) {
+         #dynamic-checkout-cart {
+         min-height: 180px;
+         }
+         }
+      </style>
+      <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css"/>
+      <script src="{% static 'cdn/shop/t/64/assets/lazysizes.min295b.js' %}" async></script>
+      <link href="{% static 'cdn/shop/t/64/assets/theme.scssf4b4.css' %}" rel="stylesheet" type="text/css"
+         media="all" />
+   </head>
+
+   {% block content %} {% endblock %}
+
+</html>
