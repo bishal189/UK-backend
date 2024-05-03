@@ -793,35 +793,9 @@
             </style>
          </div>
          <main id="main" class="main" role="main">
-            <!-- BEGIN content_for_index -->
-            <div id="shopify-section-slideshow" class="shopify-section shopify-section__slideshow">
-               <section class="index-module slideshow" data-autoplay="true" data-animation-type="slide"
-                  data-cycle-speed="10000">
-                  <div class="slideshow__slides">
-                     <div class="slideshow__slide " data-slide-index="0"
-                        style=" background: url(./assets/cover.jpg)">
-                        <a href="collection.html">
-                           <div class="aspect-ratio" style="padding-bottom: 47.9375%">
-                              <img class="slideshow__image lazyload image--fade-in"
-                                 data-widths="[400,600,800,900,980,1000,1200,1400,1600]" data-sizes="auto"
-                                 data-src="./assets/cover.jpg"
-                                 alt="Luxury personalised handmade birthday cards">
-                              <noscript>
-                                 <img class="slideshow__image" src="cdn/shop/files/137BH-hero_980xf58f.jpg?v=1682076385"
-                                    alt="Luxury personalised handmade birthday cards">
-                              </noscript>
-                           </div>
-                           <div class="slideshow__cover " style="text-align: right">
-                              <div class="slideshow__cover-wrapper">
-                                 <div class="container">
-                                 </div>
-                              </div>
-                           </div>
-                        </a>
-                     </div>
-                  </div>
-               </section>
-            </div>
+        <div style="text-align:center;width:100%" >
+         <img style="width:100%" src="{% static 'assets/cover.jpg' %}" />
+         </div>
             <div id="shopify-section-featured-collections" class="shopify-section shopify-section__featured-collections">
                <section class="index-module section section--padded ">
                   <div class="inner">
@@ -832,7 +806,7 @@
                               style="background: url(./assets/handmade_birthday.avif)">
                               <div class="aspect-ratio" style="padding-bottom: 140.0%">
                                  <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="//www.lotusartstudio.co.uk/cdn/shop/collections/handmade-birthday-cards-1_400x.jpg?v=1562255379 400w, //www.lotusartstudio.co.uk/cdn/shop/collections/handmade-birthday-cards-1_600x.jpg?v=1562255379 600w, //www.lotusartstudio.co.uk/cdn/shop/collections/handmade-birthday-cards-1_800x.jpg?v=1562255379 800w, //www.lotusartstudio.co.uk/cdn/shop/collections/handmade-birthday-cards-1_1000x.jpg?v=1562255379 1000w">
+                                    data-bgset="{% static 'assets/handmade_birthday.avif' %}">
                                  </div>
                               </div>
                               <div class="collection__overlay"></div>
@@ -847,10 +821,10 @@
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="collection.html" class="collection__link"
-                              style="background: url(./assets/thankful_for_you.avif)">
+                              style="background: url({% static 'assets/thankful_for_you.avif' %})">
                               <div class="aspect-ratio" style="padding-bottom: 140.0%">
                                  <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="//www.lotusartstudio.co.uk/cdn/shop/collections/new-baby-1_895933a5-f73d-4136-bec1-17e4f9d51513_400x.jpg?v=1537357491 400w, //www.lotusartstudio.co.uk/cdn/shop/collections/new-baby-1_895933a5-f73d-4136-bec1-17e4f9d51513_600x.jpg?v=1537357491 600w, //www.lotusartstudio.co.uk/cdn/shop/collections/new-baby-1_895933a5-f73d-4136-bec1-17e4f9d51513_800x.jpg?v=1537357491 800w, //www.lotusartstudio.co.uk/cdn/shop/collections/new-baby-1_895933a5-f73d-4136-bec1-17e4f9d51513_1000x.jpg?v=1537357491 1000w">
+                                    data-bgset="{% static 'assets/thankful_for_you.avif' %}">
                                  </div>
                               </div>
                               <div class="collection__overlay"></div>
@@ -865,16 +839,12 @@
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="collection.html" class="collection__link"
-                              style="background: url(./assets/vegas.avif)">
+                              style="background: url({% static 'assets/vegas.avif' %})">
                               <div class="aspect-ratio" style="padding-bottom: 140.0%">
                                  <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="//www.lotusartstudio.co.uk/cdn/shop/collections/wedding-cards_400x.jpg?v=1534848747 400w, //www.lotusartstudio.co.uk/cdn/shop/collections/wedding-cards_600x.jpg?v=1534848747 600w, //www.lotusartstudio.co.uk/cdn/shop/collections/wedding-cards_800x.jpg?v=1534848747 800w, //www.lotusartstudio.co.uk/cdn/shop/collections/wedding-cards_1000x.jpg?v=1534848747 1000w">
+                                    data-bgset="{% static 'assets/vegas.avif' %}w">
                                  </div>
-                                 <noscript>
-                                    <div class="collection__image-background"
-                                       style="background-image: url(cdn/shop/collections/wedding-cards_800x60ba.jpg?v=1534848747)">
-                                    </div>
-                                 </noscript>
+
                               </div>
                               <div class="collection__overlay"></div>
                            </a>
@@ -887,16 +857,12 @@
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="collection.html" class="collection__link"
-                              style="background: url(./assets/scenic.avif)">
+                              style="background: url({% static 'assets/scenic.avif' %})">
                               <div class="aspect-ratio" style="padding-bottom: 140.0%">
                                  <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="//www.lotusartstudio.co.uk/cdn/shop/collections/anniversary-1_322a2969-8116-4acb-8db8-ac2e71dc2e57_400x.jpg?v=1539255230 400w, //www.lotusartstudio.co.uk/cdn/shop/collections/anniversary-1_322a2969-8116-4acb-8db8-ac2e71dc2e57_600x.jpg?v=1539255230 600w, //www.lotusartstudio.co.uk/cdn/shop/collections/anniversary-1_322a2969-8116-4acb-8db8-ac2e71dc2e57_800x.jpg?v=1539255230 800w, //www.lotusartstudio.co.uk/cdn/shop/collections/anniversary-1_322a2969-8116-4acb-8db8-ac2e71dc2e57_1000x.jpg?v=1539255230 1000w">
+                                    data-bgset="{% static 'assets/scenic.avif' %}">
                                  </div>
-                                 <noscript>
-                                    <div class="collection__image-background"
-                                       style="background-image: url(./assets/scenic.avif)">
-                                    </div>
-                                 </noscript>
+
                               </div>
                               <div class="collection__overlay"></div>
                            </a>
@@ -959,131 +925,7 @@
                      <div class="section-wrapper rte" style="text-align: center">
                         <p></p>
                      </div>
-                     <section class='jdgm-widget jdgm-carousel jdgm-carousel--default-theme'>
-                        <style>
-                           .jdgm-carousel {
-                           display: none
-                           }
-                        </style>
-                        <style>
-                           .jdgm-xx {
-                           left: 0
-                           }
-                           .jdgm-carousel-item__timestamp {
-                           display: none !important
-                           }
-                           .jdgm-carousel-item__product-title {
-                           display: none !important
-                           }
-                           .jdgm-carousel-wrapper .jdgm-carousel-item__review {
-                           height: calc(72% - 1.4em)
-                           }
-                        </style>
-                        <div class='jdgm-carousel__item-container'>
-                           <div class='jdgm-carousel__item-wrapper'>
-                              <div class='jdgm-carousel-item ' data-review-id='6409a6ba-6969-4696-96dd-c7f5bc05f986'>
-                                 <div class='jdgm-carousel-item__review'>
-                                    <div class='jdgm-carousel-item__review-rating' tabindex='0' aria-label='5 stars' role='img'> <span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span> </div>
-                                    <div class='jdgm-carousel-item__review-content'>
-                                       <div class='jdgm-carousel-item__review-title'>Birthday Card</div>
-                                       <div class='jdgm-carousel-item__review-body'>
-                                          <p>Love the cards, they are all so special. I have received quite a few from my husband and
-                                             have kept them all. My husband makes up all his own poems for me so make the cards lovely.
-                                             That’s the nice thing that you can put your own words in
-                                          </p>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class='jdgm-carousel-item__reviewer-name-wrapper'>
-                                    <div class='jdgm-carousel-item__reviewer-name jdgm-ellipsis'> Christine J. </div>
-                                    <div class='jdgm-carousel-item__timestamp jdgm-ellipsis jdgm-spinner' data-time='04/20/2024'>
-                                       04/20/2024
-                                    </div>
-                                 </div>
-                                 <a class='jdgm-carousel-item__product jdgm--shop-review-has-image'
-                                    href='products/luxury-boxed-birthday-card-birthday-tie.html#judgeme_product_reviews'>
-                                    <img
-                                       class='jdgm-carousel-item__product-image'
-                                       alt='Luxury Boxed Birthday Card &#39;Birthday Tie&#39;'
-                                       data-src='https://cdn.shopify.com/s/files/1/1484/2792/products/122BH-1_400x400.jpg?v=1530186656'
-                                       data-src-retina='https://cdn.shopify.com/s/files/1/1484/2792/products/122BH-1_800x800.jpg?v=1530186656' />
-                                    <div class='jdgm-carousel-item__product-title jdgm-ellipsis'> Luxury Boxed Birthday Card
-                                       &#39;Birthday Tie&#39;
-                                    </div>
-                                 </a>
-                              </div>
-                              <div class='jdgm-carousel-item ' data-review-id='3ee28fcc-1526-4b97-985f-6f799a023132'>
-                                 <div class='jdgm-carousel-item__review'>
-                                    <div class='jdgm-carousel-item__review-rating' tabindex='0' aria-label='5 stars' role='img'> <span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span> </div>
-                                    <div class='jdgm-carousel-item__review-content'>
-                                       <div class='jdgm-carousel-item__review-title'>Very beautiful</div>
-                                       <div class='jdgm-carousel-item__review-body'>
-                                          <p>Very beautiful card.
-                                             <br />Excellent service
-                                          </p>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class='jdgm-carousel-item__reviewer-name-wrapper'>
-                                    <div class='jdgm-carousel-item__reviewer-name jdgm-ellipsis'> julie w. </div>
-                                    <div class='jdgm-carousel-item__timestamp jdgm-ellipsis jdgm-spinner' data-time='04/20/2024'>
-                                       04/20/2024
-                                    </div>
-                                 </div>
-                                 <a class='jdgm-carousel-item__product jdgm--shop-review-has-image'
-                                    href='products/a5-boxed-handmade-birthday-card-mellow-bouquet.html#judgeme_product_reviews'>
-                                    <img
-                                       class='jdgm-carousel-item__product-image' alt='A5 Boxed Handmade Birthday Card ‘Mellow Bouquet’'
-                                       data-src='https://cdn.shopify.com/s/files/1/1484/2792/products/137BH-1-1_400x400.jpg?v=1674047155'
-                                       data-src-retina='https://cdn.shopify.com/s/files/1/1484/2792/products/137BH-1-1_800x800.jpg?v=1674047155' />
-                                    <div class='jdgm-carousel-item__product-title jdgm-ellipsis'> A5 Boxed Handmade Birthday Card
-                                       ‘Mellow Bouquet’
-                                    </div>
-                                 </a>
-                              </div>
-                              <div class='jdgm-carousel-item ' data-review-id='f2122c59-1f5b-4fca-9b55-273037d49251'>
-                                 <div class='jdgm-carousel-item__review'>
-                                    <div class='jdgm-carousel-item__review-rating' tabindex='0' aria-label='5 stars' role='img'> <span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span><span class='jdgm-star jdgm--on'></span><span
-                                       class='jdgm-star jdgm--on'></span> </div>
-                                    <div class='jdgm-carousel-item__review-content'>
-                                       <div class='jdgm-carousel-item__review-title'>Sympathy</div>
-                                       <div class='jdgm-carousel-item__review-body'>
-                                          <p>Stunning</p>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class='jdgm-carousel-item__reviewer-name-wrapper'>
-                                    <div class='jdgm-carousel-item__reviewer-name jdgm-ellipsis'> LEN S. </div>
-                                    <div class='jdgm-carousel-item__timestamp jdgm-ellipsis jdgm-spinner' data-time='04/20/2024'>
-                                       04/20/2024
-                                    </div>
-                                 </div>
-                                 <a class='jdgm-carousel-item__product jdgm--shop-review-has-image'
-                                    href='products/a4-luxury-boxed-sympathy-card-deepest-condolences.html#judgeme_product_reviews'>
-                                    <img class='jdgm-carousel-item__product-image'
-                                       alt='A4 Luxury Boxed Sympathy Card &#39;Deepest Condolences&#39;'
-                                       data-src='https://cdn.shopify.com/s/files/1/1484/2792/products/301SC-1_400x400.jpg?v=1662127499'
-                                       data-src-retina='https://cdn.shopify.com/s/files/1/1484/2792/products/301SC-1_800x800.jpg?v=1662127499' />
-                                    <div class='jdgm-carousel-item__product-title jdgm-ellipsis'> A4 Luxury Boxed Sympathy Card
-                                       &#39;Deepest Condolences&#39;
-                                    </div>
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                        <div class='jdgm-carousel__arrows'>
-                           <div class='jdgm-carousel__left-arrow' tabindex="0"></div>
-                           <div class='jdgm-carousel__right-arrow' tabindex="0"></div>
-                        </div>
-                     </section>
+               <!-- implement review later -->
                   </div>
                </section>
             </div>
@@ -1116,17 +958,7 @@
                   </div>
                </section>
             </div>
-            <!-- END content_for_index -->
-            <script>
-               window.twttr = (function (d, s, id) {
-                 var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {}; if (d.getElementById(id)) return t; js = d.createElement(s);
-                 js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); t._e = []; t.ready = function (f) { t._e.push(f); };
-                 return t;
-               }(document, "script", "twitter-wjs"));
-            </script>
-            <script>
-               jdgmSettings.autoSlideInterval = 10;
-            </script>
+
          </main>
          <div id="shopify-section-newsletter" class="shopify-section shopify-section__newsletter">
          </div>
