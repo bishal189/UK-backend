@@ -21,3 +21,5 @@ def register(request):
     return render(request,'account/register.html')
 def product(request):
     return render(request,'product.html')
+def collections(request):
+    return render(request,'collections.html')
