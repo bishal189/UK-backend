@@ -864,24 +864,27 @@
                <div class="spinner spinner--circle"></div>
             </div>
          </div>
-         <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
-         <script src="./cdn/shop/t/64/assets/modernizr.minc92c.js?v=135355716568092304041553156437"
-            type="text/javascript"></script>
-         <script src="./cdn/s/javascripts/currencies.js" type="text/javascript"></script>
-         <script
-            src="http://cdn.polyfill.io/v2/polyfill.min.js?features=String.prototype.trim,Object.keys,Array.prototype.map,Array.prototype.forEach,Array.prototype.find"
-            type="text/javascript"></script>
-         <script src="./cdn/shop/t/64/assets/libs7737.js?v=89665048670091531551553156437" type="text/javascript"></script>
-         <script src="./cdn/shop/t/64/assets/scriptcf7b.js?v=42813172967381194041553156443" type="text/javascript"></script>
-         <!-- Hide Special Delivery info -->
-         <!-- Hide RM24 Delivery info -->
-         <style>
-         </style>
-         <!-- Hide International Delivery info -->
-         <style>
-            .international_delivery_available {
-            display: none;
-            }
+
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+      <script src="{% static 'cdn/shop/t/64/assets/modernizr.minc92c.js' %}"
+         type="text/javascript"></script>
+      <script src="{% static 'cdn/s/javascripts/currencies.js' %}" type="text/javascript"></script>
+      <script
+         src="http://cdn.polyfill.io/v2/polyfill.min.js"
+         type="text/javascript"></script>
+      <script src="{% static 'cdn/shop/t/64/assets/libs7737.js' %}" type="text/javascript"></script>
+      <script src="{% static 'cdn/shop/t/64/assets/scriptcf7b.js' %}" type="text/javascript"></script>
+      <!-- Hide Special Delivery info -->
+      <!-- Hide RM24 Delivery info -->
+      <style>
+      </style>
+      <!-- Hide International Delivery info -->
+      <style>
+         .international_delivery_available {
+         display: none;
+         }
+      </style>
+
          </style>
       <script type="text/javascript" src="{% static 'scripts/data.js' %}" ></script>
          <script>
@@ -889,11 +892,10 @@
 
             const datas=returnData()
             const productsContainer=document.getElementById('collection')
-            console.log(productsContainer)
    datas.forEach((data)=>{
    console.log(data.image)
-   var image=data.image
-   console.log(`${% static '${image}' %}`)
+    const image = "{% static '' %}"+data.image
+    console.log(image)
    const productItemHtml = `
     <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/3--lap-and-up">
       <div class="product-item__inner">
@@ -902,9 +904,9 @@
         <a href="product.html?product_name=${data.name}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
-              <img class="lazyload image--fade-in" data-sizes="auto" data-src="{% static  '${data.image}' %}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="${data.name}">
+              <img class="lazyload image--fade-in" data-sizes="auto" data-src="${image}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="${data.name}">
               <noscript>
-                <img src="{% static '${data.image}' %}" alt="${data.name}">
+                <img src="${image}" alt="${data.name}">
               </noscript>
             </div>
           </div>
