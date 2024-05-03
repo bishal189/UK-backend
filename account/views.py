@@ -42,16 +42,11 @@ def register(request):
             messages.success(request, f'Thank you for registering with us. We have sent you a verification email to your email address {to_email}. Please verify it.')
             return redirect('/account/login/')
         else:
-            messages.error(request, f'Email  is already registered')
+            messages.error(request, f'{to_email}  is already registered')
 
-            
     else:
-        form = RegistrationForm()
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/register.html', context)
+        messages.error(request,'eror in request method');
+        
 
 
 def login(request):
