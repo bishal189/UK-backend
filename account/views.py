@@ -18,7 +18,6 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def Register(request):
     try:
-        print(' i am register ')
         if request.method == 'POST':
             form = RegistrationForm(request.POST)
             if form.is_valid():
