@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 def Register(request):
     try:
         if request.method == 'POST':
+            print('post method')
             form = RegistrationForm(request.POST)
             if form.is_valid():
                 first_name = form.cleaned_data['first_name']
@@ -42,7 +43,9 @@ def Register(request):
                 })
                     to_email = email
                     send_email = EmailMessage(mail_subject, message, to=[to_email])
+                    send_email.content_subtype = 'html'
                     send_email.send()
+                    print('email is send')
                     messages.success(request, f'Thank you for registering with us. We have sent you a verification email to your email address {to_email}. Please verify it.')
                     return redirect('/login/')
             else:
@@ -59,6 +62,10 @@ def Register(request):
         return render(request,'account/register.html')
 
 
+
+
+
+
 def Login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -71,19 +78,20 @@ def Login(request):
             return redirect('home') 
         else:
             messages.error(request, 'Invalid email or password.')
-            return redirect('login')
+            return redirect('/login/')
     
-    return render(request, 'accounts/login.html')
+    return render(request, 'account/login.html')
 
 
 @login_required(login_url = 'login')
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You are logged out.')
-    return redirect('login')
+    return redirect('/login/')
 
 
 def activate(request, uidb64, token):
+    print('activate')
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = Account._default_manager.get(pk=uid)
@@ -94,7 +102,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Congratulations! Your account is activated.')
-        return redirect('login')
+        return redirect('/login/')
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('register')

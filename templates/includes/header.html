@@ -541,9 +541,15 @@
                   </div>
                   <div class="header__item header__item-signin">
                      <ul>
+                        {% if user.is_authenticated %}
+                        <li>
+                           <a href="{% url 'logout' %}" class="header__link">Logout</a>
+                        </li>
+                        {% else %}
                         <li>
                            <a href="{% url 'Login' %}" class="header__link">Sign in</a>
                         </li>
+                        {% endif %}
                      </ul>
                   </div>
                   <div class="header__item header__item-currency">

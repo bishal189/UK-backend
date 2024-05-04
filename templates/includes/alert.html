@@ -1,0 +1,20 @@
+{% if messages %}
+
+    {% for message in messages %}
+    <div style="color:green;" id="message" class="container">
+    <div{% if message.tags %} class="primary alert-{{ message.tags }}"{% endif %} role="alert">
+       
+    <button style="color:red;" onclick="remover();" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+    
+    <script>
+        function remover(){
+            document.getElementById('message').innerHTML=""
+        }
+    </script>
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+</div>
+</div>
+    {% endfor %}
+
+{% endif %}
