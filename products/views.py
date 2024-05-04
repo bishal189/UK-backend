@@ -11,15 +11,14 @@ def products(request):
     if request.method=="POST":
         try:
             # Extract data from the request body
-            data = json.loads(request.body)
 
             # Create a new Product instance
             product = Product.objects.create(
-                name=data['name'],
-                price=data['price'],
-                description=data['description'],
-                image=data['image'],
-                large_image=data['large_image']
+                name=request.POST.get('name'),
+                price=request.POST.get('price'),
+                description=request.POST.get('description'),
+                image=request.FILES.get('image'),
+                large_image=request.FILES.get('large_image')
             )
 
             # Return a success response
@@ -28,6 +27,7 @@ def products(request):
             # Return error response if required fields are missing
             return JsonResponse({'error': 'Invalid data format'}, status=400)
         except Exception as e:
+            print(str(e))
             # Return error response for other exceptions
             return JsonResponse({'error': str(e)}, status=500)
 
