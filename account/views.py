@@ -15,7 +15,8 @@ from django.contrib import messages, auth
 from django.contrib.auth import authenticate, login
 
 
-def register(request):
+def Register(request):
+    print(' i am register ')
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -49,13 +50,14 @@ def register(request):
 
     else:
         form = RegistrationForm()
+        print('this is get  method')
 
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
 
 
-def login(request):
+def Login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
