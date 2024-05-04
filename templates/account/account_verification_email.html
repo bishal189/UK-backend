@@ -87,7 +87,7 @@
             </div>
             <div class="body-text">
 
-                <p>Hello {{user.username}},</p>
+                <p>Hello {{user.first_name}},</p>
                 <p>We're excited to have you on board. Please click the button below to activate your account:</p>
                 <a href="http://{{domain}}{% url 'activate' uidb64=uid token=token %}" class="cta-button">Activate Your Account</a>
 

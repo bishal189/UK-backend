@@ -13,48 +13,51 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def Register(request):
-    print(' i am register ')
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+    try:
+        print(' i am register ')
+        if request.method == 'POST':
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                first_name = form.cleaned_data['first_name']
+                last_name = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
             # Check if there is already an email associated
-            if Account.objects.filter(email=email).exists():
-                messages.error(request, f'{email} is already registered.')
-            else:
+                if Account.objects.filter(email=email).exists():
+                    messages.error(request, f'{email} is already registered.')
+                else:
                 # Create the user account
-                user = Account.objects.create_account(first_name=first_name, last_name=last_name, email=email, password=password)
+                    user = Account.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
                 # Send activation email
-                current_site = get_current_site(request)
-                mail_subject = 'Please activate your account'
-                message = render_to_string('accounts/account_verification_email.html', {
+                    current_site = get_current_site(request)
+                    mail_subject = 'Please activate your account'
+                    message = render_to_string('account/account_verification_email.html', {
                     'user': user,
                     'domain': current_site,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': default_token_generator.make_token(user),
                 })
-                to_email = email
-                send_email = EmailMessage(mail_subject, message, to=[to_email])
-                send_email.send()
-                messages.success(request, f'Thank you for registering with us. We have sent you a verification email to your email address {to_email}. Please verify it.')
-                return redirect('/account/login/')
-        else:
+                    to_email = email
+                    send_email = EmailMessage(mail_subject, message, to=[to_email])
+                    send_email.send()
+                    messages.success(request, f'Thank you for registering with us. We have sent you a verification email to your email address {to_email}. Please verify it.')
+                    return redirect('/login/')
+            else:
             # Form is invalid, display error messages
-            messages.error(request, 'Please correct the errors below.')
-
-    else:
-        form = RegistrationForm()
-        print('this is get  method')
-
-    context = {'form': form}
-    return render(request, 'accounts/register.html', context)
-
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = RegistrationForm()
+        context = {'form': form}
+        return render(request, 'account/register.html', context)
+    except Exception as e:
+        error=str(e)
+        print(error)
+        messages.error(request,f"{error}")
+        return render(request,'account/register.html')
 
 
 def Login(request):
