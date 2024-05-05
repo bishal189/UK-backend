@@ -176,6 +176,107 @@
         large_image:"/static/assets/handmade_barbie_lg.avif",
 
   },
+  {
+    name:"Beautiful Handmade Wedding Card, can be modified for same sex couples, with reusable clasp envelope",
+    price:"4.49",
+    description:"Beautiful handmade, layered wedding card. Perfect token of love and best wishes for the special newlyweds in your life. Simplistic colour scheme featuring both a bride and a groom cup on a pretty loveheart embossed background. This can also be switched out for two grooms or two brides as per the variations. Measuring 4.25 x 5.5 in. Inside is left blank for your own message. Each card is accompanied by a reusable heart clasp envelope, however, this can be substituted with a normal envelope if you will be posting and need something more secure, you can choose this option upon purchase, otherwise the heart one will be sent. Each purchase is shipped sealed in a cellophane bag for security and protection.Please note, each card is made to order, therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_wedding.avif',
+      large_image:'/static/assets/handmade_wedding_lg.jpg'
+  },
+    {
+    name:"Beautiful Handmade Wedding Card",
+    price:"4.49",
+    description:"Beautiful handmade, layered Just Married wedding card. Featuring shades of blue, gold and pink. Perfect token of love and best wishes for the special newlyweds in your life. Measuring 5 x 7 in. Inside is left blank for your own message. Each card is accompanied by an envelope and is shipped sealed in a cellophane bag for security and protection.Please note, each card is made to order, therefore please allow 1-3 days production time before shipping.."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_wedding_married.avif',
+      large_image:'/static/assets/handmade_wedding_married_lg.jpg'
+  },
+      {
+    name:"Beautiful Handmade Get Well Soon Card, Ink blended,Sealed floral design",
+    price:"4.49",
+    description:"Beautiful handmade, layered 3D floral card with a Get Well Soon sentiment. Made from sturdy ink blended, embossed cardstock with gold sealed blooms, complete with embellishments. Perfect for that special someone who deserves the time and attention that is lovingly put into each hand crafted item. Measuring 4.25in x 5.5 in. Inside is left blank for your own message. Each card is accompanied by a handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate.Each card is made to order therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_well_done.avif',
+      large_image:'/static/assets/handmade_well_done_lg.avif'
+  },
+      {
+    name:"Beautiful Handmade Thankful or Thank You Card",
+    price:"4.49",
+    description:"Beautiful handmade, layered 3D floral thank you card. Made from sturdy ink blended, embossed cardstock with gold sealed blooms, complete with embellishments. Perfect for that special someone who deserves the time and attention that is lovingly put into each handcrafted card. Measuring 4.25in x 5.5 in. Inside is left blank for your own message. Each card is accompanied by handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate.Please note each card is made to order, therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/thankful_for_you.avif',
+      large_image:'/static/assets/thankful_for_you_lg.avif'
+  },
+
+  {
+    name:"Beautiful Handmade Blue Floral Thank You Card",
+    price:"4.49",
+    description:"Beautiful handmade, layered 3D floral Thank You card. Made from sturdy ink blended, embossed cardstock with complimentary shades of blue blooms, complete with embellishments. Perfect for that special someone who deserves the time and attention that is lovingly put into handcrafted card. Measuring 4.25in x 5.5 in. Inside is left blank for your own message. Each card is accompanied by handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate.Please note, each card is made to order therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: Cardstock, Glue, Acrylic embellishment ","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/blue_floral.avif',
+      large_image:'/static/assets/blue_floral_lg.avif'
+  },
+  {
+    name:"Beautiful Handmade Wedding Card",
+    price:"4.49",
+    description:"Beautiful handmade, layered Just Married wedding card. Perfect token of love and best wishes for the special newlyweds in your life. Simplistic colour scheme consisting of shades of white and silver on a glittery background. Measuring 5 x 7 in. Inside is left blank for your own message. Each card is accompanied by an envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate. For example, the generic greeting on the front can be switched out for the names of your intended couple or it can be left as is. I could also write a personal message inside.Please note, each card is made to order, therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_wedding_second.avif',
+      large_image:'/static/assets/handmade_wedding_second_lg.webp'
+  },
+  {
+    name:"Beautiful Handmade Get Well Soon Card",
+
+    price:"4.49",
+    description:"Beautiful handmade, layered card with a ‘Get Well Soon’ sentiment. Made from sturdy cardstock in complimentary shades of pink, blue and green, on an embossed background with bow and butterfly appliqué detail. Perfect for that special someone who deserves the time and attention that is lovingly put into each hand crafted card. Measuring 5.5in x 4.25 in. Inside is left blank for your own message. Each card is accompanied by handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate.Please note that each card is made to order, therefore please allow 1-3 days production time before shipping.."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_getwellsoonsecond.avif',
+      large_image:'/static/assets/handmade_getwellsoonsecond_lg.avif'
+  },
+  {
+    name:"Beautiful Handmade Thank You Card, Stripes, Bird design",
+    price:"4.49",
+    description:"Beautiful handmade, layered thank you card. Made from sturdy cardstock in complimentary shades of pink, blue and green, on a dotty embossed background, with a pretty bird applique. Perfect for that special someone who deserves the time and attention that is lovingly put into each handcrafted card. Measuring 5.5in x 4.25in. Inside is left blank for your own message. Each card is accompanied by handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accomodate.Please note, each card is made to order therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_thankyou.avif',
+      large_image:'/static/assets/handmade_thankyou_lg.avif'
+  },
+  {
+    name:"Handmade Floral Birthday Card",
+    price:"4.49",
+    description:"Beautiful handmade, layered floral birthday card. Made from sturdy cardstock in complimentary shades of pink, blue and green, complete with metallic gold accents. Perfect for that special someone who deserves the time and attention that is lovingly put into each handcrafted card. Measuring 4.25in x 5.5 in. Inside is left blank for your own message. Each card is accompanied by handmade envelope and is shipped sealed in a cellophane bag for security and protection. Potential for personalisation, please message with requirements and I will do my best to accommodate.Please note, each card is made to order, therefore please allow 1-3 days production time before shipping."
+    ,
+         details:[
+        "Handmade","Delivery from a small business in United Kingdom","Delivery cost: £5.55","Returns and exchanges not accepted"
+      ],
+      image:'/static/assets/handmade_floral.avif',
+      large_image:'/static/assets/handmade_floral_lg.avif'
+  },
 ];
 
 

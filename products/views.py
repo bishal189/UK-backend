@@ -9,7 +9,7 @@ import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
-        products=Product.objects.all().order_by('-id')
+        products=Product.objects.all()
         context={
             'products':products
             }
