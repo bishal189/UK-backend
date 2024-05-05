@@ -55,7 +55,7 @@
       <div class="product-item__inner">
         <div class="product-item__labels">
         </div>
-        <a href="/product.html?product_name={{product.name}}" class="product-item__image">
+        <a href="{% url 'get_product' product_name=product.name %}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
             {% if '/static/' in product.image.url %}

@@ -33,3 +33,20 @@ def products(request):
             # Return error response for other exceptions
             return JsonResponse({'error': str(e)}, status=500)
 
+
+def get_product(request,product_name):
+    if request.method=="GET":
+        try:
+            product=Product.objects.get(name=product_name)
+            context={
+                'product':product
+                }
+            return render(request,'product.html',context)
+        except Exception as e:
+           error=str(e)
+           print(error)
+           context={
+               'error':error
+               }
+           return render(request,'product.html',context)
+
