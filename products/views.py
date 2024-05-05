@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from store.models import Product
 from account.models import Account
+from django.db.models import Q
 # Create your views here.
 import json
 @csrf_exempt
@@ -44,7 +45,7 @@ def get_product(request,product_name):
     if request.method=="GET":
         try:
             product=Product.objects.get(slug=product_name)
-            similar_products=Product.objects.order_by('?')[:4]
+            similar_products = Product.objects.filter(~Q(id=product.id)).order_by('?')[:4]
             context={
                 'product':product,
                 'similar_products':similar_products
