@@ -27,7 +27,128 @@
                      </nav>
                      <div class="product" id="custom-product-template-XL-product-6782274044064" data-product="6782274044064">
                         <div id="product_details" class="product__details">
+{% if error %}
+<p style="color:red;text-align:center;">{{error}} </p>
+{% endif %}
+                        {% if product %}
 
+                        <div class="inner inner-product">
+                              <div class="grid">
+                                 <div class="product__showcase grid__cell 3/5--lap-and-up">
+                                    <ul class="product__slideshow"
+                                       data-initial-slide="0"
+                                       data-rotation-effect="slide"
+                                       data-zoom-enabled="false"
+                                       data-zoom-magnification="1.5">
+                                       <li class="product__slideshow-slide" data-type="image" data-index="0" data-image-id="29280734412960"  >
+                                          <div class="aspect-ratio" style="padding-bottom: 100.0%">
+                                          {% if '/static/' in product.large_image.url %}
+                                             <img class="product__slideshow-image lazyload image--fade-in"
+                                                data-sizes="auto"
+                                                data-src={{product.large_image}}
+                                                data-widths="[200,300,400,600,800,900,1000,1200]"
+                                                alt={{product.name}}>
+                                             {% else %}
+                                             <img class="product__slideshow-image lazyload image--fade-in"
+                                                data-sizes="auto"
+                                                data-src={{product.large_image.url}}
+                                                data-widths="[200,300,400,600,800,900,1000,1200]"
+                                                alt={{product.name}}>
+                                             {% endif %}
+
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+
+                                 <div class="product__info grid__cell 2/5--lap-and-up">
+                                    <div class="product-meta product-meta--desktop">
+                                       <h1 class="product-meta__title">{{product.name}}</h1>
+                                       <div class="product__reviews-badge">
+
+                                       </div>
+                                       <div class="product-meta__prices">
+                                          <span class="product-meta__price" data-money-convertible>£{{product.price}}</span>
+                                       </div>
+<!--                                       <span class="variant-sku">Product code : 602BH</span>-->
+                                       <div class="product-meta__labels"></div>
+                                    </div>
+                                    <div class="product-meta product-meta--mobile">
+                                       <h1 class="product-meta__title">{{product.name}}</h1>
+                                       <div class="product__reviews-badge">
+                                       </div>
+                                       <div class="product-meta__prices">
+                                          <span class="product-meta__price" data-money-convertible>£{{product.price}}</span>
+                                       </div>
+<!--                                       <span class="variant-sku">Product code : 602BH</span>-->
+                                       <div class="product-meta__labels"></div>
+                                    </div>
+                                    <div class="delivery_date">
+                                       <p>Get it by <span id="toDate_48"></span> with FREE UK Delivery.<br>
+                                          Faster UK delivery options
+                                          are available.
+                                          <span class="more_info" id="scroll-delivery">More info</span>
+                                       </p>
+                                    </div>
+                                    <div class="product_personalise_button">
+                                       <div class="product__buy">
+
+                                       </div>
+
+                                       <div class="product__buy">
+                                          <button type="submit" class="button button--secondary button--full button--no-disabled-opacity product__add-to-cart" >Add to cart</button>
+                                       </div>
+                                    </div>
+                                <!--    <div class="product_summary">
+                                       <h2 class="product_summary-title">Details</h2>
+                                       <ul class="product_summary_list">
+                                       ${productData.details.map((detail)=>(
+                                        `<li class="product_summary-item">${detail}</li>`
+                                    )).join('')
+
+                                       }
+                                       </ul>
+                                    </div>-->
+                                    <div class="product__share">
+                                       <div class="share-buttons">
+                                          <span class="share-buttons__label">Share</span>
+                                          <ul class="share-buttons__list">
+                                             <li class="share-buttons__item">
+                                                <a href="https://www.facebook.com/sharer.php?u={{request.build_absolute_uri}}" target="_blank">
+                                                   <svg class="icon icon-facebook">
+                                                      <use xlink:href="#icon-facebook">
+                                                      </use>
+                                                   </svg>
+                                                </a>
+                                             </li>
+                                             <li class="share-buttons__item">
+                                                <a href="https://twitter.com/share?text={{product.name}}&amp;url={{request.build_absolute_uri}}" target="_blank">
+                                                   <svg class="icon icon-twitter">
+                                                      <use xlink:href="#icon-twitter">
+                                                      </use>
+                                                   </svg>
+                                                </a>
+                                             </li>
+                                             <li class="share-buttons__item">
+                                             {% if '/static/' in product.image.url %}
+                                                <a href="https://pinterest.com/pin/create/button/?url={{request.build_absolute_uri}};media=http://localhost:8000{{product.image}}" target="_blank">
+                                                {% else %}
+                                                                                                <a href="https://pinterest.com/pin/create/button/?url={{request.build_absolute_uri}};media=http://localhost:8000{{product.image.url}}" target="_blank">
+
+                                                {% endif %}
+                                                   <svg class="icon icon-pinterest">
+                                                      <use xlink:href="#icon-pinterest">
+                                                      </use>
+                                                   </svg>
+                                                </a>
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                  {% endif %}
                         </div>
                      </div>
 
@@ -221,8 +342,9 @@
                   <input type="hidden" name="product-id" value="6782274044064" />
                </form>
             </main>
-         {% include 'includes/footer.html' %}
 
+         {% include 'includes/footer.html' %}
+{% comment %}
          <script src="./scripts/data.js" type="text/javascript"></script>
          <script>
          document.addEventListener('DOMContentLoaded', function() {
@@ -234,112 +356,7 @@
          if (!!productData){
          const productDetails=document.getElementById('product_details')
          console.log(productDetails)
-         const productHtml=`
-                           <div class="inner inner-product">
-                              <div class="grid">
-                                 <div class="product__showcase grid__cell 3/5--lap-and-up">
-                                    <ul class="product__slideshow"
-                                       data-initial-slide="0"
-                                       data-rotation-effect="slide"
-                                       data-zoom-enabled="false"
-                                       data-zoom-magnification="1.5">
-                                       <li class="product__slideshow-slide" data-type="image" data-index="0" data-image-id="29280734412960"  >
-                                          <div class="aspect-ratio" style="padding-bottom: 100.0%">
-                                             <img class="product__slideshow-image lazyload image--fade-in"
-                                                data-sizes="auto"
-                                                data-src=${productData.large_image}
-                                                data-widths="[200,300,400,600,800,900,1000,1200]"
-                                                alt="${productData.name}">
-                                             <noscript>
-                                             </noscript>
-                                          </div>
-                                       </li>
-                                    </ul>
-                                 </div>
-                                 <div class="product__info grid__cell 2/5--lap-and-up">
-                                    <div class="product-meta product-meta--desktop">
-                                       <h1 class="product-meta__title">${productData.name}</h1>
-                                       <div class="product__reviews-badge">
 
-                                       </div>
-                                       <div class="product-meta__prices">
-                                          <span class="product-meta__price" data-money-convertible>£${productData.price}</span>
-                                       </div>
-                                       <span class="variant-sku">Product code : 602BH</span>
-                                       <div class="product-meta__labels"></div>
-                                    </div>
-                                    <div class="product-meta product-meta--mobile">
-                                       <h1 class="product-meta__title">${productData.name}</h1>
-                                       <div class="product__reviews-badge">
-                                       </div>
-                                       <div class="product-meta__prices">
-                                          <span class="product-meta__price" data-money-convertible>£${productData.price}</span>
-                                       </div>
-                                       <span class="variant-sku">Product code : 602BH</span>
-                                       <div class="product-meta__labels"></div>
-                                    </div>
-                                    <div class="delivery_date">
-                                       <p>Get it by <span id="toDate_48"></span> with FREE UK Delivery.<br>
-                                          Faster UK delivery options
-                                          are available.
-                                          <span class="more_info" id="scroll-delivery">More info</span>
-                                       </p>
-                                    </div>
-                                    <div class="product_personalise_button">
-                                       <div class="product__buy">
-
-                                       </div>
-
-                                       <div class="product__buy">
-                                          <button type="submit" class="button button--secondary button--full button--no-disabled-opacity product__add-to-cart" >Add to cart</button>
-                                       </div>
-                                    </div>
-                                    <div class="product_summary">
-                                       <h2 class="product_summary-title">Details</h2>
-                                       <ul class="product_summary_list">
-                                       ${productData.details.map((detail)=>(
-                                        `<li class="product_summary-item">${detail}</li>`
-                                    )).join('')
-
-                                       }
-                                       </ul>
-                                    </div>
-                                    <div class="product__share">
-                                       <div class="share-buttons">
-                                          <span class="share-buttons__label">Share</span>
-                                          <ul class="share-buttons__list">
-                                             <li class="share-buttons__item">
-                                                <a href="https://www.facebook.com/sharer.php?u=https://www.lotusartstudio.co.uk/products/a4-boxed-handmade-birthday-card-heart-of-daisies" target="_blank">
-                                                   <svg class="icon icon-facebook">
-                                                      <use xlink:href="#icon-facebook">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                             <li class="share-buttons__item">
-                                                <a href="https://twitter.com/share?text=A4%20Boxed%20Handmade%20Birthday%20Card%20%e2%80%98Heart%20of%20Daisies%e2%80%99&amp;url=https://www.lotusartstudio.co.uk/products/a4-boxed-handmade-birthday-card-heart-of-daisies" target="_blank">
-                                                   <svg class="icon icon-twitter">
-                                                      <use xlink:href="#icon-twitter">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                             <li class="share-buttons__item">
-                                                <a href="https://pinterest.com/pin/create/button/?url=https://www.lotusartstudio.co.uk/products/a4-boxed-handmade-birthday-card-heart-of-daisies&amp;media=https://www.lotusartstudio.co.uk/cdn/shop/products/602BH-1_large.jpg?v=1624542606&amp;description=Wish%20someone%20special%20a%20very%20happy%20birthday%20with%20our%20classy%20%E2%80%98Heart%20of%20Daisies%E2%80%99%20luxury%20handmade..." target="_blank">
-                                                   <svg class="icon icon-pinterest">
-                                                      <use xlink:href="#icon-pinterest">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                          </ul>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-         `
-              productDetails.insertAdjacentHTML('beforeend', productHtml);
             document.getElementById('description').textContent=productData.description
          }
         const related=document.getElementById('related')
@@ -360,5 +377,6 @@
 
          })
          </script>
+         {% endcomment %}
       </body>
 {% endblock %}

@@ -1,5 +1,3 @@
-
-function returnData() {
   const data = [
   {
     name: "Beautiful Handmade Vegas Wedding Card",
@@ -31,8 +29,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/dirty_dancing.avif",
-        large_image:"../assets/dirty_dancing_lg.avif",
+    image: "/static/assets/dirty_dancing.avif",
+        large_image:"/static/assets/dirty_dancing_lg.avif",
 
   },
     {
@@ -43,8 +41,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/barbie.avif",
-        large_image:"../assets/barbie_lg.avif",
+    image: "/static/assets/barbie.avif",
+        large_image:"/static/assets/barbie_lg.avif",
 
   },
     {
@@ -55,8 +53,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/wishbirthday.avif",
-        large_image:"../assets/wishbirthday_lg.avif",
+    image: "/static/assets/wishbirthday.avif",
+        large_image:"/static/assets/wishbirthday_lg.avif",
 
   },
     {
@@ -67,8 +65,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/pink.avif",
-        large_image:"../assets/pink_lg.avif",
+    image: "/static/assets/pink.avif",
+        large_image:"/static/assets/pink_lg.avif",
 
   },
     {
@@ -78,8 +76,8 @@ function returnData() {
  details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/zetsy_lemon.avif",
-        large_image:"../assets/zetsy_lemon_lg.avif",
+    image: "/static/assets/zetsy_lemon.avif",
+        large_image:"/static/assets/zetsy_lemon_lg.avif",
 
   },
    {
@@ -90,8 +88,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/lemon_birthday.avif",
-        large_image:"../assets/lemon_birthday_lg.avif",
+    image: "/static/assets/lemon_birthday.avif",
+        large_image:"/static/assets/lemon_birthday_lg.avif",
 
   },
      {
@@ -102,8 +100,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/sun.avif",
-        large_image:"../assets/sun_lg.avif",
+    image: "/static/assets/sun.avif",
+        large_image:"/static/assets/sun_lg.avif",
 
   },
      {
@@ -114,8 +112,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/celendate.avif",
-        large_image:"../assets/celendate_lg.avif",
+    image: "/static/assets/celendate.avif",
+        large_image:"/static/assets/celendate_lg.avif",
 
   },
       {
@@ -126,8 +124,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/scenic.avif",
-        large_image:"../assets/scenic_lg.avif",
+    image: "/static/assets/scenic.avif",
+        large_image:"/static/assets/scenic_lg.avif",
 
   },
       {
@@ -138,8 +136,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/scenic_thanks.avif",
-      large_image:"../assets/scenic_thanks_lg.avif",
+    image: "/static/assets/scenic_thanks.avif",
+      large_image:"/static/assets/scenic_thanks_lg.avif",
 
   },
       {
@@ -150,8 +148,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/handmade_greeting.avif",
-        large_image:"../assets/handmade_greeting_lg.avif",
+    image: "/static/assets/handmade_greeting.avif",
+        large_image:"/static/assets/handmade_greeting_lg.avif",
 
   },
     {
@@ -162,8 +160,8 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/handmade_birthday.avif",
-        large_image:"../assets/handmade_birthday_lg.avif",
+    image: "/static/assets/handmade_birthday.avif",
+        large_image:"/static/assets/handmade_birthday_lg.avif",
 
   },
       {
@@ -174,11 +172,32 @@ function returnData() {
           details:[
         "Handmade","Delivery from a small business in United Kingdom","Materials: cardstock, glue","Delivery cost: £5.55","Returns and exchanges not accepted"
       ],
-    image: "../assets/handmade_barbie.avif",
-        large_image:"../assets/handmade_barbie_lg.avif",
+    image: "/static/assets/handmade_barbie.avif",
+        large_image:"/static/assets/handmade_barbie_lg.avif",
 
   },
 ];
-console.log(data)
-  return data;
+
+
+async function addProducts() {
+  for (const product of data) {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/products/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(product)
+      });
+      if (response.ok) {
+        console.log(`Successfully added product: ${product.name}`);
+      } else {
+        console.error(`Failed to add product: ${product.name}`);
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
+  }
 }
+
+addProducts();

@@ -50,55 +50,41 @@
                   <section class="inner inner-collection">
                      <div id="collection" class="collection collection--grid grid grid--gallery grid--middle">
 
-                     </div>
-                  </section>
-                  <div class="collection__loader spinner-container"
-                     data-next-page="/collections/handmade-birthday-cards?page=2&view=infinite-scroll">
-                     <!-- <div class="spinner spinner--circle"></div> -->
-                  </div>
-               </div>
-            </main>
-      {% include 'includes/footer.html' %}
-      <script type="text/javascript" src="{% static 'scripts/data.js' %}" ></script>
-         <script>
-      document.addEventListener('DOMContentLoaded', function() {
-
-            const datas=returnData()
-            const productsContainer=document.getElementById('collection')
-   datas.forEach((data)=>{
-   console.log(data.image)
-    const image = "{% static '' %}"+data.image
-    console.log(image)
-   const productItemHtml = `
-    <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/3--lap-and-up">
+                     {% for product in products %}
+      <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/3--lap-and-up">
       <div class="product-item__inner">
         <div class="product-item__labels">
         </div>
-        <a href="product.html?product_name=${data.name}" class="product-item__image">
+        <a href="{% url 'get_product' product_name=product.name %}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
-              <img class="lazyload image--fade-in" data-sizes="auto" data-src="${image}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="${data.name}">
-              <noscript>
-                <img src="${image}" alt="${data.name}">
-              </noscript>
+            {% if '/static/' in product.image.url %}
+               <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            {% else %}
+            <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            {% endif %}
+
             </div>
           </div>
         </a>
         <div class="product-item__info">
           <h2 class="product-item__title">
-            <a href="product.html?product_name=${data.name}">${data.name}</a>
+            <a href="/product.html?product_name={{product.name}}">{{product.name}}</a>
           </h2>
-          <p class="product-item__price" data-money-convertible>£${data.price}</p>
+          <p class="product-item__price" data-money-convertible>£{{product.price}}</p>
         </div>
       </div>
     </div>
-  `;
-      productsContainer.insertAdjacentHTML('beforeend', productItemHtml);
-            })
+    {% endfor %}
 
 
-            })
-         </script>
+                     </div>
+                  </section>
+
+               </div>
+            </main>
+      {% include 'includes/footer.html' %}
+
 
       </body>
 {% endblock %}
