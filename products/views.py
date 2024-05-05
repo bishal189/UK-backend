@@ -7,12 +7,15 @@ import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
-        return render(request,'products.html')
+        products=Product.objects.all().order_by('-id')
+        context={
+            'products':products
+            }
+        print(context)
+
+        return render(request,'products.html',context)
     if request.method=="POST":
         try:
-            # Extract data from the request body
-
-            # Create a new Product instance
             product = Product.objects.create(
                 name=request.POST.get('name'),
                 price=request.POST.get('price'),
