@@ -204,3 +204,8 @@ def change_password(request):
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
 
+
+
+
+def account(request):
+    return render(request,'account/account.html')
