@@ -2,8 +2,9 @@ from django.db import models
 # from Category.models import Category
 from  django.urls import reverse
 from account.models import Account
-# Create your models here.
 from django.utils.text import slugify
+
+
 
 class Product(models.Model):
     product_name=models.CharField(max_length=500)
@@ -14,7 +15,8 @@ class Product(models.Model):
     stock=models.IntegerField(default=10)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
-    # category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    details=models.TextField()
+
     created_date=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
