@@ -10,6 +10,7 @@ def _cart_id(request):
     return cart
 
 def add_cart(request, product_id):
+    print('hello world')
     current_user = request.user
     product = Product.objects.get(id=product_id)
 

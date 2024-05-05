@@ -96,7 +96,11 @@
                                        </div>
 
                                        <div class="product__buy">
-                                          <button type="submit" class="button button--secondary button--full button--no-disabled-opacity product__add-to-cart" >Add to cart</button>
+                                          <form method="POST" action="{% url 'add_cart' product.id %}">
+                                             {% csrf_token %}
+                                             <button type="submit" class="button button--secondary button--full button--no-disabled-opacity product__add-to-cart">Add to cart</button>
+                                         </form>
+                                         
                                        </div>
                                     </div>
                                 <!--    <div class="product_summary">
