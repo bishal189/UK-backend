@@ -1,20 +1,28 @@
 {% if messages %}
-
     {% for message in messages %}
-    <div style="color:green;" id="message" class="container">
-    <div{% if message.tags %} class="primary alert-{{ message.tags }}"{% endif %} role="alert">
-       
-    <button style="color:red;" onclick="remover();" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-    
-    <script>
-        function remover(){
-            document.getElementById('message').innerHTML=""
-        }
-    </script>
-    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}
-</div>
-</div>
-    {% endfor %}
+    <div style="color:red;" id="message{{ loop.index }}" class="container">
+        <div{% if message.tags %} class="primary alert-{{ message.tags }}"{% endif %} role="alert">
+            <button style="color:red;" onclick="remover('{{ loop.index }}');" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+            
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </div>
+    </div>
 
+    <script>
+        // Define the remover function
+        function remover(index) {
+            // Remove the message after 3 seconds
+            setTimeout(function() {
+                var messageElement = document.getElementById('message{{ loop.index }}');
+                if (messageElement) {
+                    messageElement.remove();
+                }
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+
+        // Call the remover function for the current message
+        remover('{{ loop.index }}');
+    </script>
+    {% endfor %}
 {% endif %}
