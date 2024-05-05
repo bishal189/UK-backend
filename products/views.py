@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from products.models import Product
+from store.models import Product
+from account.models import Account
 # Create your views here.
 import json
 @csrf_exempt
@@ -15,12 +16,15 @@ def products(request):
         return render(request,'products.html',context)
     if request.method=="POST":
         try:
+            user=Account.objects.get(email='san@gmail.com')
+            data=json.loads(request.body)
             product = Product.objects.create(
-                name=request.POST.get('name'),
-                price=request.POST.get('price'),
-                description=request.POST.get('description'),
-                image=request.FILES.get('image'),
-                large_image=request.FILES.get('large_image')
+                product_name=data.get('name'),
+                price=data.get('price'),
+                description=data.get('description'),
+                image=data.get('image'),
+                large_image=data.get('large_image'),
+                created_by=user
             )
 
             # Return a success response
@@ -37,7 +41,7 @@ def products(request):
 def get_product(request,product_name):
     if request.method=="GET":
         try:
-            product=Product.objects.get(name=product_name)
+            product=Product.objects.get(slug=product_name)
             context={
                 'product':product
                 }

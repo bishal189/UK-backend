@@ -31,13 +31,6 @@ class Cartitem(models.Model):
 
 
 
-
-
-
-
-
-
-
 # Create your models here.
 
 class Payment (models.Model):
@@ -100,7 +93,6 @@ class Order_Product(models.Model):
     payment =models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True,blank=True)
     user =models.ForeignKey(Account,on_delete=models.CASCADE)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    variations=models.ManyToManyField(Variation,blank=True)
     quantity=models.IntegerField()
     product_price=models.FloatField()
     is_ordered=models.BooleanField(default=False)

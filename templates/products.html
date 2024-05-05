@@ -55,13 +55,13 @@
       <div class="product-item__inner">
         <div class="product-item__labels">
         </div>
-        <a href="{% url 'get_product' product_name=product.name %}" class="product-item__image">
+        <a href="{% url 'get_product' product_name=product.slug %}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
             {% if '/static/' in product.image.url %}
-               <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+               <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
             {% else %}
-            <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
             {% endif %}
 
             </div>
@@ -69,7 +69,7 @@
         </a>
         <div class="product-item__info">
           <h2 class="product-item__title">
-            <a href="/product.html?product_name={{product.name}}">{{product.name}}</a>
+            <a href="{% url 'get_product' product_name=product.slug %}">{{product.product_name}}</a>
           </h2>
           <p class="product-item__price" data-money-convertible>£{{product.price}}</p>
         </div>
