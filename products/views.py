@@ -41,6 +41,7 @@ def get_product(request,product_name):
             context={
                 'product':product
                 }
+            print(context)
             return render(request,'product.html',context)
         except Exception as e:
            error=str(e)
