@@ -55,10 +55,15 @@
       <div class="product-item__inner">
         <div class="product-item__labels">
         </div>
-        <a href="product.html?product_name={{product.name}}" class="product-item__image">
+        <a href="/product.html?product_name={{product.name}}" class="product-item__image">
           <div class="product-item__image-wrapper">
             <div class="aspect-ratio" style="padding-bottom: 100.0%">
-              <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            {% if '/static/' in product.image.url %}
+               <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            {% else %}
+            <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.name}}">
+            {% endif %}
+
             </div>
           </div>
         </a>

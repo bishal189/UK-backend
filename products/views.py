@@ -11,7 +11,6 @@ def products(request):
         context={
             'products':products
             }
-        print(context)
 
         return render(request,'products.html',context)
     if request.method=="POST":
