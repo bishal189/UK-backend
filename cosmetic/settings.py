@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'products',
+    'cart',
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -142,8 +144,10 @@ MESSAGE_TAGS = {
 
 
 # for email verfication and sending 
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
-EMAIL_HOST_USER='bishalmurmu150@gmail.com'
-EMAIL_HOST_PASSWORD="bishalmurmu098"
-EMAIL_USE_TLS=True
+# email verifcation in django
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER='heritagehive872@gmail.com'
+EMAIL_HOST_PASSWORD='qozv drew svkw ufgx'

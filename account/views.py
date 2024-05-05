@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 def Register(request):
     try:
         if request.method == 'POST':
+            print('post method')
             form = RegistrationForm(request.POST)
             if form.is_valid():
                 first_name = form.cleaned_data['first_name']
@@ -42,7 +43,9 @@ def Register(request):
                 })
                     to_email = email
                     send_email = EmailMessage(mail_subject, message, to=[to_email])
+                    send_email.content_subtype = 'html'
                     send_email.send()
+                    print('email is send')
                     messages.success(request, f'Thank you for registering with us. We have sent you a verification email to your email address {to_email}. Please verify it.')
                     return redirect('/login/')
             else:
@@ -59,6 +62,10 @@ def Register(request):
         return render(request,'account/register.html')
 
 
+
+
+
+
 def Login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -71,19 +78,20 @@ def Login(request):
             return redirect('home') 
         else:
             messages.error(request, 'Invalid email or password.')
-            return redirect('login')
+            return redirect('/login/')
     
-    return render(request, 'accounts/login.html')
+    return render(request, 'account/login.html')
 
 
 @login_required(login_url = 'login')
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You are logged out.')
-    return redirect('login')
+    return redirect('/login/')
 
 
 def activate(request, uidb64, token):
+    print('activate')
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = Account._default_manager.get(pk=uid)
@@ -94,7 +102,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Congratulations! Your account is activated.')
-        return redirect('login')
+        return redirect('/login/')
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('register')
@@ -105,6 +113,7 @@ def activate(request, uidb64, token):
 
 def forgotPassword(request):
     if request.method == 'POST':
+        print('forget post method')
         email = request.POST['email']
         if Account.objects.filter(email=email).exists():
             user = Account.objects.get(email__exact=email)
@@ -112,7 +121,7 @@ def forgotPassword(request):
             # Reset password email
             current_site = get_current_site(request)
             mail_subject = 'Reset Your Password'
-            message = render_to_string('accounts/reset_password_email.html', {
+            message = render_to_string('account/reset_password_email.html', {
                 'user': user,
                 'domain': current_site,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -120,14 +129,16 @@ def forgotPassword(request):
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.content_subtype = 'html'
             send_email.send()
 
             messages.success(request, 'Password reset email has been sent to your email address.')
-            return redirect('login')
+            return redirect('/login/')
         else:
             messages.error(request, 'Account does not exist!')
-            return redirect('forgotPassword')
-    return render(request, 'accounts/forgotPassword.html')
+            return redirect('/forgotPassword/')
+    print('this is printed')    
+    return render(request, 'account/forget.html')
 
 
 def resetpassword_validate(request, uidb64, token):
@@ -140,10 +151,10 @@ def resetpassword_validate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         request.session['uid'] = uid
         messages.success(request, 'Please reset your password')
-        return redirect('resetPassword')
+        return redirect('/resetPassword/')
     else:
         messages.error(request, 'This link has been expired!')
-        return redirect('login')
+        return redirect('/login/')
 
 
 def resetPassword(request):
@@ -157,12 +168,12 @@ def resetPassword(request):
             user.set_password(password)
             user.save()
             messages.success(request, 'Password reset successful')
-            return redirect('login')
+            return redirect('/login/')
         else:
             messages.error(request, 'Password do not match!')
-            return redirect('resetPassword')
+            return redirect('/resetPassword/')
     else:
-        return render(request, 'accounts/resetPassword.html')
+        return render(request, 'account/reset.html')
 
 
 
@@ -193,3 +204,8 @@ def change_password(request):
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
 
+
+
+
+def account(request):
+    return render(request,'account/account.html')
