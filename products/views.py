@@ -44,8 +44,10 @@ def get_product(request,product_name):
     if request.method=="GET":
         try:
             product=Product.objects.get(slug=product_name)
+            similar_products=Product.objects.order_by('?')[:4]
             context={
-                'product':product
+                'product':product,
+                'similar_products':similar_products
                 }
             print(context)
             return render(request,'product.html',context)

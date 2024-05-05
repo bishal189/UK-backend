@@ -217,6 +217,19 @@
                         <div class="inner inner-related">
                            <h3 class="section__title">You may also like</h3>
                            <div id="related" class="grid grid--gallery grid--center grid--middle">
+                           {% for related in similar_products %}
+               <div class="related-products__item grid__cell 1/2 1/4--handheld 1/4--lap-and-up">
+                                 <a  href="{% url 'get_product' product_name=product.slug %}">
+                                    <div class="aspect-ratio" style="padding-bottom: 100.0%">
+                                    {% if '/static/' in related.image.url %}
+                                       <img class="lazyload image--fade-in" data-src="{{related.image}}" data-widths="[200,300,400,600,800,900,1000]" data-sizes="auto" alt="${datas[i].name}">
+                                       {% else %}
+                                 <img class="lazyload image--fade-in" data-src="{{related.image.url}}" data-widths="[200,300,400,600,800,900,1000]" data-sizes="auto" alt="${datas[i].name}">
+                                       {% endif %}
+                                    </div>
+                                 </a>
+                              </div>
+                              {% endfor %}
 
                            </div>
                         </div>
