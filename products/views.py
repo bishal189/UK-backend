@@ -77,11 +77,11 @@ def collection(request,collection_slug=None):
             try:
                 collection=Collection.objects.get(collection_slug=collection_slug)
                 products=Product.objects.filter(collections=collection)
-                print(products)
-                print(collection)
+                collections=Collection.objects.all().order_by('-id')
                 context={
                     'collection':collection,
-                    'products':products
+                    'products':products,
+                    'collections':collections
                 }
                 return render(request,'products.html',context)
             except Exception as e:

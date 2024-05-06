@@ -28,6 +28,13 @@
                               </use>
                            </svg>
                            <select>
+                                 {% if collections %}
+                                 {% for col in collections %}
+                                    <option value="{{col.collection}}" selected="selected">{{col.collection}}
+                              </option>
+                                 {% endfor %}
+
+                                 {% else %}
                               <option value="/collections/handmade-birthday-cards" selected="selected">All Birthday Cards
                               </option>
                               <option value="/collections/handmade-birthday-cards/a4-luxury-boxed-card"
@@ -36,6 +43,7 @@
                                  title="Show products matching tag A5 Luxury Boxed Card">A5 Luxury Boxed Cards</option>
                               <option value="/collections/handmade-birthday-cards/with-photo-upload"
                                  title="Show products matching tag With photo upload">With photo upload</option>
+                                 {% endif %}
                            </select>
                         </div>
                         <div class="styled-select collection-filter collection-filter--sorter ">
