@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import Product,Cartitem,Cart
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
+import datetime
 from .forms import OrderForm,Order
 from django.contrib.auth.decorators import login_required
 
@@ -182,6 +183,8 @@ def checkout(request,total=0,quantity=0,cart_items=None):
     
     if request.method == "POST":
         form=OrderForm(request.POST)
+        print(request.POST,'data printed')
+        print(form.is_valid())
         if form.is_valid():
             data=Order()
             data.user=request.user
@@ -194,7 +197,6 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             data.country=form.cleaned_data['country']
             data.city=form.cleaned_data['city']
             data.state=form.cleaned_data['state']
-            data.order_note=form.cleaned_data['order_note']
             data.total=grand_total
             data.tax=tax
             data.ip=request.META.get('REMOTE_ADDR')
