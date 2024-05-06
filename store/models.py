@@ -4,6 +4,15 @@ from  django.urls import reverse
 from account.models import Account
 from django.utils.text import slugify
 
+class Collection(models.Model):
+    collection=models.CharField(max_length=500)
+    collection_slug=models.SlugField(max_length=200,unique=True)
+    def save(self,*args,**kwargs):
+        self.collection_slug=slugify(self.collection)
+        super().save(*args,**kwargs)
+
+    def __str__(self):
+        return self.collection
 
 
 class Product(models.Model):
@@ -16,7 +25,7 @@ class Product(models.Model):
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
     details=models.TextField()
-
+    collections=models.ManyToManyField(Collection)
     created_date=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
