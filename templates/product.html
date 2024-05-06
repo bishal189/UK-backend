@@ -164,7 +164,7 @@
                         <div class="tabs__content">
                            <div class="tabs__content-item tabs__content-item--active">
                               <div class="container container--shrink rte product-desc">
-                                 <p id="description"></p>
+                                 <p id="description">{{product.description}}</p>
                               </div>
                            </div>
                            <div class="tabs__content-item ">
@@ -210,6 +210,10 @@
                                  <p>If you changed your mind for whatever reason, you can always return your order back to us within 28 days for a replacement or refund.</p>
                               </div>
                            </div>
+                        <div class="tabs__content-item ">
+                                          hello
+                        </div>
+
                      </div>
                   </div>
                   <div id="shopify-section-related-products" class="shopify-section shopify-section__related-products">
@@ -370,42 +374,35 @@
         detailsContainer.appendChild(li);
     });
 </script>
-{% comment %}
+<script>
 
+// Get the tab nav line
+const tabNavLine = document.querySelector('.tabs__nav-line');
 
+// Get all tab items
+const tabItems = document.querySelectorAll('.tabs__nav-item');
 
-         <script src="./scripts/data.js" type="text/javascript"></script>
-         <script>
-         document.addEventListener('DOMContentLoaded', function() {
-         const datas=returnData()
-         const urlParams = new URLSearchParams(window.location.search);
-         const productName = urlParams.get('product_name'); // Returns 'value1'
+// Get all tab content items
+const tabContentItems = document.querySelectorAll('.tabs__content-item');
 
-         productData=datas.find((data)=>(data.name==productName))
-         if (!!productData){
-         const productDetails=document.getElementById('product_details')
-         console.log(productDetails)
+// Loop through each tab item
+tabItems.forEach((tabItem, index) => {
+    // Add click event listener to each tab item
+    tabItem.addEventListener('click', () => {
+        // Remove active class from all tab items and tab content items
+        tabItems.forEach(item => item.classList.remove('tabs__nav-item--active'));
+        tabContentItems.forEach(item => item.classList.remove('tabs__content-item--active'));
 
-            document.getElementById('description').textContent=productData.description
-         }
-        const related=document.getElementById('related')
-        for (let i=0;i<3;i++){
+        // Add active class to the clicked tab item
+        tabItem.classList.add('tabs__nav-item--active');
+        tabContentItems[index].classList.add('tabs__content-item--active');
 
-         const relatedProducts=`
-               <div class="related-products__item grid__cell 1/2 1/4--handheld 1/4--lap-and-up">
-                                 <a href="product.html?product_name=${datas[i].name}">
-                                    <div class="aspect-ratio" style="padding-bottom: 100.0%">
-                                       <img class="lazyload image--fade-in" data-src="${datas[i].image}" data-widths="[200,300,400,600,800,900,1000]" data-sizes="auto" alt="${datas[i].name}">
-                                    </div>
-                                 </a>
-                              </div>
-                              `
-        related.insertAdjacentHTML('beforeend', relatedProducts);
+        // Move the tab nav line inside the clicked tab item
+        tabItem.appendChild(tabNavLine);
+    });
+});
 
-}
+</script>
 
-         })
-         </script>
-         {% endcomment %}
       </body>
 {% endblock %}
