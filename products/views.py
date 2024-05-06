@@ -73,9 +73,12 @@ def collection(request,collection_slug=None):
         else:
             try:
                 collection=Collection.objects.get(collection_slug=collection_slug)
+                products=Product.objects.filter(collections=collection)
+                print(products)
                 print(collection)
                 context={
-                    'collection':collection
+                    'collection':collection,
+                    'products':products
                 }
                 return render(request,'collections.html',context)
             except Exception as e:
