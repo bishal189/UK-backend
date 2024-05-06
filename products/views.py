@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from store.models import Product
+from store.models import Product,Collection
 from account.models import Account
 from django.db.models import Q
 # Create your views here.
@@ -63,10 +63,41 @@ def get_product(request,product_name):
                }
            return render(request,'product.html',context)
 
+
+@csrf_exempt
+def collection(request,collection_slug=None):
+    if request.method=="GET":
+        if collection_slug is None:
+            collections=Collection.objects.all().order_by('-id')
+            return JsonResponse({'data':collections})
+        else:
+            try:
+                collection=Collection.objects.get(collection_slug=collection_slug)
+                print(collection)
+                context={
+                    'collection':collection
+                }
+                return render(request,'collections.html',context)
+            except Exception as e:
+                context={
+                    'error':str(e)
+                    }
+                return render(request,'collections.html',context)
+    if request.method=="POST":
+        try:
+            print("true")
+           #user=request.user
+           # if not user.is_authenticated:
+           #     raise Exception("user is not authenticated")
+            data=json.loads(request.body)
+            Collection.objects.create(collection=data.get('collection_name'))
+            return JsonResponse({"message":"collection sucesfully added"})
+
+        except Exception as e:
+            return JsonResponse({'error':f"Unexpected error {str(e)}"},status=400)
+
 @csrf_exempt
 def run_script(request):
-    if request.method=="GET":
-        print("hello")
     if request.method=="POST":
         try:
             user=Account.objects.get(email='san@gmail.com')
