@@ -13,7 +13,6 @@ def products(request):
         context={
             'products':products
             }
-
         return render(request,'products.html',context)
     if request.method=="POST":
         try:
