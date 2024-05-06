@@ -371,13 +371,16 @@ const data = [
 async function addProducts() {
   for (const product of data) {
     try {
-      const response = await fetch("http://127.0.0.1:8000/products/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(product)
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/products/run_script/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(product)
+        }
+      );
       if (response.ok) {
         console.log(`Successfully added product: ${product.name}`);
       } else {
