@@ -10,7 +10,13 @@
                   <header class="page__header ">
                      <div class="page__header-wrapper">
                         <div class="container">
-                           <h1 class="page__title">Handmade Birthday Cards</h1>
+                        {% if collection %}
+
+                           <h1 class="page__title">{{collection.collection}}</h1>
+                        {% else %}
+                        <h1 class="page__title">All Products</h1>
+
+                        {% endif %}
                         </div>
                      </div>
                   </header>

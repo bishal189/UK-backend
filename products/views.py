@@ -69,7 +69,10 @@ def collection(request,collection_slug=None):
     if request.method=="GET":
         if collection_slug is None:
             collections=Collection.objects.all().order_by('-id')
-            return JsonResponse({'data':collections})
+            context={
+                'collections':collections
+                }
+            return render(request,'collections.html',context)
         else:
             try:
                 collection=Collection.objects.get(collection_slug=collection_slug)
@@ -80,7 +83,7 @@ def collection(request,collection_slug=None):
                     'collection':collection,
                     'products':products
                 }
-                return render(request,'collections.html',context)
+                return render(request,'products.html',context)
             except Exception as e:
                 context={
                     'error':str(e)
