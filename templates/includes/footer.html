@@ -9,25 +9,25 @@
                      <section class="footer__module footer__links">
                         <ul class="footer__linklist">
                            <li class="footer__linklist-item">
-                              <a href="pages/faqs.html" class="footer__linklist-link">Faqs</a>
+                              <a href={% url 'faqs' %} class="footer__linklist-link">Faqs</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/delivery-and-returns.html" class="footer__linklist-link">Delivery & returns</a>
+                              <a href={% url 'delivery_and_returns' %} class="footer__linklist-link">Delivery & returns</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/terms-and-conditions.html" class="footer__linklist-link">Terms</a>
+                              <a href="{% url 'terms_and_conditions' %}" class="footer__linklist-link">Terms</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/privacy-policy.html" class="footer__linklist-link">Privacy</a>
+                              <a href="{% url 'privacy_policy' %}" class="footer__linklist-link">Privacy</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/customer-reviews.html" class="footer__linklist-link">Reviews</a>
+                              <a href="{% url 'customer_reviews' %}" class="footer__linklist-link">Reviews</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/about-us.html" class="footer__linklist-link">About us</a>
+                              <a href="{% url 'about_us' %}" class="footer__linklist-link">About us</a>
                            </li>
                            <li class="footer__linklist-item">
-                              <a href="pages/contact-us.html" class="footer__linklist-link">Contact us</a>
+                              <a href="{% url 'contact_us' %}" class="footer__linklist-link">Contact us</a>
                            </li>
                         </ul>
                      </section>
