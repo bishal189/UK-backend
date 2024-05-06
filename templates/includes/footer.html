@@ -103,50 +103,28 @@
          display: none;
          }
       </style>
-
-      <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve selected currency from local storage or default to GBP
-    var selectedCurrency = localStorage.getItem('selectedCurrency') || 'GBP';
-    // Set the selected currency in the dropdown
-    document.querySelector('.currency-selector__select').value = selectedCurrency;
+    var originalPrices = {}; // Object to store original prices
+    var selectedCurrency = document.querySelector('.currency-selector__select').value;
     // Update prices with the selected currency
-
-
-   var priceElem = document.querySelectorAll('.product-item__price')
-   if (priceElem.length==0)
-      return;
-
-      var priceTextOriginal = priceElem[0].textContent; // Get the price text
-
-
-      localStorage.setItem('originalPrice',priceTextOriginal)
-
-
     updatePrices(selectedCurrency);
 
+    // Store original prices when the page is first loaded
+    document.querySelectorAll('.product-item__price').forEach(function(priceElement) {
+        var priceText = priceElement.textContent; // Get the price text
+        var priceValue = parseFloat(priceText.replace(/[^\d.]/g, '')); // Extract numeric part from the price
+        originalPrices[priceElement.id] = priceValue; // Store the original price
+    });
+
     document.querySelector('.currency-selector__select').addEventListener('change', function() {
-
-      if (this.value=="GBP"){
-                      var prices = document.querySelectorAll('.product-item__price');
-                prices.forEach(function(priceElement) {
-
-      priceElement.textContent = localStorage.getItem('originalPrice'); // Update the price text with symbol
-
-      })
-      return
-      }
         var selectedCurrency = this.value;
-        // Store the selected currency in local storage
-        // Update prices with the selected currency
         updatePrices(selectedCurrency);
     });
 
     function updatePrices(currency) {
-        // Fetch conversion rates from the API
-         prevCurrency=localStorage.getItem('selectedCurrency')||"GBP";
-
-        fetch('https://api.exchangerate-api.com/v4/latest/' + prevCurrency)
+        // Fetch conversion rates from the API based on GBP
+        fetch('https://api.exchangerate-api.com/v4/latest/GBP')
             .then(response => response.json())
             .then(data => {
                 var conversionRates = data.rates;
@@ -154,13 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 var prices = document.querySelectorAll('.product-item__price');
                 // Iterate over each price element
                 prices.forEach(function(priceElement) {
-                    var priceText = priceElement.textContent; // Get the price text
-                    var priceValue = parseFloat(priceText.replace(/[^\d.]/g, '')); // Extract numeric part from the price
-                    var convertedPrice = convertCurrency(priceValue, currency, conversionRates); // Convert the price to the selected currency
+                    var originalPrice = originalPrices[priceElement.id]; // Get the original price
+                    var convertedPrice = convertCurrency(originalPrice, currency, conversionRates); // Convert the original price to the selected currency
                     var symbol = getCurrencySymbol(currency); // Get the currency symbol
                     priceElement.textContent = symbol + convertedPrice.toFixed(2); // Update the price text with symbol
                 });
-                localStorage.setItem('selectedCurrency',currency)
             })
             .catch(error => {
                 console.error('Error fetching conversion rates:', error);
@@ -170,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function convertCurrency(amount, currency, conversionRates) {
         // Get the conversion rate for the selected currency
         var rate = conversionRates[currency];
-        console.log(rate)
         // Convert the amount to the selected currency
         var convertedAmount = amount * rate;
         return convertedAmount;
