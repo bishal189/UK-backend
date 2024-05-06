@@ -17,18 +17,34 @@ def products(request):
         return render(request,'products.html',context)
     if request.method=="POST":
         try:
+            '''
+            user=request.user
+            if not user.is_authenticated:
+                raise Exception("User is not authenticated")
+             
+            product = Product.objects.create(
+                product_name=request.POST.get('name'),
+                price=request.POST.get('price'),
+                description=request.POST.get('description'),
+                image=request.FILES.get('image'),
+                large_image=request.FILES.get('large_image'),
+                details=request.POST.get('details'),
+                created_by=user
+            )'''
             user=Account.objects.get(email='san@gmail.com')
             data=json.loads(request.body)
-
+            serialized_details=json.dumps(data.get('details'))
             product = Product.objects.create(
                 product_name=data.get('name'),
                 price=data.get('price'),
                 description=data.get('description'),
                 image=data.get('image'),
                 large_image=data.get('large_image'),
-                details=data.get('details'),
+                details=serialized_details,
                 created_by=user
             )
+
+
 
             # Return a success response
             return JsonResponse({'message': 'Product added successfully'})
@@ -59,21 +75,24 @@ def get_product(request,product_name):
                'error':error
                }
            return render(request,'product.html',context)
-
-
-'''
+@csrf_exempt
+def run_script(request):
     if request.method=="POST":
         try:
+            print("hello")
             user=Account.objects.get(email='san@gmail.com')
             data=json.loads(request.body)
+            serialized_details=json.dumps(data.get('details'))
             product = Product.objects.create(
                 product_name=data.get('name'),
                 price=data.get('price'),
                 description=data.get('description'),
                 image=data.get('image'),
                 large_image=data.get('large_image'),
+                details=serialized_details,
                 created_by=user
             )
+
 
             # Return a success response
             return JsonResponse({'message': 'Product added successfully'})
@@ -84,4 +103,3 @@ def get_product(request,product_name):
             print(str(e))
             # Return error response for other exceptions
             return JsonResponse({'error': str(e)}, status=500)
-'''
