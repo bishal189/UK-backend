@@ -8,6 +8,7 @@ class Review(models.Model):
     review_title=models.TextField(blank=True,null=True)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     review_content=models.TextField()
+    rating=models.IntegerField()
     created_at=models.DateField(auto_now_add=True)
 
 
