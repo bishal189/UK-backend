@@ -206,7 +206,10 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             data.address_line_2=form.cleaned_data['address_line_2']
             data.country=form.cleaned_data['country']
             data.city=form.cleaned_data['city']
+            data.company=form.cleaned_data['company']
             data.state=form.cleaned_data['state']
+            data.country=form.cleaned_data['country']
+            data.postal_code=form.cleaned_data['postal_code']
             data.total=grand_total
             data.tax=tax
             data.ip=request.META.get('REMOTE_ADDR')
