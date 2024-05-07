@@ -92,65 +92,43 @@
                                     </div>
 
                                     
-
-                                    <div class="product_personalise_button">
-                                      
-                                          
-                           
-                                           
                                     
-                     
-
+                                      
+                                    <div class="product_personalise_button">
+                                       <div class="front-msg">
+                                          <h3 class="personalisation_title">Personalise front page</h3>
+                                          
+                                          <p>If you wish to change a message on the front of the card, please type it in the box below (maximum 100 characters).</p>             
+                                          <p class="line-item-property__field">
+                                            <textarea maxlength="100" id="cart_message" rows="2" class="front-message" name="properties[Cover Message]" style="color:#8a434d; font-family:Jura;  font-size:24px; line-height: 26px;">JUST FOR YOU</textarea>
+                                          </p>
+                                        </div>
+                                      </div>
                                        <div class="product__buy">
-                                             <a href="{% url 'add_cart' product.id %}" class="button button--secondary button--full button--no-disabled-opacity ">Add to cart</a>
-                                         
+                                           <a href="{% url 'add_cart' product.id %}?message=" id="add-to-cart-link" class="button button--secondary button--full button--no-disabled-opacity">Add to cart</a>
                                        </div>
-                                    </div>
+                                   </div>
+                                   
+                                    <script>
+                                       document.addEventListener('DOMContentLoaded', function() {
+                                           var addToCartLink = document.getElementById('add-to-cart-link');
+                                           var cartMessage = document.getElementById('cart_message');
+                                   
+                                           addToCartLink.addEventListener('click', function(event) {
+                                               // Get the message content from the textarea
+                                               var message = cartMessage.value;
+                                   
+                                               // Encode the message for URL
+                                               var encodedMessage = encodeURIComponent(message);
+                                   
+                                               // Append the encoded message to the URL
+                                               addToCartLink.href += encodedMessage;
+                                           });
+                                       });
+                                   </script>
+                                   
 
-                                    <div id="product_details_container">
-                                    <h2 class="product_summary-title">Details</h2>
-
-    <ul class="product_summary_list">
-        <!-- Details will be appended here -->
-    </ul>
-</div>
-
-                                    <div class="product__share">
-                                       <div class="share-buttons">
-                                          <span class="share-buttons__label">Share</span>
-                                          <ul class="share-buttons__list">
-                                             <li class="share-buttons__item">
-                                                <a href="https://www.facebook.com/sharer.php?u={{request.build_absolute_uri}}" target="_blank">
-                                                   <svg class="icon icon-facebook">
-                                                      <use xlink:href="#icon-facebook">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                             <li class="share-buttons__item">
-                                                <a href="https://twitter.com/share?text={{product.name}}&amp;url={{request.build_absolute_uri}}" target="_blank">
-                                                   <svg class="icon icon-twitter">
-                                                      <use xlink:href="#icon-twitter">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                             <li class="share-buttons__item">
-                                             {% if '/static/' in product.image.url %}
-                                                <a href="https://pinterest.com/pin/create/button/?url={{request.build_absolute_uri}};media=http://localhost:8000{{product.image}}" target="_blank">
-                                                {% else %}
-                                                                                                <a href="https://pinterest.com/pin/create/button/?url={{request.build_absolute_uri}};media=http://localhost:8000{{product.image.url}}" target="_blank">
-
-                                                {% endif %}
-                                                   <svg class="icon icon-pinterest">
-                                                      <use xlink:href="#icon-pinterest">
-                                                      </use>
-                                                   </svg>
-                                                </a>
-                                             </li>
-                                          </ul>
-                                       </div>
-                                    </div>
+                                
                                  </div>
                               </div>
                            </div>
@@ -218,7 +196,7 @@
                               </div>
                            </div>
                         <div class="tabs__content-item ">
-                                          hello
+
                         </div>
 
                      </div>

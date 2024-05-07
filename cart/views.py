@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse
 from store.models import Product
-from .models import Cart,Cartitem
+from .models import Cart,Cartitem,Personalization
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm
@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from .models import Payment,Order_Product
 from django.template.loader import render_to_string
 
+
 # Create your views here.
 def _cart_id(request):
     cart=request.session.session_key
@@ -22,10 +23,11 @@ def _cart_id(request):
 
 
 def add_cart(request, product_id):
-    if request.method=='POST':
-        data = request.POST.get('message') 
-        print(data,'json data get here ')
-        return
+    message = request.GET.get('message', '')
+    if message:
+        product = Product.objects.get(id=product_id)
+        Personalization.objects.create(product=product, message=message)
+        
     current_user = request.user
     product = Product.objects.get(id=product_id)
     cart_id = _cart_id(request)
@@ -276,9 +278,7 @@ def checkout(request,total=0,quantity=0,cart_items=None):
 
 def payement(request):
     
-    body=json.loads(request.body)
-    print(body,'************8')
-    
+    body=json.loads(request.body) 
     order=Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
  
 
@@ -293,6 +293,7 @@ def payement(request):
 
 
     )
+    
     payment.save()
     order.payment=payment
     order.is_ordered=True
@@ -303,6 +304,8 @@ def payement(request):
 # move the cart items to order product
 
     cart_items=Cartitem.objects.filter(user=request.user)
+  
+
     
     for item in cart_items:
         print(item)

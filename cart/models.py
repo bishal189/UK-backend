@@ -109,4 +109,13 @@ class Order_Product(models.Model):
 
 
 
+class Personalization(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    message = models.CharField(max_length=100)
+    buyed=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.message  
+
+
 
