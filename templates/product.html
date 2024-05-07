@@ -237,16 +237,18 @@
                         {% endif %}
                         <span>Rating:</span>
                         <div style="margin-bottom:1rem;" class="rating">
-                            <i style="{% if review.rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
+                           <span>
+                           <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}"
+                              aria-hidden="true"></i>
+                           </span>
                         </div>
                         <script>
                            const stars = document.querySelectorAll('.rating span i');
@@ -263,6 +265,15 @@
                            for (let i = 0; i <= index; i++) {
                            stars[i].style.color='#c38052'; // Add 'highlighted' class
                            }
+                           })
+                           star.addEventListener('mouseout',()=>{
+                           console.log(stars[0].style.color)
+                            if (stars[0].style.color=="rgb(195, 128, 82)"){
+                            return
+                            }
+                            for (let i=0;i<=4;i++){
+                            stars[i].style.color='black'
+                            }
                            })
 
                            });
