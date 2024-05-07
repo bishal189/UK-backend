@@ -201,128 +201,8 @@
                   <li  id="reviews-tab" class="tabs__nav-item "  data-tab-index="2">Reviews</li>
                </ul>
                <div class="tabs__content">
-                  <div style="padding:20px" class="tabs__content-item tabs__content-item--active ">
-                     <div style="display:flex;justify-content:space-between;" class="review-header">
-                        <div style="padding:50px 30px;"  class="top-left">
-                           <div class="rating-star">
-                              <span>
-                              <i style="{% if review.rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if review.rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
 
-                              </span>
-                           </div>
-                           <span>Based on 340 reviews </span>
-                        </div>
-                        <div style="padding:50px 30px;" class="top-right">
-                           <span id="write-review" style="padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Write a Review</span>
-                           <span id="cancel-review" style="display:none;padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Cancel Review</span>
-                        </div>
-                     </div>
-                     <div style="display:none;width:60%;margin:0 auto;margin-top:1rem;" id="write-review-section" class="write-review">
-                        <span>Public Name</span>
-                        <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Enter Your name(public)" />
-                        <span>Email</span>
-                        {% if user.is_authenticated %}
-                        <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Email(Private) " value={{user.email}} />
-                        {% else %}
-                        <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Email(Private)" />
-                        {% endif %}
-                        <span>Rating:</span>
-                        <div style="margin-bottom:1rem;" class="rating">
-                           <span>
-                           <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}"
-                              aria-hidden="true"></i>
-                           <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}"
-                              aria-hidden="true"></i>
-                           <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}"
-                              aria-hidden="true"></i>
-                           <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}"
-                              aria-hidden="true"></i>
-                           <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}"
-                              aria-hidden="true"></i>
-                           </span>
-                        </div>
-                        <script>
-                           const stars = document.querySelectorAll('.rating span i');
-                           stars.forEach((star,index) => {
-                           star.addEventListener('mouseover', () => {
-                           for (let i=0;i<=4;i++){
-                           stars[i].style.color='black'
-                           }
-                           for (let i = 0; i <= index; i++) {
-                           stars[i].style.color='red'; // Add 'highlighted' class
-                           }
-                           });
-                           star.addEventListener('click',()=>{
-                           for (let i = 0; i <= index; i++) {
-                           stars[i].style.color='#c38052'; // Add 'highlighted' class
-                           }
-                           })
-                           star.addEventListener('mouseout',()=>{
-                           console.log(stars[0].style.color)
-                            if (stars[0].style.color=="rgb(195, 128, 82)"){
-                            return
-                            }
-                            for (let i=0;i<=4;i++){
-                            stars[i].style.color='black'
-                            }
-                           })
-
-                           });
-                        </script>
-                        <span>Review Title</span>
-                        <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Give your review a title" />
-                        <span>Review</span>
-                        <textarea colspan="3" rows="4" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Write your comments here" ></textarea>
-                        <span> How we use your data: We’ll only contact you about the review you left, and only if necessary. By submitting your review, you agree to Judge.me’s terms, privacy and content policies.</span>
-                        <br />
-                        <button onClick="handleSubmit();" style="background-color:#a8673a;color:white;padding:20px;width:100%;font-size:1.2rem;font-weight:500;margin-top:1rem;">Submit Review</button>
-                     </div>
-                     {% for i in 'xx' %}
-                     <div style="margin-top:25px;padding:20px 50px;border-top:1px solid black;" class="review-comment">
-                        <div style="display:flex;">
-                           <div style="display:flex;justify-content:center;align-items:center;border-radius:50%;margin-right:12px;height:3.2em;width:3.2em;background-color:#e9e9e9;text-align:center;" class='review-comment-header-profile'>
-                              C
-                           </div>
-                           <div class="review-comment-date">
-                              <p style="margin:0px;padding:0;">30/04/2024</p>
-                              <p style="margin:0px;font-weight:500;padding:0;">Camilla P.</p>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="rating-star">
-                              <span>
-                              <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}"
-                                 aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}"
-                                 aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}"
-                                 aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}"
-                                 aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}"
-                                 aria-hidden="true"></i>
-                              </span>
-                           </div>
-                        </div>
-                        <div class="review-comment-content">
-                           <span class="review-comment-content-title" style="font-weight:500;">Stunning.</span><br />
-                           <span class="review-comment-content-body">
-                           The quality is outstanding and for that extra special person or celebration they are worth every penny</span>
-                        </div>
-                     </div>
-                     {% endfor %}
-                     <!-- end comment part -->
-                  </div>
-                  <div class="tabs__content-item ">
+                  <div class="tabs__content-item tabs__content-item--active ">
                      <div class="container container--shrink rte product-desc">
                         <p id="description">{{product.description}}</p>
                      </div>
@@ -369,6 +249,132 @@
                         <p class="table-title">Returns</p>
                         <p>If you changed your mind for whatever reason, you can always return your order back to us within 28 days for a replacement or refund.</p>
                      </div>
+                  </div>
+                     <div style="padding:20px" class="tabs__content-item  ">
+                     <div style="display:flex;justify-content:space-between;" class="review-header">
+                        <div style="padding:50px 30px;"  class="top-left">
+                           <div class="rating-star">
+                              <span>
+                              <i style="{% if average_rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+
+                              </span>
+                           </div>
+                           <span>Based on {{reviews.count}} reviews </span>
+                        </div>
+                        <div style="padding:50px 30px;" class="top-right">
+                           <span id="write-review" style="padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Write a Review</span>
+                           <span id="cancel-review" style="display:none;padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Cancel Review</span>
+                        </div>
+                     </div>
+                     <div style="display:none;width:60%;margin:0 auto;margin-top:1rem;" id="write-review-section" class="write-review">
+                        <span>Public Name</span>
+                        <input id="name" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Enter Your name(public)" />
+                        <span>Email</span>
+                        {% if user.is_authenticated %}
+                        <input id="email" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Email(Private) " value={{user.email}} />
+                        {% else %}
+                        <input id="email" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Email(Private)" />
+                        {% endif %}
+                        <span>Rating:</span>
+                        <div  style="margin-bottom:1rem;" class="rating">
+                           <span>
+                           <i class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i class="fa fa-star"
+                              aria-hidden="true"></i>
+                           </span>
+                        </div>
+                        <script>
+                           const stars = document.querySelectorAll('.rating span i');
+                           stars.forEach((star,index) => {
+                           star.addEventListener('mouseover', () => {
+                           for (let i=0;i<=4;i++){
+                           stars[i].style.color='black'
+                           }
+                           for (let i = 0; i <= index; i++) {
+                           stars[i].style.color='red'; // Add 'highlighted' class
+                           }
+                           });
+                           star.addEventListener('click',()=>{
+                           for (let i = 0; i <= index; i++) {
+                           stars[i].style.color='#c38052'; // Add 'highlighted' class
+                           }
+                           })
+                           star.addEventListener('mouseout',()=>{
+                           console.log(stars[0].style.color)
+                            if (stars[0].style.color=="rgb(195, 128, 82)"){
+                            return
+                            }
+                            for (let i=0;i<=4;i++){
+                            stars[i].style.color='black'
+                            }
+                           })
+
+                           });
+                        </script>
+                        <span>Review Title</span>
+                        <input id="reviewTitle" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Give your review a title" />
+                        <span>Review</span>
+                        <textarea id="reviewContent" colspan="3" rows="4" style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Write your comments here" ></textarea>
+                        <span> How we use your data: We’ll only contact you about the review you left, and only if necessary. By submitting your review, you agree to Judge.me’s terms, privacy and content policies.</span>
+                        <br />
+                        <div onClick="handleSubmit();" style="background-color:#a8673a;color:white;padding:20px;width:100%;font-size:1.2rem;font-weight:500;margin-top:1rem;text-align:center;cursor:pointer;">Submit Review</div>
+                     </div>
+
+                     <div id="comment_area">
+                     {% for review in reviews %}
+                     <div style="margin-top:25px;padding:20px 50px;border-top:1px solid black;" class="review-comment">
+                        <div style="display:flex;">
+                           <div style="display:flex;justify-content:center;align-items:center;border-radius:50%;margin-right:12px;height:3.2em;width:3.2em;background-color:#e9e9e9;text-align:center;" class='review-comment-header-profile'>
+                                     {{ review.name|slice:":1" }}
+                           </div>
+                           <div class="review-comment-date">
+                              <p style="margin:0px;padding:0;">{{review.created_at}}</p>
+                              <p style="margin:0px;font-weight:500;padding:0;">{{review.name}}</p>
+                           </div>
+                        </div>
+                        <div>
+                           <div class="rating-star">
+                              <span>
+                              <i style="{% if review.rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if review.rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if review.rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if review.rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if review.rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+
+                              </span>
+                           </div>
+                        </div>
+                        <div class="review-comment-content">
+                           <span class="review-comment-content-title" style="font-weight:500;">{{review.review_title}}</span><br />
+                           <span class="review-comment-content-body">
+                        {{review.review_content}}
+                         </span>
+                        </div>
+                     </div>
+                     {% endfor %}
+                     </div>
+                     <!-- end comment part -->
                   </div>
                </div>
             </div>
@@ -565,9 +571,68 @@
       })
    </script>
    <script>
-   function handleSubmit(){
+async   function handleSubmit(){
+      const name=document.getElementById('name').value
+      const email=document.getElementById('email').value
+      const reviewContent=document.getElementById('reviewContent').value
+      const reviewTitle=document.getElementById('reviewTitle').value
+      let rating=0
+      const stars = document.querySelectorAll('.rating span i');
+      stars.forEach((star) => {
+      if (star.style.color=="rgb(195, 128, 82)"){
+       rating++
+      }
+      })
+     const payload={
+     'name':name,
+     'email':email,
+     'review_content':reviewContent,
+     'review_title':reviewTitle,
+     'rating':rating,
+     'product_id':"{{product.id}}"
+     }
+     console.log(payload)
+     const url="{% url 'add_review' %}"
+     console.log(url)
+const response=await fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers if needed
+    },
+    body: JSON.stringify(payload)
+})
+const data=await response.json()
+console.log(data)
+const responseData=`
+  <div style="margin-top:25px;padding:20px 50px;border-top:1px solid black;" class="review-comment">
+                        <div style="display:flex;">
+                           <div style="display:flex;justify-content:center;align-items:center;border-radius:50%;margin-right:12px;height:3.2em;width:3.2em;background-color:#e9e9e9;text-align:center;" class='review-comment-header-profile'>
+    ${data.review.name ? data.review.name.charAt(0) : ''}                           </div>
+                           <div class="review-comment-date">
+                              <p style="margin:0px;padding:0;">${data.created_at}</p>
+                              <p style="margin:0px;font-weight:500;padding:0;">${data.review.name}</p>
+                           </div>
+                        </div>
+                        <div>
+                           <div class="rating-star">
+                              <span>
 
-   }
+                              </span>
+                           </div>
+                        </div>
+                        <div class="review-comment-content">
+                           <span class="review-comment-content-title" style="font-weight:500;">${data.review.review_title}</span><br />
+                           <span class="review-comment-content-body">
+                        ${data.review.review_content}
+                         </span>
+                        </div>
+                     </div>
+            `
+const commentArea=document.getElementById('comment_area')
+comment_area.insertAdjacentHTML('afterbegin',responseData)
+}
+
    </script>
 </body>
 {% endblock %}

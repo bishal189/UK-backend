@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from store.models import Product,Collection
 from account.models import Account
+from review.models import Review
 from django.db.models import Q
 # Create your views here.
 import json
@@ -47,10 +48,18 @@ def get_product(request,product_name):
     if request.method=="GET":
         try:
             product=Product.objects.get(slug=product_name)
+            reviews=Review.objects.filter(product=product).order_by('-id')
+            total_rating=0
+            for review in reviews:
+                total_rating+=review.rating
+            average_rating=total_rating/5
+            print(reviews)
             similar_products = Product.objects.filter(~Q(id=product.id)).order_by('?')[:4]
             context={
                 'product':product,
-                'similar_products':similar_products
+                'reviews':reviews,
+                'similar_products':similar_products,
+                'average_rating':average_rating
                 }
             print(context)
             return render(request,'product.html',context)
