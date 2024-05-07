@@ -157,7 +157,7 @@ def remove_item(request,product_id,cart_item_id):
 
 
 # //for check out
-# @login_required(login_url='Login')
+@login_required(login_url='Login')
 def checkout(request,total=0,quantity=0,cart_items=None):
     print('check out page is trigerred')
     tax=0
@@ -310,9 +310,8 @@ def payement(request):
         # for adding variation in that  particular item
 
         cart_item=Cartitem.objects.get(id=item.id)
-        product_variation=cart_item.variations.all()
+       
         orderproduct=Order_Product.objects.get(id=orderproduct.id)
-        orderproduct.variations.set(product_variation)
         orderproduct.save()
 
 
@@ -389,7 +388,9 @@ def order_complete(request):
         for i in ordered_products:
             subtotal+=i.product_price*i.quantity;
 
-        total=subtotal+0.11*subtotal    
+        total=subtotal+0.11*subtotal  
+        
+        print('i am printing here ')  
 
         context={
             'order':order,
