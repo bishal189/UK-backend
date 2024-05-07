@@ -530,7 +530,7 @@
                <div class="header__wrapper">
                   <div class="header__item header__item-logo">
                      <div class="header__logo">
-                        <a href="index.html" class="header__link">
+                        <a href="/" class="header__link">
                         <img class="header__logo-image"
                            src="{% static './img/image.png' %}"
                            alt="Lotus Art Studio"
@@ -616,19 +616,25 @@
                   </div>
                   <div class="header__item header__item-cart">
                      <a href="{% url 'cart' %}" class="header__link">
-                        <div class="cart-icon-wrapper cart-icon-wrapper--has-items" style="display: none">
-                           <span class="cart-icon-wrapper__count">0</span>
+                        {% if cart_count %}
+                        <div class="cart-icon-wrapper cart-icon-wrapper--has-items" style="display:block;">
+                           <span class="cart-icon-wrapper__count">{{cart_count}}</span>
                            <svg class="icon icon-cart-full">
+                              
                               <use xlink:href="#icon-cart-full">
+                                
                               </use>
                            </svg>
                         </div>
+                        {% else %}
                         <div class="cart-icon-wrapper cart-icon-wrapper--empty">
+                           
                            <svg class="icon icon-cart-empty">
                               <use xlink:href="#icon-cart-empty">
                               </use>
                            </svg>
                         </div>
+                        {% endif %}
                      </a>
                   </div>
 
