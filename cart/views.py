@@ -22,6 +22,10 @@ def _cart_id(request):
 
 
 def add_cart(request, product_id):
+    if request.method=='POST':
+        data = request.POST.get('message') 
+        print(data,'json data get here ')
+        return
     current_user = request.user
     product = Product.objects.get(id=product_id)
     cart_id = _cart_id(request)
