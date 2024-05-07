@@ -116,6 +116,23 @@
                               <div class="product-meta__prices">
                                  <span style="font-size:1.3rem" class="product-meta__price product-item__price">£{{product.price}}</span>
                               </div>
+
+                                 <div class="rating-star">
+                                 Rating:
+                              <span>
+                              <i style="{% if average_rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+                                  <i style="{% if average_rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
+                                 aria-hidden="true"></i>
+
+                              </span>
+                           </div>
                               <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
                               <div class="product-meta__labels"></div>
                            </div>
