@@ -3,43 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
-   /* hide radio button */
-   .rate>input{
-   display: none;
-   }
-   .rate{
-   display: inline-block;
-   border:0;
-   }
-   .rate>label{
-   float: right;
-   display:none;
-   }
-   .rate>label:before{
-   display: inline-block;
-   font-size: 1.1rem;
-   font-family:FontAwesome!important;
-   content:"\f005"!important;
-   margin:0!important;
-   padding: 0.3rem 0.2rem;
-   cursor: pointer;
-   color:#c38052 !important;
-   background-color:#c38052 !important;
-   }
-   /* half star */
-   .rate .half:before{
-   content:'\f089';
-   position: absolute;
-   padding-right: 0;
-   }
-   /* hover and click  */
-   input:checked~label,label:hover~label{
-   color: #ffb503;
-   }
-   /* hover heighlight */
-   input:checked+label:hover,input:checked~label:hover,input:checked~label:hover~label,label:hover~input:checked~label{
-   color: #cc9000;
-   }
+
    .rating-star i{
    color: #c38052 !important;
    }
@@ -61,7 +25,6 @@
    }
    .rating-stars i {
    font-size: 14px;
-   color: #ccc;
    display: inline;
    }
    .rating-stars img {
@@ -244,23 +207,23 @@
                         <div style="padding:50px 30px;"  class="top-left">
                            <div class="rating-star">
                               <span>
-                              <i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating == 1 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating == 2 %}-o{% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating == 3 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating == 4 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating == 5 %}-o {% endif %}"
                                  aria-hidden="true"></i>
                               </span>
                            </div>
                            <span>Based on 340 reviews </span>
                         </div>
                         <div style="padding:50px 30px;" class="top-right">
-                           <span id="write-review" style="padding:5px;cursor:pointer;background-color:transparent;">Write a Review</span>
-                            <span id="cancel-review" style="display:none;padding:5px;cursor:pointer;background-color:transparent;">Cancel Review</span>
+                           <span id="write-review" style="padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Write a Review</span>
+                            <span id="cancel-review" style="display:none;padding:5px;cursor:pointer;background-color:transparent;border:1px solid black;">Cancel Review</span>
                         </div>
                      </div>
 
@@ -269,7 +232,41 @@
                   <span>Public Name</span>
                   <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Enter Your name(public)" />
                   <span>Email</span>
-                  <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Review Title" />
+                  <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Email(Private)" />
+                        <div class="rating">
+                              <span>
+                              <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}"
+                                 aria-hidden="true"></i>
+                           <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}"
+                                 aria-hidden="true"></i>
+                              <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}"
+                                 aria-hidden="true"></i>
+                              <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}"
+                                 aria-hidden="true"></i>
+                              <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}"
+                                 aria-hidden="true"></i>
+                              </span>
+                           </div>
+
+                           <script>
+                              const stars = document.querySelectorAll('.rating span i');
+  stars.forEach((star,index) => {
+    star.addEventListener('mouseover', () => {
+    for (let i=0;i<=4;i++){
+      stars[i].style.color='black'
+    }
+     for (let i = 0; i <= index; i++) {
+      stars[i].style.color='red'; // Add 'highlighted' class
+    }
+    });
+   star.addEventListener('click',()=>{
+    for (let i = 0; i <= index; i++) {
+      stars[i].style.color='#c38052'; // Add 'highlighted' class
+    }
+   })
+
+  });
+                           </script>
                   <span>Review Title</span>
                   <input style="margin-top:.5rem;margin-bottom:1rem;" type="text" placeholder="Give your review a title" />
                   <span>Review</span>
@@ -296,15 +293,15 @@
                         <div>
                            <div class="rating-star">
                               <span>
-                              <i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}"
+ <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}"
                                  aria-hidden="true"></i>
-                              <i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}"
+                              <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}"
                                  aria-hidden="true"></i>
                               </span>
                            </div>
@@ -395,11 +392,6 @@
                <script>
                   var d = new Date();
                   var n = d.getHours();
-
-
-
-
-
 
                   var dispatchDate = Date.today().addDays(1);
 
@@ -518,7 +510,6 @@
          details.forEach(function(detail) {
              var li = document.createElement('li');
              li.textContent = detail;
-             console.log(li)
              detailsContainer.appendChild(li);
          });
    </script>
