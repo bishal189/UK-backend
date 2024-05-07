@@ -24,7 +24,7 @@ class Cartitem(models.Model):
     is_active=models.BooleanField(default=True)
 
     def subtotal(self):
-        return self.product.price*self.quantity;
+        return self.product.price*self.quantity
 
     def __str__(self):
         return str(self.product)

@@ -19,44 +19,48 @@ def _cart_id(request):
         cart=request.session.create()
     return cart 
 
+
+
 def add_cart(request, product_id):
     current_user = request.user
     product = Product.objects.get(id=product_id)
+    cart_id = _cart_id(request)
 
     if current_user.is_authenticated:
-        is_cart_item_exist = Cartitem.objects.filter(product=product, user=current_user).exists()
-
-        if is_cart_item_exist:
+        try:
+            # Attempt to retrieve the cart item for this user and product
             cart_item = Cartitem.objects.get(product=product, user=current_user)
+            
+            # If the item already exists for this user, increase the quantity
             cart_item.quantity += 1
             cart_item.save()
-        else:
+            
+        except Cartitem.DoesNotExist:
+            # If it's a new item, create a new cart item for the user
             cart_item = Cartitem.objects.create(product=product, quantity=1, user=current_user)
-            cart_item.save()
 
         return redirect('cart')
     else:
-        cart_id = _cart_id(request)
-
         try:
-            cart = Cart.objects.get(cart_id=_cart_id(request))   
-            print(cart)
-        except Cart.DoesNotExist:
-            cart = Cart.objects.create(cart_id=_cart_id(request))   
-            print(cart,'expect')
-            cart.save()
-
-        is_cart_item_exist = Cartitem.objects.filter(product=product, cart=cart).exists()
-
-        if is_cart_item_exist:
-            cart_item = Cartitem.objects.get(product=product, cart=cart)
+            # Attempt to retrieve the cart item for this guest user and product
+            cart_item = Cartitem.objects.get(product=product, cart__cart_id=cart_id)
+            
+            # If the item already exists in the cart, increase the quantity
             cart_item.quantity += 1
             cart_item.save()
-        else:
-            cart_item = Cartitem.objects.create(product=product, quantity=1, cart=cart)
-            cart_item.save()
+            
+        except Cartitem.DoesNotExist:
+            try:
+                # If the cart doesn't exist, create a new one
+                cart = Cart.objects.get(cart_id=cart_id)
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(cart_id=cart_id)
 
-        return redirect('/cart/')
+            # If it's a new item, create a new cart item for the cart
+            cart_item = Cartitem.objects.create(product=product, quantity=1, cart=cart)
+
+        return redirect('cart')
+
 
 
 
@@ -79,6 +83,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
         print('cart items',cart_items)
 
         for cart_item in cart_items:
+            
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
 
@@ -93,7 +98,6 @@ def cart(request,total=0,quantity=0,cart_items=None):
     
 
     context={
-        'total':total,
         'quantity':quantity,
         'cart_items':cart_items,
         'tax':tax,
