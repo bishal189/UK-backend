@@ -38,9 +38,57 @@
         <div class="inner inner-account">
             <div class="grid grid--large">
                 <section class="account__orders grid__cell 2/3--handheld-and-up">
+                    {% if orders %}
+                    <div class="cart--desktop">
+      
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Your order</th>
+                              <th class="cart-item__price-header">Billing Name</th>
+                              <th>Phone</th>
+                              <th>Total price</th>
+                              <th>Created at</th>
+                            </tr>
+                          </thead>
+                  
+                          <tbody>
+                            {% for order in orders %}
+                            
+                              <tr data-variant-id="11281174462500" data-index="1">
+                                <td class="cart-item__product">
+                                  <a href="{% url 'order_details' order.order_number %}">
+                                    {{order.order_number}}
+                                   
+                                  </a>
+                                </td>
+                  
+                                <td class="cart-item__info table__left">
+                                  
+                                    {{order.full_name}}
+                                </td>
+                  
+                                <td class="cart-item__price" data-money-convertible="">{{order.phone}}</td>
+                  
+                                <td class="cart-item__quantity">
+                                  {{order.total}}
+                                </td>
+                  
+                                <td class="cart-item__subtotal" data-money-convertible="">{{order.created_at}}</td>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    
+                    {% else %}
                     <div class="alert alert--account">
                         <h3 class="alert__title">You haven't placed any orders yet.</h3>
                     </div>
+
+                    {% endif %}
                 </section>
     
                 <div class="grid__cell 1/3--handheld-and-up">
