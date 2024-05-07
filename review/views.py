@@ -19,7 +19,6 @@ def add_review(request):
             product_id=data.get('product_id')
             product=Product.objects.get(id=product_id)
             review=Review.objects.create(name=name,email=email,review_title=review_title,rating=rating,review_content=review_content,product=product)
-            print(review)
 
             return JsonResponse({'review':model_to_dict(review),'created_at':review.created_at},status=200)
         except Exception as e:

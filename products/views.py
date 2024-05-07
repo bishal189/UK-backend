@@ -5,14 +5,18 @@ from store.models import Product,Collection
 from account.models import Account
 from review.models import Review
 from django.db.models import Q
+from django.db.models import Avg,Sum,Count
 # Create your views here.
 import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
-        products=Product.objects.all()
+        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
+        reviews_count=Count('reviews')).order_by('-id')
+
         context={
-            'products':products
+            # 'products':products,
+            'products':products_with_avg_rating
             }
         return render(request,'products.html',context)
     if request.method=="POST":

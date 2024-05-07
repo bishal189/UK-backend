@@ -6,7 +6,7 @@ class Review(models.Model):
     name=models.TextField()
     email=models.TextField()
     review_title=models.TextField(blank=True,null=True)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="reviews")
     review_content=models.TextField()
     rating=models.IntegerField()
     created_at=models.DateField(auto_now_add=True)
