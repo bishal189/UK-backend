@@ -3,17 +3,43 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from store.models import Product,Collection
 from account.models import Account
+from review.models import Review
 from django.db.models import Q
+from django.db.models import Avg,Sum,Count
+from django.template.loader import render_to_string
 # Create your views here.
 import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
-        products=Product.objects.all()
+        filter_products=request.GET.get('filter','')
+
+        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
+        reviews_count=Count('reviews'))
+
+        if filter_products!="":
+            filtered_products=None
+            if filter_products=="recommended":
+                filtered_products=products_with_avg_rating.order_by('-view_count')
+            elif filter_products=="best-selling":
+                filtered_products=products_with_avg_rating.order_by('?')
+            elif filter_products=="price-ascending":
+                filtered_products=products_with_avg_rating.order_by('price')
+            elif filter_products=="price-descending":
+                filtered_products=products_with_avg_rating.order_by('-price')
+            elif filter_products=="created-descending":
+                filtered_products=products_with_avg_rating.order_by('-id')
+            context={
+                    'products':filtered_products
+                }
+            content_html = render_to_string('renderer/products.html',context, request=request)
+            return JsonResponse({'content': content_html})
+
+        products=products_with_avg_rating.order_by('?')
         context={
+            # 'products':products,
             'products':products
             }
-
         return render(request,'products.html',context)
     if request.method=="POST":
         try:
@@ -31,8 +57,6 @@ def products(request):
                 created_by=user
             )
 
-
-
             # Return a success response
             return JsonResponse({'message': 'Product added successfully'})
         except KeyError:
@@ -48,10 +72,20 @@ def get_product(request,product_name):
     if request.method=="GET":
         try:
             product=Product.objects.get(slug=product_name)
+            product.view_count=product.view_count+1
+            product.save()
+            reviews=Review.objects.filter(product=product).order_by('-id')
+            total_rating=0
+            for review in reviews:
+                total_rating+=review.rating
+            average_rating=total_rating/5
+            print(reviews)
             similar_products = Product.objects.filter(~Q(id=product.id)).order_by('?')[:4]
             context={
                 'product':product,
-                'similar_products':similar_products
+                'reviews':reviews,
+                'similar_products':similar_products,
+                'average_rating':average_rating
                 }
             print(context)
             return render(request,'product.html',context)
@@ -69,18 +103,44 @@ def collection(request,collection_slug=None):
     if request.method=="GET":
         if collection_slug is None:
             collections=Collection.objects.all().order_by('-id')
-            return JsonResponse({'data':collections})
+            context={
+                'collections':collections
+                }
+            return render(request,'collections.html',context)
         else:
             try:
+                filter_products=request.GET.get('filter','')
                 collection=Collection.objects.get(collection_slug=collection_slug)
-                products=Product.objects.filter(collections=collection)
+                products=Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,reviews_count=Count('reviews')).filter(collections=collection)
+
+                if filter_products!="":
+                    filtered_products=None
+
+                    if filter_products=="recommended":
+                        filtered_products=products.order_by('-view_count')
+                    elif filter_products=="best-selling":
+                        filtered_products=products.order_by('?')
+                    elif filter_products=="price-ascending":
+                        filtered_products=products.order_by('price')
+                    elif filter_products=="price-descending":
+                        filtered_products=products.order_by('-price')
+                    elif filter_products=="created-descending":
+                        filtered_products=products.order_by('-id')
+                    context1={
+                        'products':filtered_products
+                    }
+                    content_html = render_to_string('renderer/products.html',context1, request=request)
+                    print(content_html)
+                    return JsonResponse({'content': content_html})
+
                 print(products)
-                print(collection)
                 context={
                     'collection':collection,
-                    'products':products
+                    'products':products,
                 }
-                return render(request,'collections.html',context)
+                print(context)
+
+                return render(request,'products.html',context)
             except Exception as e:
                 context={
                     'error':str(e)

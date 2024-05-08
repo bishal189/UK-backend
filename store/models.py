@@ -7,6 +7,8 @@ from django.utils.text import slugify
 class Collection(models.Model):
     collection=models.CharField(max_length=500)
     collection_slug=models.SlugField(max_length=200,unique=True)
+    description=models.TextField(blank=True,null=True)
+    image=models.ImageField(upload_to="collection/",blank=True,null=True)
     def save(self,*args,**kwargs):
         self.collection_slug=slugify(self.collection)
         super().save(*args,**kwargs)
@@ -24,32 +26,35 @@ class Product(models.Model):
     stock=models.IntegerField(default=10)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
-
     details=models.TextField()
     collections=models.ManyToManyField(Collection)
+
     created_date=models.DateTimeField(auto_now_add=True)
+    view_count=models.IntegerField()
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
 
     def save(self, *args, **kwargs):
+        if not self.pk:
         # Generate slug from name
-        self.slug = slugify(self.product_name)
+            self.slug = slugify(self.product_name)
 
         # Check if the slug already exists
-        if Product.objects.filter(slug=self.slug).exists():
+            if Product.objects.filter(slug=self.slug).exists():
             # If slug already exists, add a counter to make it unique
-            counter = 1
-            while True:
-                new_slug = f"{self.slug}-{counter}"
-                if not Product.objects.filter(slug=new_slug).exists():
-                    self.slug = new_slug
-                    break
-                counter += 1
+                counter = 1
+                while True:
+                    new_slug = f"{self.slug}-{counter}"
+                    if not Product.objects.filter(slug=new_slug).exists():
+                        self.slug = new_slug
+                        break
+                    counter += 1
 
         super().save(*args, **kwargs)
 
+
     def get_url(self):
-        return reverse('product_details',args=[self.category.slug, self.slug])
+        return reverse('product_details',args=[ self.slug])
     
     def __str__(self):
         return self.product_name
