@@ -13,6 +13,7 @@
 				<div class="col-12">
 					<div class="main__title">
 						<h2>Catalog</h2>
+						{% include '../includes/alert.html' %}
 						
 						<span class="main__title-stat">{{count}} total</span>
 						
@@ -40,18 +41,8 @@
 
 							<form style="width:500px;" method="POST" class="main__title-form">
 								{% csrf_token %}
-								<select style="background-color:#151f30;padding:10px 20px;color:white;border-radius:10%;" class="custom-select dropdown-menu scrollbar-dropdown" name="type">
-									<option value="videos" {% if selected == "videos" %}selected{% endif %}>Videos</option>
-			
-									<option value="albums" {% if selected == "albums" %}selected{% endif %}>Albums</option>
-								</select>
-									{% if selected == "videos" %}
-								<input name="toSearch" style="margin-right:20px;" type="text" placeholder="Find videos..">
-								{% else %}
-								<input name="toSearch" style="margin-right:20px;" type="text" placeholder="Find albums..">
-
-									{% endif %}
-								<button style="width:100px;height:45px;border-radius:0%;" class="sign__btn" type="submit">Filter</button>
+								<input name="keyword" style="margin-right:20px;" type="text" placeholder="Find Products..">
+								<button style="width:100px;height:45px;border-radius:0%;" class="sign__btn" type="submit">Search</button>
 
 							</form> 
 							<!-- end search -->
@@ -67,104 +58,48 @@
 					<div class="main__table-wrap">
 						<table class="main__table">
 							<thead>
-								{% if selected == "videos" %}
+							
 								<tr>
 									<th>ID</th>
-									<th>TITLE</th>
-									<th>Type</th>
-									<th>View Count</th>
-									<th>Cart Count</th>
-									<th>Year</th>
-									<th>Price</th>
+									<th>Product Name</th>
+									<th>Product Price</th>
 									<th>CRAETED DATE</th>
 									<th>ACTIONS</th>
 								</tr>
-								{% else %}
-								<tr>
-									<th>ID</th>
-									<th>TITLE</th>
-									<th>Price</th>
-									<th>CRAETED DATE</th>
-									<th>ACTIONS</th>
-								</tr>
-
-								{% endif %}
+								
 							</thead>
 
 							<tbody>
 								<tr>
-									{% if selected == "videos" %}
-									{% for data in item %}
+									
+									{% for product in products %}
 									<td>
-										<div class="main__table-text">{{data.id}}</div>
+										<div class="main__table-text">{{product.id}}</div>
 									</td>
 									<td>
-										<div class="main__table-text"><a href="#">{{data.movie_name}}</a></div>
+										<div class="main__table-text"><a href="#">{{product.product_name|truncatechars:30}}</a></div>
 									</td>
 									
 									<td>
-										<div class="main__table-text">{{data.type}}</div>
-									</td>
-									<td>
-										<div class="main__table-text">{{data.view_count}}</div>
-									</td>
-									<td>
-										<div class="main__table-text">{{data.cart_count}}</div>
-									</td>
-									<td>
-										<div class="main__table-text">{{data.year}}</div>
-									</td>
-									<td>
-										<div class="main__table-text">{{data.price}} $</div>
+										<div class="main__table-text">{{product.price}}</div>
 									</td>
 									
 									<td>
-										<div class="main__table-text">{{data.created_at}}</div>
+										<div class="main__table-text">{{product.created_date}}</div>
 									</td>
 									<td>
 										<div class="main__table-btns">
-											<a href="{% url 'edit_movie' data.id %}" class="main__table-btn main__table-btn--edit">
+											<a href="" class="main__table-btn main__table-btn--edit">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z"/></svg>
 											</a>
-											<a href="{% url 'remove_movie' data.id %}" class="main__table-btn main__table-btn--delete ">
+											<a href="{% url 'remove_product' product.id %}" onclick="return confirmDelete();" class="main__table-btn main__table-btn--delete ">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
 											</a>
 										</div>
 									</td>
 								</tr>
 								{% endfor %}
-								{% else %}
-
-								{% for data in item %}
-								<td>
-									<div class="main__table-text">{{data.id}}</div>
-								</td>
-								<td>
-									<div class="main__table-text"><a href="#">{{data.album_name}}</a></div>
-								</td>
-								
-								
-								<td> 
-									<div class="main__table-text">{{data.price}} $</div>
-								</td>
-								
-								<td>
-									<div class="main__table-text">{{data.created_at}}</div>
-								</td>
-								<td>
-									<div class="main__table-btns">
-										<a href="{% url 'edit_album' data.id %}" class="main__table-btn main__table-btn--edit">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z"/></svg>
-										</a>
-										<a href="{% url 'remove_album' data.id %}" class="main__table-btn main__table-btn--delete ">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
-										</a>
-									</div>
-								</td>
-							</tr>
-							{% endfor %}
-							{% endif %}
-															</tbody>
+								</tbody>
 						</table>
 					</div>
 				</div>
@@ -259,5 +194,12 @@
 		</div>
 	</div>
 	<!-- end modal delete -->
+
+
+	<script>
+		function confirmDelete() {
+			return confirm("Are you sure you want to delete?");
+		}
+	</script>
 
 	{% endblock %}

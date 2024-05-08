@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from store.models import Collection,Product
 from django. contrib import messages
+from django.db.models import Q
+
 
 # Create your views here.
 
@@ -53,3 +55,38 @@ def add_item(request):
        
 
     return render(request,'owner/add-item.html',context)
+
+
+
+def catalog(request):
+    context = {}
+    if request.method == 'POST':
+        keyword = request.POST.get('keyword', '')
+        if keyword:
+            products = Product.objects.order_by("-created_date").filter(
+                Q(description__icontains=keyword) | Q(product_name__icontains=keyword)
+            )
+            count = products.count()
+        else:
+            # Handle case when keyword is empty
+            products = Product.objects.all()
+            count = products.count()
+
+    else:   
+        products = Product.objects.all()
+        count = products.count()
+
+    context['products'] = products
+    context['count'] = count
+
+    return render(request, 'owner/catalog.html', context)
+
+
+
+def remove_product(request,id):
+  product=Product.objects.get(id=id)
+  product.delete()
+  messages.success(request,'Item has been sucessfully deleted')
+  return redirect('catalog')
+
+
