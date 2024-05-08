@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% block title %}Collection for now{% endblock %}
 {% block content %}
@@ -53,122 +52,108 @@
    max-width: none;
    }
 </style>
-      <body class="kagami--v5 template-collection ">
-      {% include 'includes/header.html' %}
-            <main id="main" class="main" role="main">
-               <div id="shopify-section-collection-template" class="shopify-section shopify-section__collection">
-                  <header class="page__header ">
-                     <div class="page__header-wrapper">
-                        <div class="container">
-                        {% if collection %}
-
-                           <h1 class="page__title">{{collection.collection}}</h1>
-                        {% else %}
-                        <h1 class="page__title">All Products</h1>
-
-                        {% endif %}
-                        </div>
+<body class="kagami--v5 template-collection ">
+   {% include 'includes/header.html' %}
+   <main id="main" class="main" role="main">
+      <div id="shopify-section-collection-template" class="shopify-section shopify-section__collection">
+         <header class="page__header ">
+            <div class="page__header-wrapper">
+               <div class="container">
+                  {% if collection %}
+                  <h1 class="page__title">{{collection.collection}}</h1>
+                  {% else %}
+                  <h1 class="page__title">All Products</h1>
+                  {% endif %}
+               </div>
+            </div>
+         </header>
+         <div class="inner inner-collection">
+            <div class="collection__filters">
+               <div class="styled-select collection-filter collection-filter--sorter ">
+                  <svg class="icon icon-dropdown-arrow">
+                     <use xlink:href="#icon-dropdown-arrow">
+                     </use>
+                  </svg>
+                  <select id="sort-by">
+                     <option value="recommended">Recommended</option>
+                     <option value="best-selling">Most popular</option>
+                     <option value="price-ascending">Lowest price</option>
+                     <option value="price-descending">Highest price</option>
+                     <option value="created-descending">Most recent</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+         <section class="inner inner-collection">
+            <div id="collection" class="collection collection--grid grid grid--gallery grid--middle">
+               {% for product in products %}
+               <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
+                  <div class="product-item__inner">
+                     <div class="product-item__labels">
                      </div>
-                  </header>
-                  <div class="inner inner-collection">
-                     <div class="collection__filters">
-
-                        <div class="styled-select collection-filter collection-filter--sorter ">
-                           <svg class="icon icon-dropdown-arrow">
-                              <use xlink:href="#icon-dropdown-arrow">
-                              </use>
-                           </svg>
-                           <select id="sort-by">
-                              <option value="recommended">Recommended</option>
-                              <option value="best-selling">Most popular</option>
-                              <option value="price-ascending">Lowest price</option>
-                              <option value="price-descending">Highest price</option>
-                              <option value="created-descending">Most recent</option>
-                           </select>
+                     <a href="{% url 'get_product' product_name=product.slug %}" class="product-item__image">
+                        <div class="product-item__image-wrapper">
+                           <div class="aspect-ratio" style="padding-bottom: 100.0%">
+                              {% if '/static/' in product.image.url %}
+                              <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
+                              {% else %}
+                              <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
+                              {% endif %}
+                           </div>
+                        </div>
+                     </a>
+                     <div class="product-item__info">
+                        <h2 class="product-item__title">
+                           <a href="{% url 'get_product' product_name=product.slug %}">{{product.product_name}}</a>
+                        </h2>
+                        <p class="product-item__price" >£{{product.price}}</p>
+                        <div class="rating-star">
+                           {% if product.avg_rating %}
+                           <span>
+                           <i style="{% if product.avg_rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="{% if product.avg_rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="{% if product.avg_rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="{% if product.avg_rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="{% if product.avg_rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           </span>
+                           {% else %}
+                           <span>
+                           <i style="color:black!important" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="color:black!important" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="color:black!important" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="color:black!important" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           <i style="color:black!important" class="fa fa-star"
+                              aria-hidden="true"></i>
+                           </span>
+                           {% endif %}
+                           ({{product.reviews_count}} Reviews)
                         </div>
                      </div>
                   </div>
-                  <section class="inner inner-collection">
-                     <div id="collection" class="collection collection--grid grid grid--gallery grid--middle">
-
-                     {% for product in products %}
-      <div class="collection__item product-item grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-      <div class="product-item__inner">
-        <div class="product-item__labels">
-        </div>
-        <a href="{% url 'get_product' product_name=product.slug %}" class="product-item__image">
-          <div class="product-item__image-wrapper">
-            <div class="aspect-ratio" style="padding-bottom: 100.0%">
-            {% if '/static/' in product.image.url %}
-               <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
-            {% else %}
-            <img class="lazyload image--fade-in" data-sizes="auto" data-src="{{product.image.url}}" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
-            {% endif %}
-
-            </div>
-          </div>
-        </a>
-        <div class="product-item__info">
-          <h2 class="product-item__title">
-            <a href="{% url 'get_product' product_name=product.slug %}">{{product.product_name}}</a>
-          </h2>
-          <p class="product-item__price" >£{{product.price}}</p>
-            <div class="rating-star">
-      {% if product.avg_rating %}
-          <span>
-                  <i style="{% if product.avg_rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if product.avg_rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if product.avg_rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if product.avg_rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="{% if product.avg_rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
-                                 aria-hidden="true"></i>
-
-                              </span>
-      {% else %}
-          <span>
-                  <i style="color:black!important" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="color:black!important" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="color:black!important" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="color:black!important" class="fa fa-star"
-                                 aria-hidden="true"></i>
-                                  <i style="color:black!important" class="fa fa-star"
-                                 aria-hidden="true"></i>
-
-                              </span>
-      {% endif %}
-
-                                ({{product.reviews_count}} Reviews)
-                           </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-
-
-                     </div>
-                  </section>
-
                </div>
-            </main>
-      {% include 'includes/footer.html' %}
-      <script>
-
-
-
+               {% endfor %}
+            </div>
+         </section>
+      </div>
+   </main>
+   {% include 'includes/footer.html' %}
+   <script>
       function renderData(data) {
       const contentDiv = document.getElementById('collection');
       contentDiv.innerHTML = data.content;
-    }
+      }
 
        // Function to fetch data with query parameters
-    async function fetchDataWithQueryParams(queryParam) {
+      async function fetchDataWithQueryParams(queryParam) {
       try {
         const response = await fetch(`?filter=${queryParam}`);
         if (!response.ok) {
@@ -180,13 +165,12 @@
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
+      }
 
-    document.getElementById('sort-by').addEventListener('change', async(event) => {
+      document.getElementById('sort-by').addEventListener('change', async(event) => {
       const selectedValue = event.target.value;
       await fetchDataWithQueryParams(selectedValue);
-    });
-  </script>
-
-      </body>
+      });
+   </script>
+</body>
 {% endblock %}
