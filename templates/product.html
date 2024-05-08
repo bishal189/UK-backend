@@ -88,16 +88,16 @@
                               data-zoom-magnification="1.5">
                               <li class="product__slideshow-slide" data-type="image" data-index="0" data-image-id="29280734412960"  >
                                  <div class="aspect-ratio" style="padding-bottom: 100.0%">
-                                    {% if '/static/' in product.large_image.url %}
+                                    {% if '/static/' in product.image.url %}
                                     <img class="product__slideshow-image lazyload image--fade-in"
                                        data-sizes="auto"
-                                       data-src={{product.large_image}}
+                                       data-src={{product.image}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"
                                        alt={{product.name}}>
                                     {% else %}
                                     <img class="product__slideshow-image lazyload image--fade-in"
                                        data-sizes="auto"
-                                       data-src={{product.large_image.url}}
+                                       data-src={{product.image.url}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"
                                        alt={{product.name}}>
                                     {% endif %}

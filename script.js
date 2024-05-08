@@ -11,7 +11,6 @@ const data = [
       "Delivery cost: £5.55",
       "Returns and exchanges not accepted"
     ],
-    image: "/static/assets/vegas.avif",
     large_image: "/static/assets/vegas_lg.avif"
   },
   {
@@ -27,7 +26,7 @@ const data = [
       "Delivery cost: £5.55",
       "Returns and exchanges not accepted"
     ],
-    image: "/static/assets/handmade.avif",
+
     large_image: "/static/assets/handmade_lg.avif"
   },
   {
@@ -42,7 +41,7 @@ const data = [
       "Delivery cost: £5.55",
       "Returns and exchanges not accepted"
     ],
-    image: "/static/assets/dirty_dancing.avif",
+
     large_image: "/static/assets/dirty_dancing_lg.avif"
   },
   {
@@ -274,7 +273,7 @@ const data = [
       "Returns and exchanges not accepted"
     ],
     image: "/static/assets/handmade_well_done.avif",
-    large_image: "/static/assets/handmade_well_done_lg.avif"
+    large_image: "/static/assets/handmade_getwellsoon_lg.jpg"
   },
   {
     name: "Beautiful Handmade Thankful or Thank You Card",
@@ -289,7 +288,7 @@ const data = [
       "Returns and exchanges not accepted"
     ],
     image: "/static/assets/thankful_for_you.avif",
-    large_image: "/static/assets/thankful_for_you_lg.avif"
+    large_image: "/static/assets/thankful_for_you_lg.jpg"
   },
 
   {
@@ -336,7 +335,7 @@ const data = [
       "Returns and exchanges not accepted"
     ],
     image: "/static/assets/handmade_getwellsoonsecond.avif",
-    large_image: "/static/assets/handmade_getwellsoonsecond_lg.avif"
+    large_image: "/static/assets/get_wellsoon_second_lg.webp"
   },
   {
     name: "Beautiful Handmade Thank You Card, Stripes, Bird design",
@@ -349,8 +348,7 @@ const data = [
       "Delivery cost: £5.55",
       "Returns and exchanges not accepted"
     ],
-    image: "/static/assets/handmade_thankyou.avif",
-    large_image: "/static/assets/handmade_thankyou_lg.avif"
+    large_image: "/static/assets/handmade_thankyou_lg.webp"
   },
   {
     name: "Handmade Floral Birthday Card",
@@ -363,7 +361,7 @@ const data = [
       "Delivery cost: £5.55",
       "Returns and exchanges not accepted"
     ],
-    image: "/static/assets/handmade_floral.avif",
+    image: "/static/assets/handmade_floral_lg.avif",
     large_image: "/static/assets/handmade_floral_lg.avif"
   }
 ];

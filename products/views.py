@@ -57,7 +57,6 @@ def products(request):
                 price=request.POST.get("price"),
                 description=request.POST.get("description"),
                 image=request.FILES.get("image"),
-                large_image=request.FILES.get("large_image"),
                 details=request.POST.get("details"),
                 created_by=user,
             )
@@ -84,7 +83,6 @@ def get_product(request, product_name):
             for review in reviews:
                 total_rating += review.rating
             if reviews.count() > 0:
-
                 average_rating = total_rating / reviews.count()
             else:
                 average_rating = 0
@@ -99,7 +97,6 @@ def get_product(request, product_name):
                 "similar_products": similar_products,
                 "average_rating": average_rating,
             }
-            print(context)
             return render(request, "product.html", context)
         except Exception as e:
             error = str(e)
@@ -180,8 +177,7 @@ def run_script(request):
                 product_name=data.get("name"),
                 price=data.get("price"),
                 description=data.get("description"),
-                image=data.get("image"),
-                large_image=data.get("large_image"),
+                image=data.get("large_image"),
                 details=serialized_details,
                 created_by=user,
             )
