@@ -27,7 +27,7 @@ def products(request):
             if filter_products == "recommended":
                 filtered_products = products_with_avg_rating.order_by("-view_count")
             elif filter_products == "best-selling":
-                filtered_products = products_with_avg_rating.order_by("?")
+                filtered_products = products_with_avg_rating.order_by("avg_rating","-reviews")
             elif filter_products == "price-ascending":
                 filtered_products = products_with_avg_rating.order_by("price")
             elif filter_products == "price-descending":
@@ -128,9 +128,9 @@ def collection(request, collection_slug=None):
                     filtered_products = None
 
                     if filter_products == "recommended":
-                        filtered_products = products.order_by("-view_count")
+                        filtered_products = products.order_by("-avg_rating")
                     elif filter_products == "best-selling":
-                        filtered_products = products.order_by("?")
+                        filtered_products = products.order_by("-view_count")
                     elif filter_products == "price-ascending":
                         filtered_products = products.order_by("price")
                     elif filter_products == "price-descending":
@@ -143,7 +143,7 @@ def collection(request, collection_slug=None):
                     )
                     print(content_html)
                     return JsonResponse({"content": content_html})
-                products = products.order_by("-view_count")
+                products = products.order_by("-avg_rating","-view_count")
                 print(products)
                 context = {
                     "collection": collection,

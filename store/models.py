@@ -23,7 +23,6 @@ class Product(models.Model):
     description=models.TextField(blank=True)
     image=models.ImageField(upload_to='products/small')
     large_image=models.ImageField(upload_to='products/large')
-    stock=models.IntegerField(default=10)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
     details=models.TextField()
