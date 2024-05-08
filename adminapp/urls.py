@@ -6,7 +6,8 @@ urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard' ),
     path('add_item/',views.add_item,name='add_item'),
     path('catalog/',views.catalog,name='catalog'),
-    path('delete/<int:id>/',views.remove_product,name='remove_product')
+    path('delete_product/<int:id>/',views.remove_product,name='remove_product'),
+    path('edit_product/<int:id>/',views.edit_product,name='edit_product')
     
     # path('catalog/',views.catalog,name='catalog'),
     # path('users/',views.user_list,name='user_list'),

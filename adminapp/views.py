@@ -90,3 +90,52 @@ def remove_product(request,id):
   return redirect('catalog')
 
 
+
+
+def edit_product(request,id):
+    product=Product.objects.get(id=id)
+    if request.method=="POST":
+        large_image = request.FILES.get('form__img-upload')
+        product_name = request.POST['product_name']
+        stock = request.POST['stock']
+        descriptions = request.POST['descriptions']
+        details = request.POST['details']
+        price = request.POST['price']
+        image = request.FILES.get('image')
+        category=request.POST.getlist('category')  
+        
+        if large_image:
+            
+            product.large_image = large_image        
+        if image:
+            product.image=image
+        if product_name:
+            product.product_name = product_name
+        if stock:
+            product.stock = stock
+        if descriptions:
+            product.description = descriptions
+        if details:
+            product.details = details
+        if price:
+            product.price = price
+        
+        # Clear existing collections and add selected ones if new categories are provided
+        if category:
+            product.collections.clear()
+            categories = Collection.objects.filter(pk__in=category)
+            for category in categories:
+               product.collections.add(category)
+        product.save()
+       
+        return redirect('catalog')
+        
+    else:
+        context={
+            'product':product,
+            'collections':Collection.objects.all(),
+            "description":product.description,
+            'id':id,
+           
+        }
+    return render(request,'owner/edit_product.html',context)
