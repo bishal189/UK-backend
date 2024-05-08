@@ -756,18 +756,18 @@
                         </ul>
                      </li>
                      <li class="navigation-horizontal__list-item">
-                        <a href="collections/handmade-birthday-cards.html" class="navigation-horizontal__list-link">Birthday</a>
+                        <a href="{% url 'collection' collection_slug='birthday' %}" class="navigation-horizontal__list-link">Birthday</a>
                      </li>
                      <li class="navigation-horizontal__list-item">
-                        <a href="collections/handmade-wedding-cards.html" class="navigation-horizontal__list-link">Wedding</a>
+                        <a href="{% url 'collection' collection_slug='wedding' %}" class="navigation-horizontal__list-link">Wedding</a>
                      </li>
                      <li class="navigation-horizontal__list-item">
-                        <a href="collections/handmade-anniversary-cards.html"
+                        <a href="{% url 'collection' collection_slug='anniversary' %}"
                            class="navigation-horizontal__list-link">Anniversary</a>
                      </li>
-                     <li class="navigation-horizontal__list-item">
+                    <!-- <li class="navigation-horizontal__list-item">
                         <a href="collections/best-sellers.html" class="navigation-horizontal__list-link">Best Sellers</a>
-                     </li>
+                     </li>-->
                   </ul>
                </nav>
             </header>

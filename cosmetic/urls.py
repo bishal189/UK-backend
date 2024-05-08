@@ -25,8 +25,9 @@ urlpatterns = [
     path('',include('home.urls')),
     path('',include('account.urls')),
     path('',include('products.urls')),#no url provided here to work with both product and collection
-    path('',include('cart.urls')),
     path('',include('adminapp.urls'))
+    path('review/',include('review.urls')),
+    path('',include('cart.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

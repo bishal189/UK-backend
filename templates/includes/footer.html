@@ -35,7 +35,7 @@
                         <h3 class="footer__title">SIGN UP AND GET 10% OFF YOUR FIRST ORDER</h3>
                         <div class="klaviyo-form-KhHKxu footer__newsletter-form"></div>
                         <p class="footer__gdpr-notice"><em>By signing up, you agree to receive our newsletters, promotions and
-                           other commercial messages in accordance with our <a href="pages/privacy-policy.html">privacy
+                           other commercial messages in accordance with our <a  href="{% url 'privacy_policy' %}"">privacy
                            policy</a>. You may unsubscribe at any time.</em>
                         </p>
                      </section>
@@ -44,7 +44,7 @@
                <div class="footer__misc">
                   <div class="inner">
                      <p class="footer__copyright">
-                        © <a href="index.html">Lotus Art Studio</a> - Handmade Greeting Cards For All Reasons and All Seasons
+                        © <a href="{% url 'index' %}">Lotus Art Studio</a> - Handmade Greeting Cards For All Reasons and All Seasons
                      </p>
                      <section class="footer__payment-methods">
                         <ul class="social-media social-media--inline">
@@ -103,3 +103,65 @@
          display: none;
          }
       </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var originalPrices = {}; // Object to store original prices
+    var selectedCurrency = document.querySelector('.currency-selector__select').value;
+    // Update prices with the selected currency
+    updatePrices(selectedCurrency);
+
+    // Store original prices when the page is first loaded
+    document.querySelectorAll('.product-item__price').forEach(function(priceElement) {
+        var priceText = priceElement.textContent; // Get the price text
+        var priceValue = parseFloat(priceText.replace(/[^\d.]/g, '')); // Extract numeric part from the price
+        originalPrices[priceElement.id] = priceValue; // Store the original price
+    });
+
+    document.querySelector('.currency-selector__select').addEventListener('change', function() {
+        var selectedCurrency = this.value;
+        updatePrices(selectedCurrency);
+    });
+
+    function updatePrices(currency) {
+        // Fetch conversion rates from the API based on GBP
+        fetch('https://api.exchangerate-api.com/v4/latest/GBP')
+            .then(response => response.json())
+            .then(data => {
+                var conversionRates = data.rates;
+                // Get all elements with the class 'product-item__price'
+                var prices = document.querySelectorAll('.product-item__price');
+                // Iterate over each price element
+                prices.forEach(function(priceElement) {
+                    var originalPrice = originalPrices[priceElement.id]; // Get the original price
+                    var convertedPrice = convertCurrency(originalPrice, currency, conversionRates); // Convert the original price to the selected currency
+                    var symbol = getCurrencySymbol(currency); // Get the currency symbol
+                    priceElement.textContent = symbol + convertedPrice.toFixed(2); // Update the price text with symbol
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching conversion rates:', error);
+            });
+    }
+
+    function convertCurrency(amount, currency, conversionRates) {
+        // Get the conversion rate for the selected currency
+        var rate = conversionRates[currency];
+        // Convert the amount to the selected currency
+        var convertedAmount = amount * rate;
+        return convertedAmount;
+    }
+
+    function getCurrencySymbol(currency) {
+        // Define currency symbols
+        var currencySymbols = {
+            'GBP': '£',
+            'EUR': '€',
+            'USD': '$',
+            'CAD': 'C$'
+        };
+
+        // Get the symbol for the selected currency
+        return currencySymbols[currency];
+    }
+});
+</script>

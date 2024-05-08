@@ -90,7 +90,7 @@ Handmade Greeting Cards - Bespoke and Personalised | Lotus Art Studio
                         </div>
                      </div>
                      <p class="p_read-more">
-                        <a class="article__read-more" href="collections.html">
+                        <a class="article__read-more" href="{% url 'collections' %}">
                            View more
                            <svg class="icon icon-arrow-right">
                               <use xlink:href="#icon-arrow-right">
@@ -101,14 +101,14 @@ Handmade Greeting Cards - Bespoke and Personalised | Lotus Art Studio
                   </div>
                </section>
             </div>
-            <div id="shopify-section-1543753245134" class="shopify-section shopify-section__social">
+<!--            <div id="shopify-section-1543753245134" class="shopify-section shopify-section__social">
                <section class="index-module section section--padded section--alternate index-module__social ">
                   <div class="inner">
                      <h2 class="section__title">Follow us on Instagram @lotusartstudio</h2>
                      <div id="insta-feed"></div>
                   </div>
                </section>
-            </div>
+            </div>-->
             <div id="shopify-section-1532954638829" class="shopify-section shopify-section__featured-points">
                <section class="index-module section section--padded  index-module__featured-text">
                   <div class="inner inner-featured-notice">
@@ -157,12 +157,11 @@ Handmade Greeting Cards - Bespoke and Personalised | Lotus Art Studio
                            decorative styles and options, we truly add a little bit of our soul into each card.
                         </p>
                         <p></p>
-                        <p>From <a href="collections/handmade-birthday-cards.html" title="Handmade Birthday Cards">birthdays</a>
-                           and <a href="collections/handmade-wedding-cards.html" title="Handmade Wedding Cards">weddings</a>  to
-                           <a href="collections/handmade-christmas-cards.html" title="Handmade Christmas Cards">Christmas</a> to
-                           <a href="collections/handmade-mothers-day-cards.html"
-                              title="Handmade Mother&#x27;s Day Cards">Mother&#x27;s Day</a> or to a simple <a
-                              href="collections/handmade-thank-you-cards.html" title="Handmade Thank You Cards">thank you
+                        <p>From <a href="{% url 'collection' collection_slug='birthday' %}" title="Handmade Birthday Cards">birthdays</a>
+                           and <a href="{% url 'collection' collection_slug='wedding' %}" title="Handmade Wedding Cards">weddings</a>  to
+                           <a href="{% url 'collection' collection_slug='christmas' %}" title="Handmade Christmas Cards">Christmas</a>
+                           or to a simple <a
+                              href="{% url 'collection' collection_slug='thank-you'}" title="Handmade Thank You Cards">thank you
                            card</a>, no matter what you want to say to someone, we make sure you say it with style. And all our
                            handmade cards are fully customisable with your own special message both on front and inside, making
                            them truly personals and special designs.
