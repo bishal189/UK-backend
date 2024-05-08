@@ -11,12 +11,17 @@ import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
-        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
-        reviews_count=Count('reviews')).order_by('-id')
+        filter_products=request.GET.get('filter','')
 
+        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
+        reviews_count=Count('reviews'))
+        products=None
+        if filter_products=='':
+            products=products_with_avg_rating.order_by('?')
+            print(products)
         context={
             # 'products':products,
-            'products':products_with_avg_rating
+            'products':products
             }
         return render(request,'products.html',context)
     if request.method=="POST":
@@ -34,8 +39,6 @@ def products(request):
                 details=request.POST.get('details'),
                 created_by=user
             )
-
-
 
             # Return a success response
             return JsonResponse({'message': 'Product added successfully'})
@@ -88,12 +91,14 @@ def collection(request,collection_slug=None):
         else:
             try:
                 collection=Collection.objects.get(collection_slug=collection_slug)
-                products=Product.objects.filter(collections=collection)
-                collections=Collection.objects.all().order_by('-id')
+                products_with_avg_rating=Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,reviews_count=Count('reviews'))
+
+
+
+                products=products_with_avg_rating.filter(collections=collection)
                 context={
                     'collection':collection,
                     'products':products,
-                    'collections':collections
                 }
                 return render(request,'products.html',context)
             except Exception as e:
