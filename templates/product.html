@@ -61,15 +61,12 @@
                <div class="inner">
                   <ul class="breadcrumb__list" itemscope itemtype="http://schema.org/BreadcrumbList">
                      <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <span class="breadcrumb__title" itemprop="name"><a href="../../../index.html">Home</a></span>
+                        <span class="breadcrumb__title" itemprop="name"><a href="{% url 'index' %}">Home</a></span>
                         <meta itemprop="position" content="1">
                      </li>
-                     <li class="breadcrumb__item" data-breadcrumb-separator="/" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <span class="breadcrumb__title" itemprop="name"><a href="../../handmade-birthday-cards.html" title="">Handmade Birthday Cards</a></span>
-                        <meta itemprop="position" content="2">
-                     </li>
+
                      <li class="breadcrumb__item breadcrumb__item--active" data-breadcrumb-separator="/" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <span class="breadcrumb__title" itemprop="name">A4 Boxed Handmade Birthday Card ‘Heart of Daisies’</span>
+                        <span class="breadcrumb__title" itemprop="name">{{product.product_name}}</span>
                         <meta itemprop="position" content="3">
                      </li>
                   </ul>
@@ -91,16 +88,16 @@
                               data-zoom-magnification="1.5">
                               <li class="product__slideshow-slide" data-type="image" data-index="0" data-image-id="29280734412960"  >
                                  <div class="aspect-ratio" style="padding-bottom: 100.0%">
-                                    {% if '/static/' in product.large_image.url %}
+                                    {% if '/static/' in product.image.url %}
                                     <img class="product__slideshow-image lazyload image--fade-in"
                                        data-sizes="auto"
-                                       data-src={{product.large_image}}
+                                       data-src={{product.image}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"
                                        alt={{product.name}}>
                                     {% else %}
                                     <img class="product__slideshow-image lazyload image--fade-in"
                                        data-sizes="auto"
-                                       data-src={{product.large_image.url}}
+                                       data-src={{product.image.url}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"
                                        alt={{product.name}}>
                                     {% endif %}

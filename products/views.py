@@ -27,7 +27,7 @@ def products(request):
             if filter_products == "recommended":
                 filtered_products = products_with_avg_rating.order_by("-view_count")
             elif filter_products == "best-selling":
-                filtered_products = products_with_avg_rating.order_by("?")
+                filtered_products = products_with_avg_rating.order_by("avg_rating","-reviews")
             elif filter_products == "price-ascending":
                 filtered_products = products_with_avg_rating.order_by("price")
             elif filter_products == "price-descending":
@@ -57,7 +57,6 @@ def products(request):
                 price=request.POST.get("price"),
                 description=request.POST.get("description"),
                 image=request.FILES.get("image"),
-                large_image=request.FILES.get("large_image"),
                 details=request.POST.get("details"),
                 created_by=user,
             )
@@ -84,7 +83,6 @@ def get_product(request, product_name):
             for review in reviews:
                 total_rating += review.rating
             if reviews.count() > 0:
-
                 average_rating = total_rating / reviews.count()
             else:
                 average_rating = 0
@@ -99,7 +97,6 @@ def get_product(request, product_name):
                 "similar_products": similar_products,
                 "average_rating": average_rating,
             }
-            print(context)
             return render(request, "product.html", context)
         except Exception as e:
             error = str(e)
@@ -128,9 +125,9 @@ def collection(request, collection_slug=None):
                     filtered_products = None
 
                     if filter_products == "recommended":
-                        filtered_products = products.order_by("-view_count")
+                        filtered_products = products.order_by("-avg_rating")
                     elif filter_products == "best-selling":
-                        filtered_products = products.order_by("?")
+                        filtered_products = products.order_by("-view_count")
                     elif filter_products == "price-ascending":
                         filtered_products = products.order_by("price")
                     elif filter_products == "price-descending":
@@ -143,7 +140,7 @@ def collection(request, collection_slug=None):
                     )
                     print(content_html)
                     return JsonResponse({"content": content_html})
-                products = products.order_by("-view_count")
+                products = products.order_by("-avg_rating","-view_count")
                 print(products)
                 context = {
                     "collection": collection,
@@ -180,8 +177,7 @@ def run_script(request):
                 product_name=data.get("name"),
                 price=data.get("price"),
                 description=data.get("description"),
-                image=data.get("image"),
-                large_image=data.get("large_image"),
+                image=data.get("large_image"),
                 details=serialized_details,
                 created_by=user,
             )

@@ -21,16 +21,13 @@ class Product(models.Model):
     product_name=models.CharField(max_length=500)
     slug=models.SlugField(max_length=200,unique=True)
     description=models.TextField(blank=True)
-    image=models.ImageField(upload_to='products/small')
-    large_image=models.ImageField(upload_to='products/large')
-    stock=models.IntegerField(default=10)
+    image=models.ImageField(upload_to='products/')
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
     details=models.TextField()
     collections=models.ManyToManyField(Collection)
-
     created_date=models.DateTimeField(auto_now_add=True)
-    view_count=models.IntegerField()
+    view_count=models.IntegerField(default=0)
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
 
