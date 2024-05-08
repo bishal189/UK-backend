@@ -24,7 +24,7 @@ class Cartitem(models.Model):
     is_active=models.BooleanField(default=True)
 
     def subtotal(self):
-        return self.product.price*self.quantity;
+        return self.product.price*self.quantity
 
     def __str__(self):
         return str(self.product)
@@ -60,11 +60,13 @@ class Order(models.Model):
     first_name=models.CharField(max_length=100)
     last_name=models.CharField(max_length=100)
     phone=models.CharField(max_length=20)
-    email=models.EmailField(max_length=50)
+    company=models.CharField(max_length=30,blank=True,null=True)
+    email=models.EmailField(max_length=50,blank=True,null=True)
     address_line_1=models.CharField(max_length=100)
     address_line_2=models.CharField(max_length=100,blank=True,null=True)
     country=models.CharField(max_length=50)
-    state=models.CharField(max_length=50)
+    postal_code=models.CharField(max_length=10,blank=True,null=True)
+    state=models.CharField(max_length=50,blank=True,null=True)
     city=models.CharField(max_length=20)
     total=models.FloatField()
     tax=models.FloatField()
@@ -105,6 +107,15 @@ class Order_Product(models.Model):
         return self.product.product_name
 
 
+
+
+class Personalization(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    message = models.CharField(max_length=100)
+    buyed=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.message  
 
 
 

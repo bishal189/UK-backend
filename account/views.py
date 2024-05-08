@@ -14,6 +14,7 @@ from django.core.mail import EmailMessage
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
+from cart.models import Order_Product,Order
 
 @csrf_exempt
 def Register(request):
@@ -75,7 +76,7 @@ def Login(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'You are now logged in.')
-            return redirect('home') 
+            return redirect('/') 
         else:
             messages.error(request, 'Invalid email or password.')
             return redirect('/login/')
@@ -207,5 +208,42 @@ def change_password(request):
 
 
 
+
+
+
+
+
+
+@login_required(login_url='Login')
+def order_detail(request, order_id):
+    order_detail = Order_Product.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+    order_total=subtotal+0.11*subtotal    
+
+    context = {
+        'order_detail': order_detail,
+        'order': order,
+        'subtotal': subtotal,
+        'order_total':order_total
+    }
+    return render(request, 'orders/order_details.html', context)
+
+
+
+@login_required(login_url='Login')
 def account(request):
-    return render(request,'account/account.html')
+    user=request.user
+    orders=0
+  
+    orders = Order.objects.filter(user=user,is_ordered=True).order_by('-created_at')
+    print(orders,'orders pagee')
+   
+    context = {
+        'orders': orders,
+        
+    }
+
+    return render(request, 'account/account.html', context)

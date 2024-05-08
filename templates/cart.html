@@ -13,7 +13,7 @@
                 <div class="page__description page__description--centered">
                   <p>It feels lonely...</p>
                   <div class="page__header-actions">
-                    <a href="index.html" class="button button--primary">Let's shop!</a>
+                    <a href="/products" class="button button--primary">Let's shop!</a>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@
                         </p>
                       </div>
                     </td>
-                    <td class="cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">{{cartitem.product.price}}</td>
+                    <td class="cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">{{cartitem.product.price}}each</td>
                     <td class="cart-item__quantity">
                       <span>{{cartitem.quantity}}</span>
                       <div class="quantity__actions">
@@ -121,7 +121,7 @@
                         </a>
                       </div>
                     </td>
-                    <td class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">${{grand_total}}</td>
+                    <td class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">${{cartitem.subtotal}}</td>
                     <td class="cart-item__remove">
                       <a href="{% url 'remove_cart_item' cartitem.product.id  cartitem.id %}" class="icon-cross-container">
                         <svg class="icon icon-close">
@@ -137,7 +137,13 @@
             <div class="inner inner-cart">
               <div class="cart__checkout">
                 <div class="button-wrapper">
-                  <a href='{% url "checkout" %}' name="checkout" class="button button--primary">Checkout</a>
+                  <a href='{% url "checkout" %}' name="checkout" class="button button--primary">
+                    GrandTotal:${{grand_total}}
+                    <br /><br />
+
+                    Checkout
+                  </a>
+                  
                 </div>
               </div>
             </div>

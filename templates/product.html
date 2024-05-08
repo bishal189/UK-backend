@@ -135,30 +135,70 @@
                                 ({{reviews.count}} Reviews)
                            </div>
                               <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
-                              <div class="product-meta__labels"></div>
-                           </div>
-                           <div class="product-meta product-meta--mobile">
-                              <h1 class="product-meta__title">{{product.name}}</h1>
-                              <div class="product__reviews-badge">
-                              </div>
-                              <div class="product-meta__prices">
-                                 <span class="product-meta__price" data-money-convertible>£{{product.price}}</span>
-                              </div>
-                              <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
-                              <div class="product-meta__labels"></div>
-                           </div>
-                           <div class="delivery_date">
-                              <p>Get it by <span id="toDate_48"></span> with FREE UK Delivery.<br>
-                                 Faster UK delivery options
-                                 are available.
-                                 <span class="more_info" id="scroll-delivery">More info</span>
-                              </p>
-                           </div>
-                           <div class="product_personalise_button">
-                              <div class="product__buy">
-                              </div>
-                              <div class="product__buy">
-                                 <a href="{% url 'add_cart' product.id %}" class="button button--secondary button--full button--no-disabled-opacity ">Add to cart</a>
+                             
+                                 
+<!--                                       <span class="variant-sku">Product code : 602BH</span>-->
+                                       <div class="product-meta__labels"></div>
+                                    </div>
+                                    <div class="product-meta product-meta--mobile">
+                                       <h1 class="product-meta__title">{{product.name}}</h1>
+                                       <div class="product__reviews-badge">
+                                       </div>
+                                       <div class="product-meta__prices">
+                                          <span class="product-meta__price" data-money-convertible>£{{product.price}}</span>
+                                       </div>
+<!--                                       <span class="variant-sku">Product code : 602BH</span>-->
+                                       <div class="product-meta__labels"></div>
+                                    </div>
+                                    <div class="delivery_date">
+                                       <p>Get it by <span id="toDate_48"></span> with FREE UK Delivery.<br>
+                                          Faster UK delivery options
+                                          are available.
+                                          <span class="more_info" id="scroll-delivery">More info</span>
+                                       </p>
+                                    </div>
+
+                                    
+                                    
+                                      
+                                    <div class="product_personalise_button">
+                                       <div class="front-msg">
+                                          <h3 class="personalisation_title">Personalise front page</h3>
+                                          
+                                          <p>If you wish to change a message on the front of the card, please type it in the box below (maximum 100 characters).</p>             
+                                          <p class="line-item-property__field">
+                                            <textarea maxlength="100" id="cart_message" rows="2" class="front-message" name="properties[Cover Message]" style="color:#8a434d; font-family:Jura;  font-size:24px; line-height: 26px;">JUST FOR YOU</textarea>
+                                          </p>
+                                        </div>
+                                      </div>
+                                       <div class="product__buy">
+                                           <a href="{% url 'add_cart' product.id %}?message=" id="add-to-cart-link" class="button button--secondary button--full button--no-disabled-opacity">Add to cart</a>
+                                       </div>
+                                   </div>
+                                   
+                                    <script>
+                                       document.addEventListener('DOMContentLoaded', function() {
+                                           var addToCartLink = document.getElementById('add-to-cart-link');
+                                           var cartMessage = document.getElementById('cart_message');
+                                   
+                                           addToCartLink.addEventListener('click', function(event) {
+                                               // Get the message content from the textarea
+                                               var message = cartMessage.value;
+                                   
+                                               // Encode the message for URL
+                                               var encodedMessage = encodeURIComponent(message);
+                                   
+                                               // Append the encoded message to the URL
+                                               addToCartLink.href += encodedMessage;
+                                           });
+                                       });
+                                   </script>
+                                   
+
+                                
+                                 </div>
+
+                             
                               </div>
                            </div>
                            <div id="product_details_container">
@@ -365,6 +405,7 @@
                               <p style="margin:0px;padding:0;">{{review.created_at}}</p>
                               <p style="margin:0px;font-weight:500;padding:0;">{{review.name}}</p>
                            </div>
+
                         </div>
                         <div>
                            <div class="rating-star">

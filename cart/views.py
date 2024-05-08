@@ -1,9 +1,17 @@
-from django.shortcuts import render,redirect,get_object_or_404
-from .models import Product,Cartitem,Cart
+from django.shortcuts import render,redirect,HttpResponse
+from store.models import Product
+from .models import Cart,Cartitem,Personalization
 from django.core.exceptions import ObjectDoesNotExist
-from decimal import Decimal
-from .forms import OrderForm,Order
 from django.contrib.auth.decorators import login_required
+from .forms import OrderForm
+from.models import Order
+import datetime
+import json
+from django.http import JsonResponse
+from django.core.mail import EmailMessage
+from .models import Payment,Order_Product
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 def _cart_id(request):
@@ -12,44 +20,53 @@ def _cart_id(request):
         cart=request.session.create()
     return cart 
 
+
+
 def add_cart(request, product_id):
+    message = request.GET.get('message', '')
+    if message:
+        product = Product.objects.get(id=product_id)
+        Personalization.objects.create(product=product, message=message)
+        
     current_user = request.user
     product = Product.objects.get(id=product_id)
+    cart_id = _cart_id(request)
 
     if current_user.is_authenticated:
-        is_cart_item_exist = Cartitem.objects.filter(product=product, user=current_user).exists()
-
-        if is_cart_item_exist:
+        try:
+            # Attempt to retrieve the cart item for this user and product
             cart_item = Cartitem.objects.get(product=product, user=current_user)
+            
+            # If the item already exists for this user, increase the quantity
             cart_item.quantity += 1
             cart_item.save()
-        else:
+            
+        except Cartitem.DoesNotExist:
+            # If it's a new item, create a new cart item for the user
             cart_item = Cartitem.objects.create(product=product, quantity=1, user=current_user)
-            cart_item.save()
 
         return redirect('cart')
     else:
-        cart_id = _cart_id(request)
-
         try:
-            cart = Cart.objects.get(cart_id=_cart_id(request))   
-            print(cart)
-        except Cart.DoesNotExist:
-            cart = Cart.objects.create(cart_id=_cart_id(request))   
-            print(cart,'expect')
-            cart.save()
-
-        is_cart_item_exist = Cartitem.objects.filter(product=product, cart=cart).exists()
-
-        if is_cart_item_exist:
-            cart_item = Cartitem.objects.get(product=product, cart=cart)
+            # Attempt to retrieve the cart item for this guest user and product
+            cart_item = Cartitem.objects.get(product=product, cart__cart_id=cart_id)
+            
+            # If the item already exists in the cart, increase the quantity
             cart_item.quantity += 1
             cart_item.save()
-        else:
-            cart_item = Cartitem.objects.create(product=product, quantity=1, cart=cart)
-            cart_item.save()
+            
+        except Cartitem.DoesNotExist:
+            try:
+                # If the cart doesn't exist, create a new one
+                cart = Cart.objects.get(cart_id=cart_id)
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(cart_id=cart_id)
 
-        return redirect('/cart/')
+            # If it's a new item, create a new cart item for the cart
+            cart_item = Cartitem.objects.create(product=product, quantity=1, cart=cart)
+
+        return redirect('cart')
+
 
 
 
@@ -72,6 +89,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
         print('cart items',cart_items)
 
         for cart_item in cart_items:
+            
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
 
@@ -86,7 +104,6 @@ def cart(request,total=0,quantity=0,cart_items=None):
     
 
     context={
-        'total':total,
         'quantity':quantity,
         'cart_items':cart_items,
         'tax':tax,
@@ -150,7 +167,7 @@ def remove_item(request,product_id,cart_item_id):
 
 
 # //for check out
-# @login_required(login_url='Login')
+@login_required(login_url='Login')
 def checkout(request,total=0,quantity=0,cart_items=None):
     print('check out page is trigerred')
     tax=0
@@ -182,6 +199,8 @@ def checkout(request,total=0,quantity=0,cart_items=None):
     
     if request.method == "POST":
         form=OrderForm(request.POST)
+        print(request.POST,'data printed')
+        print(form.is_valid())
         if form.is_valid():
             data=Order()
             data.user=request.user
@@ -193,8 +212,10 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             data.address_line_2=form.cleaned_data['address_line_2']
             data.country=form.cleaned_data['country']
             data.city=form.cleaned_data['city']
+            data.company=form.cleaned_data['company']
             data.state=form.cleaned_data['state']
-            data.order_note=form.cleaned_data['order_note']
+            data.country=form.cleaned_data['country']
+            data.postal_code=form.cleaned_data['postal_code']
             data.total=grand_total
             data.tax=tax
             data.ip=request.META.get('REMOTE_ADDR')
@@ -253,3 +274,151 @@ def checkout(request,total=0,quantity=0,cart_items=None):
     return render(request,'store/checkout.html',context)
 
 
+
+
+def payement(request):
+    
+    body=json.loads(request.body) 
+    order=Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+ 
+
+    # store all the information in the payemnt model
+    payment=Payment.objects.create(
+        user=request.user,
+        payment_id=body['transID'],
+        payment_method=body['payment_method'],
+        amount_paid=order.total,
+        status=body['status'],
+
+
+
+    )
+    
+    payment.save()
+    order.payment=payment
+    order.is_ordered=True
+    order.save()
+
+
+
+# move the cart items to order product
+
+    cart_items=Cartitem.objects.filter(user=request.user)
+  
+
+    
+    for item in cart_items:
+        print(item)
+        orderproduct=Order_Product()
+        orderproduct.order_id=order.id
+        orderproduct.payment=payment
+        orderproduct.user_id=request.user.id
+        orderproduct.product_id=item.product.id
+        orderproduct.quantity=item.quantity
+        orderproduct.product_price=item.product.price
+        orderproduct.is_ordered=True
+        orderproduct.save()
+        
+
+
+        # for adding variation in that  particular item
+
+        cart_item=Cartitem.objects.get(id=item.id)
+       
+        orderproduct=Order_Product.objects.get(id=orderproduct.id)
+        orderproduct.save()
+
+
+# reduce the quantity of sold products
+       
+        product_item=Product.objects.get(id=item.product.id)
+        product_item.stock-=item.quantity
+        product_item.save()
+
+
+
+
+
+
+
+# clear the cart
+
+#  after payement sucessfull the cartitem in the cart should be clear
+    Cartitem.objects.filter(user=request.user).delete()
+
+
+
+
+
+
+# send order recived email to customer
+# now sending the email to the user after the transactions sucessful
+    mail_subject='Thank you for your order!'
+    message=render_to_string('orders/order_recieved_email.html', {
+        'user':request.user,
+        'order':order
+    })
+
+
+    to_email=request.user.email
+    send_email=EmailMessage(mail_subject,message,to=[to_email])
+    send_email.send()
+
+
+
+
+
+
+
+
+
+
+
+
+# send order number and transcation id back to senddata method via json response
+
+    data={
+        'order_number':order.order_number,
+        'transID':payment.payment_id
+
+    }
+
+    return JsonResponse(data)
+
+
+
+def order_complete(request):
+    order_number=request.GET.get('order_number')
+    transID=request.GET.get('payment_id')
+    
+   
+    try:
+        order=Order.objects.get(order_number=order_number,is_ordered=True)
+        ordered_products=Order_Product.objects.filter(order_id=order.id)
+        payement=Payment.objects.get(payment_id=transID)
+        
+
+        subtotal=0
+        for i in ordered_products:
+            subtotal+=i.product_price*i.quantity;
+
+        total=subtotal+0.11*subtotal  
+        
+        print('i am printing here ')  
+
+        context={
+            'order':order,
+            'ordered_products':ordered_products,
+            'order_number':order.order_number,
+            'transID':transID,
+            'payment':payement,
+            'subtotal':subtotal,
+            'order_total':total
+        }
+        print(context)
+        return render(request,'orders/order_complete.html',context)
+
+
+    except(Payment.DoesNotExist,Order.DoesNotExist):
+        return redirect('home')
+         
