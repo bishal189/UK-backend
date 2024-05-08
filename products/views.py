@@ -14,7 +14,7 @@ def products(request):
     if request.method=='GET':
         filter_products=request.GET.get('filter','')
 
-        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
+        products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/Count('reviews'),
         reviews_count=Count('reviews'))
 
         if filter_products!="":
@@ -35,7 +35,7 @@ def products(request):
             content_html = render_to_string('renderer/products.html',context, request=request)
             return JsonResponse({'content': content_html})
 
-        products=products_with_avg_rating.order_by('?')
+        products=products_with_avg_rating.order_by('-view_count')
         context={
             # 'products':products,
             'products':products
@@ -78,7 +78,12 @@ def get_product(request,product_name):
             total_rating=0
             for review in reviews:
                 total_rating+=review.rating
-            average_rating=total_rating/5
+            if (reviews.count()>0):
+
+                average_rating=total_rating/reviews.count()
+            else:
+                average_rating=0
+
             print(reviews)
             similar_products = Product.objects.filter(~Q(id=product.id)).order_by('?')[:4]
             context={
@@ -111,7 +116,7 @@ def collection(request,collection_slug=None):
             try:
                 filter_products=request.GET.get('filter','')
                 collection=Collection.objects.get(collection_slug=collection_slug)
-                products=Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,reviews_count=Count('reviews')).filter(collections=collection)
+                products=Product.objects.annotate(avg_rating=Sum('reviews__rating')/Count('reviews'),reviews_count=Count('reviews')).filter(collections=collection)
 
                 if filter_products!="":
                     filtered_products=None
@@ -132,7 +137,7 @@ def collection(request,collection_slug=None):
                     content_html = render_to_string('renderer/products.html',context1, request=request)
                     print(content_html)
                     return JsonResponse({'content': content_html})
-
+                products=products.order_by('-view_count')
                 print(products)
                 context={
                     'collection':collection,
