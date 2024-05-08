@@ -566,20 +566,38 @@
 
 
                  {% if user.is_authenticated %}
+                 {% if user.is_superadmin %}
                      <div class="header__item header__item-account">
-                         <a href="/account" class="header__link">
-                             <svg class="icon icon-profile">
-                                 <use xlink:href="#icon-profile"></use>
-                             </svg>
-                         </a>
-                     </div>
-                     <div class="header__item header__item-toggle">
-                         <a href="#" class="header__link" data-action="open-navigation-sidebar">
-                             <svg class="icon icon-hamburger">
-                                 <use xlink:href="#icon-hamburger"></use>
-                             </svg>
-                         </a>
-                     </div>
+                        <a href="/dashboard" class="header__link">
+                           <svg class="icon icon-profile">
+                              <use xlink:href="#icon-profile"></use>
+                           </svg>
+                        </a>
+                  </div>
+                  <div class="header__item header__item-toggle">
+                        <a href="#" class="header__link" data-action="open-navigation-sidebar">
+                           <svg class="icon icon-hamburger">
+                              <use xlink:href="#icon-hamburger"></use>
+                           </svg>
+                        </a>
+                  </div>
+                        
+                     {% else %}
+                     <div class="header__item header__item-account">
+                        <a href="/account" class="header__link">
+                            <svg class="icon icon-profile">
+                                <use xlink:href="#icon-profile"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="header__item header__item-toggle">
+                        <a href="#" class="header__link" data-action="open-navigation-sidebar">
+                            <svg class="icon icon-hamburger">
+                                <use xlink:href="#icon-hamburger"></use>
+                            </svg>
+                        </a>
+                    </div>
+                     {% endif %}
                      {% endif %}
                  
                  
