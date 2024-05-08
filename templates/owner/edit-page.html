@@ -1,0 +1,65 @@
+{% extends 'owner/base.html' %}
+{% load static %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Edit Page</h2>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- form -->
+				<div class="col-12">
+					<form action="{% url 'edit_page' page.id %}" method='POST' enctype="multipart/form-data" class="form">
+						
+						 {% csrf_token %}
+						<div class="row">
+						
+
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<div class="form__group">
+											<input type="text" value="{{page.title}}" required class="form__input" name='title' placeholder="Title">
+										</div>
+									</div>
+
+ 
+	
+									<div class="col-12 col-lg-6">
+										<div class="form__group">
+											<select class="custom-select" style="text-align:center;padding:3px;background-color:#151f30;color:white;height:40px;border-color:#151f30;border-radius:20%;width:150px;" name='status'  >
+												
+												<option  value="Active"{% if page.status == "Active" %} selected{% endif %}>Active</option>
+												<option value="Inactive"{% if page.status == "Inactive" %}selected {% endif %}>Inactive</option>
+
+											</select>
+										</div>
+									</div>
+									<div class="col-12">
+										<label style="color:white;" for="body">Body of Page</label>
+										<br>
+										<textarea  name="body" type="text" style="width: 100%;background-color: transparent;color:white; height: 1000px; padding: 10px; font-size: 16px;">					
+										{{page.body}}</textarea>
+										</div>
+
+
+									<div class="col-12">
+										<button type="submit" class="form__btn">publish</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- end form -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}

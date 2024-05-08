@@ -72,11 +72,18 @@ def Login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
+        print('user is to be printed ','user',user)
         
         if user is not None:
-            login(request, user)
-            messages.success(request, 'You are now logged in.')
-            return redirect('/') 
+            if Account.objects.filter(email=email, is_superadmin=True).exists():
+                print('i am super user')
+                auth.login(request, user)
+                return redirect('/')
+            else:
+                print('i am not super user');
+                login(request, user)
+                messages.success(request, 'You are now logged in.')
+                return redirect('/') 
         else:
             messages.error(request, 'Invalid email or password.')
             return redirect('/login/')

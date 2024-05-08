@@ -24,8 +24,10 @@ class Product(models.Model):
     image=models.ImageField(upload_to='products/')
     price=models.DecimalField(max_digits=10,decimal_places=2)
     is_available=models.BooleanField(default=True)
-    details=models.TextField()
-    collections=models.ManyToManyField(Collection)
+
+    details=models.TextField(blank=True,null=True)
+    collections=models.ManyToManyField(Collection,related_name="product_collections")
+
     created_date=models.DateTimeField(auto_now_add=True)
     view_count=models.IntegerField(default=0)
     modified_at=models.DateTimeField(auto_now=True)
