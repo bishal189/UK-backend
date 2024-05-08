@@ -104,8 +104,7 @@ def edit_product(request,id):
         image = request.FILES.get('image')
         category=request.POST.getlist('category')  
         
-        if large_image:
-            
+        if large_image: 
             product.large_image = large_image        
         if image:
             product.image=image

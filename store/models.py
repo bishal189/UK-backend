@@ -26,7 +26,7 @@ class Product(models.Model):
     is_available=models.BooleanField(default=True)
 
     details=models.TextField(blank=True,null=True)
-    collections=models.ManyToManyField(Collection)
+    collections=models.ManyToManyField(Collection,related_name="product_collections")
     created_date=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)

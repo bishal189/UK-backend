@@ -70,17 +70,20 @@
  
 									<div class="col-12 col-sm-6 col-lg-3">
 										<div class="form__group">
-
 											<input type="text" required class="form__input" value={{product.price}} placeholder="price" name='price'>
 										</div>
 									</div>
-									
+                                    
+
                                     <div class="col-12">
                                         <div class="form__group">
                                             <select class="js-example-basic-multiple" name="category" id="genre_en" multiple="multiple" placeholder="Choose category">
                                                 {% for collection in collections %}
-                                                    <option value="{{ collection.id }}">{{ collection.collection }}</option>
-                                                {% endfor %}
+                                                {% if collection in product.collections.all %}
+                                                <option selected value="{{ collection.id }}">{{ collection.collection }}</option>
+                                            {% else %}
+                                                <option value="{{ collection.id }}">{{ collection.collection }}</option>
+                                            {% endif %}                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>
