@@ -35,21 +35,23 @@ class Product(models.Model):
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
 
     def save(self, *args, **kwargs):
+        if not self.pk:
         # Generate slug from name
-        self.slug = slugify(self.product_name)
+            self.slug = slugify(self.product_name)
 
         # Check if the slug already exists
-        if Product.objects.filter(slug=self.slug).exists():
+            if Product.objects.filter(slug=self.slug).exists():
             # If slug already exists, add a counter to make it unique
-            counter = 1
-            while True:
-                new_slug = f"{self.slug}-{counter}"
-                if not Product.objects.filter(slug=new_slug).exists():
-                    self.slug = new_slug
-                    break
-                counter += 1
+                counter = 1
+                while True:
+                    new_slug = f"{self.slug}-{counter}"
+                    if not Product.objects.filter(slug=new_slug).exists():
+                        self.slug = new_slug
+                        break
+                    counter += 1
 
         super().save(*args, **kwargs)
+
 
     def get_url(self):
         return reverse('product_details',args=[ self.slug])
