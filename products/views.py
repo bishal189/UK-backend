@@ -6,19 +6,30 @@ from account.models import Account
 from review.models import Review
 from django.db.models import Q
 from django.db.models import Avg,Sum,Count
+from django.template.loader import render_to_string
 # Create your views here.
 import json
 @csrf_exempt
 def products(request):
     if request.method=='GET':
         filter_products=request.GET.get('filter','')
+        print(filter_products)
+
 
         products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
         reviews_count=Count('reviews'))
-        products=None
-        if filter_products=='':
-            products=products_with_avg_rating.order_by('?')
-            print(products)
+        if filter_products=="recommended":
+
+            filtered_products=products_with_avg_rating.order_by('?')
+            context={
+                'products':filtered_products
+                }
+            content_html = render_to_string('renderer/products.html',context, request=request)
+            print(content_html)
+            return JsonResponse({'content': content_html})
+
+
+        products=products_with_avg_rating.order_by('?')
         context={
             # 'products':products,
             'products':products
