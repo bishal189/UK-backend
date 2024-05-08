@@ -30,6 +30,7 @@ class Product(models.Model):
     collections=models.ManyToManyField(Collection)
 
     created_date=models.DateTimeField(auto_now_add=True)
+    view_count=models.IntegerField()
     modified_at=models.DateTimeField(auto_now=True)
     created_by=models.ForeignKey(Account,on_delete=models.CASCADE,blank=True,null=True)
 

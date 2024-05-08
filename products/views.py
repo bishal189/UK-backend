@@ -13,16 +13,24 @@ import json
 def products(request):
     if request.method=='GET':
         filter_products=request.GET.get('filter','')
-        print(filter_products)
-
 
         products_with_avg_rating = Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,
         reviews_count=Count('reviews'))
-        if filter_products=="recommended":
 
-            filtered_products=products_with_avg_rating.order_by('?')
+        if filter_products!="":
+            filtered_products=None
+            if filter_products=="recommended":
+                filtered_products=products_with_avg_rating.order_by('view_count')
+            elif filter_products=="best-selling":
+                filtered_products=products_with_avg_rating.order_by('?')
+            elif filter_products=="price-ascending":
+                filtered_products=products_with_avg_rating.order_by('price')
+            elif filter_products=="price-descending":
+                filtered_products=products_with_avg_rating.order_by('-price')
+            elif filter_products=="created-descending":
+                filtered_products=products_with_avg_rating.order_by('-id')
             context={
-                'products':filtered_products
+                    'products':filtered_products
                 }
             content_html = render_to_string('renderer/products.html',context, request=request)
             print(content_html)
@@ -30,6 +38,8 @@ def products(request):
 
 
         products=products_with_avg_rating.order_by('?')
+
+
         context={
             # 'products':products,
             'products':products
@@ -66,6 +76,8 @@ def get_product(request,product_name):
     if request.method=="GET":
         try:
             product=Product.objects.get(slug=product_name)
+            product.view_count=product.view_count+1
+            product.save()
             reviews=Review.objects.filter(product=product).order_by('-id')
             total_rating=0
             for review in reviews:
@@ -101,16 +113,37 @@ def collection(request,collection_slug=None):
             return render(request,'collections.html',context)
         else:
             try:
+                filter_products=request.GET.get('filter','')
                 collection=Collection.objects.get(collection_slug=collection_slug)
-                products_with_avg_rating=Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,reviews_count=Count('reviews'))
+                products=Product.objects.annotate(avg_rating=Sum('reviews__rating')/5,reviews_count=Count('reviews')).filter(collections=collection)
 
+                if filter_products!="":
+                    filtered_products=None
 
+                    if filter_products=="recommended":
+                        filtered_products=products.order_by('view_count')
+                    elif filter_products=="best-selling":
+                        filtered_products=products.order_by('?')
+                    elif filter_products=="price-ascending":
+                        filtered_products=products.order_by('price')
+                    elif filter_products=="price-descending":
+                        filtered_products=products.order_by('-price')
+                    elif filter_products=="created-descending":
+                        filtered_products=products.order_by('-id')
+                    context1={
+                        'products':filtered_products
+                    }
+                    content_html = render_to_string('renderer/products.html',context1, request=request)
+                    print(content_html)
+                    return JsonResponse({'content': content_html})
 
-                products=products_with_avg_rating.filter(collections=collection)
+                print(products)
                 context={
                     'collection':collection,
                     'products':products,
                 }
+                print(context)
+
                 return render(request,'products.html',context)
             except Exception as e:
                 context={
