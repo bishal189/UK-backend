@@ -400,7 +400,7 @@
                </ul>
                <ul class="navigation-sidebar__list" tabindex="-1" data-nav-for="level-1-0" data-nav-name="Cards"
                   data-parent-nav="level-0">
-                  <li class="navigation-sidebar__item navigation-sidebar__item--expandable">
+                 <!-- <li class="navigation-sidebar__item navigation-sidebar__item--expandable">
                      <a href="#" class="navigation-sidebar__link" data-open-nav="level-2-0-0" aria-haspopup="true">
                         <span class="navigation-sidebar__link-title">Shop by occasion</span>
                         <svg class="icon icon-arrow-right">
@@ -408,108 +408,9 @@
                            </use>
                         </svg>
                      </a>
-                  </li>
-                  <li class="navigation-sidebar__item navigation-sidebar__item--expandable">
-                     <a href="#" class="navigation-sidebar__link" data-open-nav="level-2-0-1" aria-haspopup="true">
-                        <span class="navigation-sidebar__link-title">Seasonal</span>
-                        <svg class="icon icon-arrow-right">
-                           <use xlink:href="#icon-arrow-right">
-                           </use>
-                        </svg>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="navigation-sidebar__list" tabindex="-1" data-nav-for="level-2-0-0" data-nav-name="Shop by occasion"
-                  data-parent-nav="level-1-0">
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-birthday-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Birthday</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-wedding-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Wedding</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-anniversary-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Anniversary</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-engagement-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Engagement</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-new-baby-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">New Baby</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/christening-communion-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Christening &amp; Communion</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-graduation-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Graduation</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-new-home-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">New Home</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-retirement-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Retirement</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-thank-you-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title"> Thank You</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-sympathy-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Sympathy</span>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="navigation-sidebar__list" tabindex="-1" data-nav-for="level-2-0-1" data-nav-name="Seasonal"
-                  data-parent-nav="level-1-0">
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-christmas-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Christmas</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-valentines-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Valentine&#39;s Day</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-mothers-day-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Mother&#39;s Day</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/st-patricks-day-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">St. Patrick&#39;s Day</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-easter-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Easter</span>
-                     </a>
-                  </li>
-                  <li class="navigation-sidebar__item">
-                     <a href="collections/handmade-fathers-day-cards.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Father&#39;s Day</span>
-                     </a>
-                  </li>
-               </ul>
+                  </li>-->
+
+
             </div>
          </nav>
       </div>
@@ -667,77 +568,21 @@
                         </a>
                         <ul class="navigation-horizontal__dropdown navigation-horizontal__dropdown--mega ">
                            <li class="navigation-horizontal__dropdown-column dropdown-column">
-                              <h2 class="dropdown-column__title"><a href="#">Shop by occasion</a></h2>
+                              <h2 class="dropdown-column__title"><a href="#">All Collections</a></h2>
                               <ul class="dropdown-column__list">
+                              {% for collection in collections_list_header %}
                                  <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-birthday-cards.html" class="dropdown-column__list-link">Birthday</a>
+                                    <a href="{% url 'collection' collection_slug=collection.collection_slug %}" class="dropdown-column__list-link">{{collection.collection}}</a>
                                  </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-wedding-cards.html" class="dropdown-column__list-link">Wedding</a>
+                                 {% endfor %}
+                                    <li class="dropdown-column__list-item">
+                                    <a href="{% url 'collections' %}" class="dropdown-column__list-link">All Collections</a>
                                  </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-anniversary-cards.html"
-                                       class="dropdown-column__list-link">Anniversary</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-engagement-cards.html"
-                                       class="dropdown-column__list-link">Engagement</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-new-baby-cards.html" class="dropdown-column__list-link">New Baby</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/christening-communion-cards.html"
-                                       class="dropdown-column__list-link">Christening &amp; Communion</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-graduation-cards.html"
-                                       class="dropdown-column__list-link">Graduation</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-new-home-cards.html" class="dropdown-column__list-link">New Home</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-retirement-cards.html"
-                                       class="dropdown-column__list-link">Retirement</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-thank-you-cards.html" class="dropdown-column__list-link"> Thank
-                                    You</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-sympathy-cards.html" class="dropdown-column__list-link">Sympathy</a>
-                                 </li>
+
+
                               </ul>
                            </li>
-                           <li class="navigation-horizontal__dropdown-column dropdown-column">
-                              <h2 class="dropdown-column__title"><a href="#">Seasonal</a></h2>
-                              <ul class="dropdown-column__list">
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-christmas-cards.html"
-                                       class="dropdown-column__list-link">Christmas</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-valentines-cards.html"
-                                       class="dropdown-column__list-link">Valentine&#39;s Day</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-mothers-day-cards.html"
-                                       class="dropdown-column__list-link">Mother&#39;s Day</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/st-patricks-day-cards.html" class="dropdown-column__list-link">St.
-                                    Patrick&#39;s Day</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-easter-cards.html" class="dropdown-column__list-link">Easter</a>
-                                 </li>
-                                 <li class="dropdown-column__list-item">
-                                    <a href="collections/handmade-fathers-day-cards.html"
-                                       class="dropdown-column__list-link">Father&#39;s Day</a>
-                                 </li>
-                              </ul>
-                           </li>
+
                         </ul>
                      </li>
                      <li class="navigation-horizontal__list-item">

@@ -69,6 +69,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.counter',
+                'home.context_processors.collections_list_header',
+
             ],
         },
     },
@@ -142,8 +144,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
    
 }
-
-
 
 
 # for email verfication and sending 
