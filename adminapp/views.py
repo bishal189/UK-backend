@@ -7,6 +7,7 @@ from account.models import Account
 from cart.models import Payment
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Sum,Count
+import json
 # Create your views here.
 
 
@@ -35,12 +36,14 @@ def add_item(request):
         product_name=request.POST['product_name']
         descriptions=request.POST['descriptions']
         price=request.POST['price']
-        category=request.POST.getlist('category')  #
+        details=request.POST['details']
+        category=request.POST.getlist('category')
+        details_array = details.split('\n')
         
         product=Product(
             product_name=product_name,
             description=descriptions,
-            details=descriptions,
+            details=json.dumps(details_array),
             price=price,
             image=large_image,
            
@@ -160,7 +163,7 @@ def user_list(request):
 
     payment = Payment.objects.all().order_by('-id')
     count = userlist.count()
-    paginator = Paginator(userlist, 20)
+    paginator = Paginator(userlist, 10)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
@@ -232,8 +235,24 @@ def add_collection(request):
 
 def show_collection(request):
     collection=Collection.objects.all()
+    context={}
+    if request.method == 'POST':
+        keyword = request.POST.get('keyword', '')
+        if keyword:
+            collection = collection.filter(
+                Q(description__icontains=keyword) | Q(collection__icontains=keyword)
+            )
+    else:  
+        pass      
+        
+    count=collection.count()
+    paginator = Paginator(collection, 10)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
     context={
-        'collection':collection
+        'collection':paged_products,
+        'count':count,
+        'all_products':paged_products
     }
     
     return render(request,'owner/show_collection.html',context)

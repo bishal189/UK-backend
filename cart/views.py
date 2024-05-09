@@ -362,6 +362,7 @@ def payement(request):
 
     to_email=request.user.email
     send_email=EmailMessage(mail_subject,message,to=[to_email])
+    send_email.content_subtype = 'html'
     send_email.send()
 
 
