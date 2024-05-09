@@ -330,7 +330,7 @@
                </div>
             </section>
          </div>
-         <nav class="navigation-sidebar" role="navigation">
+         <nav  class="navigation-sidebar" role="navigation">
             <header class="navigation-sidebar__header">
                <div class="navigation-sidebar__top">
                   <a href="#" class="navigation-sidebar__close" data-action="close-navigation-sidebar">
@@ -375,27 +375,27 @@
                      </a>
                   </li>
                   <li class="navigation-sidebar__item ">
-                     <a href="collection.html" class="navigation-sidebar__link">
+                     <a href="{% url 'collection' collection_slug='birthday' %}" class="navigation-sidebar__link">
                      <span class="navigation-sidebar__link-title">Birthday</span>
                      </a>
                   </li>
                   <li class="navigation-sidebar__item ">
-                     <a href="collection.html" class="navigation-sidebar__link">
+                     <a href="{% url 'collection' collection_slug='wedding' %}" class="navigation-sidebar__link">
                      <span class="navigation-sidebar__link-title">Wedding</span>
                      </a>
                   </li>
                   <li class="navigation-sidebar__item ">
-                     <a href="collection.html" class="navigation-sidebar__link">
+                     <a href="{% url 'collection' collection_slug='anniversary' %}" class="navigation-sidebar__link">
                      <span class="navigation-sidebar__link-title">Anniversary</span>
                      </a>
                   </li>
                   <li class="navigation-sidebar__item ">
-                     <a href="collection.html" class="navigation-sidebar__link">
-                     <span class="navigation-sidebar__link-title">Best Sellers</span>
+                     <a href="{% url 'products' %}" class="navigation-sidebar__link">
+                     <span class="navigation-sidebar__link-title">All Products</span>
                      </a>
                   </li>
                   <li class="navigation-sidebar__item">
-                     <a href="account/login.html" class="navigation-sidebar__link">Login</a>
+                     <a href="{% url 'Login' %}" class="navigation-sidebar__link">Login</a>
                   </li>
                </ul>
                <ul class="navigation-sidebar__list" tabindex="-1" data-nav-for="level-1-0" data-nav-name="Cards"
@@ -549,7 +549,7 @@
                         
                      </ul>
                   </div>
-                  <div class="header__item header__item-currency">
+                <!--  <div class="header__item header__item-currency">
                      <div class="styled-select currency-selector">
                         <svg class="icon icon-dropdown-arrow">
                            <use xlink:href="#icon-dropdown-arrow">
@@ -562,7 +562,7 @@
                            <option value="CAD">CAD</option>
                         </select>
                      </div>
-                  </div>
+                  </div>-->
 
 
                  {% if user.is_authenticated %}
@@ -574,13 +574,7 @@
                            </svg>
                         </a>
                   </div>
-                  <div class="header__item header__item-toggle">
-                        <a href="#" class="header__link" data-action="open-navigation-sidebar">
-                           <svg class="icon icon-hamburger">
-                              <use xlink:href="#icon-hamburger"></use>
-                           </svg>
-                        </a>
-                  </div>
+
                         
                      {% else %}
                      <div class="header__item header__item-account">
@@ -590,13 +584,7 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="header__item header__item-toggle">
-                        <a href="#" class="header__link" data-action="open-navigation-sidebar">
-                            <svg class="icon icon-hamburger">
-                                <use xlink:href="#icon-hamburger"></use>
-                            </svg>
-                        </a>
-                    </div>
+
                      {% endif %}
                      {% endif %}
                  
@@ -656,9 +644,6 @@
                      </a>
                   </div>
 
-
-
-                  
                   <div class="header__item header__item-toggle">
                      <a href="#" class="header__link" data-action="open-navigation-sidebar">
                         <svg class="icon icon-hamburger">
