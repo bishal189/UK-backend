@@ -3,7 +3,9 @@ from store.models import Collection,Product
 from django. contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from account.models import Account
+from cart.models import Payment
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -14,7 +16,7 @@ def dashboard(request):
     return render(request,'owner/index.html')
 
 
-
+@csrf_exempt
 def add_item(request):
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
         large_image=request.FILES['form__img-upload']
@@ -53,7 +55,7 @@ def add_item(request):
 
     return render(request,'owner/add-item.html',context)
 
-
+@csrf_exempt
 def catalog(request):
     context = {}
     keyword=''
@@ -89,7 +91,7 @@ def remove_product(request,id):
 
 
 
-
+@csrf_exempt
 def edit_product(request,id):
     product=Product.objects.get(id=id)
     if request.method=="POST":
@@ -131,3 +133,65 @@ def edit_product(request,id):
            
         }
     return render(request,'owner/edit_product.html',context)
+
+
+
+def user_list(request):
+    if request.method=="POST":
+       toSearch=request.POST['user_name']
+       userlist = Account.objects.filter(Q(first_name__icontains=toSearch) | Q(email__icontains=toSearch) | Q(last_name__icontains=toSearch)).order_by('-id')
+    else:
+         
+      userlist=Account.objects.all().order_by('-id')
+
+    payment=Payment.objects.all().order_by('-id')
+    count=userlist.count()
+    paginator=Paginator(userlist,20)
+    page=request.GET.get('page')
+    paged_products=paginator.get_page(page)  
+    user_totals = {}
+    
+    # Calculate the total amount paid by each user
+    for payment_record in payment:
+        user = payment_record.user
+        amount_paid = payment_record.amount_paid
+        if user in user_totals:
+            user_totals[user]['total_paid'] += amount_paid
+        else:
+            user_totals[user] = {'user': user, 'total_paid': amount_paid}
+
+    user_totals_list = user_totals.values()
+    context={
+        'users': paged_products,
+        'count':count,
+        'user_totals_list': user_totals_list,
+        'all_products':paged_products
+    }
+
+    return render(request, 'owner/users.html', context)
+
+def suspended_user(request,id):
+
+  user=Account.objects.get(id=id)
+  if user is not None:
+    user.is_active=False
+    user.save()
+    return redirect('user_list')
+
+
+
+def delete_user(request,id):
+  user=Account.objects.get(id=id)
+  user.delete()
+  return redirect('user_list')
+
+
+
+def active_user(request,id):
+
+  user=Account.objects.get(id=id)
+  if user is not None:
+    user.is_active=True
+    user.save()
+    return redirect('user_list')
+    

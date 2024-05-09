@@ -7,7 +7,11 @@ urlpatterns = [
     path('add_item/',views.add_item,name='add_item'),
     path('catalog/',views.catalog,name='catalog'),
     path('delete_product/<int:id>/',views.remove_product,name='remove_product'),
-    path('edit_product/<int:id>/',views.edit_product,name='edit_product')
+    path('edit_product/<int:id>/',views.edit_product,name='edit_product'),
+    path('users/',views.user_list,name='user_list'),
+    path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
+    path('delete_user/<int:id>/',views.delete_user,name='delete_user'),
+    path('active_user/<int:id>/',views.active_user,name='active_user'),
     
     # path('catalog/',views.catalog,name='catalog'),
     # path('users/',views.user_list,name='user_list'),
@@ -23,9 +27,9 @@ urlpatterns = [
     
 
     # path('add_packages/',views.add_album,name='add_album'),
-    # path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
-    # path('active_user/<int:id>/',views.active_user,name='active_user'),
-    # path('delete_user/<int:id>/',views.delete_user,name='delete_user'),
+    #
+    # 
+    # 
     # path('delete_user/<int:id>/',views.user_delete_user,name='user_delete_user'),
 
     # path('edit_movie/<int:id>',views.edit_movie,name='edit_movie'),
