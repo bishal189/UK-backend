@@ -6,7 +6,8 @@ from django.core.paginator import Paginator
 from account.models import Account
 from cart.models import Payment
 from django.views.decorators.csrf import csrf_exempt
-
+from django.db.models import Sum,Count
+import json
 # Create your views here.
 
 
@@ -14,9 +15,16 @@ from django.views.decorators.csrf import csrf_exempt
 def dashboard(request):
     latest_users = Account.objects.order_by('-id')[:5]
     latest_product = Product.objects.order_by('-id')[:5]
+    top_five_products = Product.objects.order_by('-view_count')[:5]
+    get_data=Product.objects.all().count()
+    total_price =Payment.objects.aggregate(total_price=Sum('amount_paid'))
+    sum_of_prices = total_price['total_price']
     context={
         'latest_users':latest_users,
-        'latest_product':latest_product
+        'latest_product':latest_product,
+        'top_products':top_five_products,
+        'get_data':get_data,
+        'total':sum_of_prices
     }
     return render(request,'owner/index.html',context)
 
@@ -28,12 +36,14 @@ def add_item(request):
         product_name=request.POST['product_name']
         descriptions=request.POST['descriptions']
         price=request.POST['price']
-        category=request.POST.getlist('category')  #
+        details=request.POST['details']
+        category=request.POST.getlist('category')
+        details_array = details.split('\n')
         
         product=Product(
             product_name=product_name,
             description=descriptions,
-            details=descriptions,
+            details=json.dumps(details_array),
             price=price,
             image=large_image,
            
@@ -153,30 +163,21 @@ def user_list(request):
 
     payment = Payment.objects.all().order_by('-id')
     count = userlist.count()
-    paginator = Paginator(userlist, 20)
+    paginator = Paginator(userlist, 10)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
     # Initialize user_totals dictionary to store total paid amount for each user
     user_totals = {}
 
+     # Calculate the total amount paid by each user
     for payment_record in payment:
         user = payment_record.user
-        amount_paid_str = payment_record.amount_paid
-        # Extract numerical values using regular expressions
-        amount_paid_match = re.findall(r'\d+\.\d+', amount_paid_str)
-        if amount_paid_match:
-            amount_paid = float(amount_paid_match[0])  # Convert to float
-            if user in user_totals:
-                user_totals[user]['total_paid'] += amount_paid
-            else:
-                user_totals[user] = {'user': user, 'total_paid': amount_paid}
+        amount_paid = payment_record.amount_paid
+        if user in user_totals:
+            user_totals[user]['total_paid'] += amount_paid
         else:
-            if user in user_totals:
-                user_totals[user]['total_paid'] += 0  # Add 0 if no payment amount found for a record
-            else:
-                user_totals[user] = {'user': user, 'total_paid': 0}  # Initialize total_paid if not exist
-
+            user_totals[user] = {'user': user, 'total_paid': amount_paid}
     # Update user_totals_list with calculated totals
     user_totals_list = user_totals.values()
     print(user_totals_list)
@@ -217,3 +218,75 @@ def active_user(request,id):
     user.save()
     return redirect('user_list')
     
+    
+    
+def add_collection(request):
+    if request.method=='POST':
+        category=request.POST['category_name']
+        descriptions=request.POST['descriptions']
+        large_image=request.FILES['image']
+        collection=Collection.objects.create(collection=category,description=descriptions,image=large_image)
+        messages.success(request,'Collection has been added!')
+        return redirect('/add_collection/')
+        
+        
+    return render(request,'owner/add_collection.html')    
+
+
+def show_collection(request):
+    collection=Collection.objects.all()
+    context={}
+    if request.method == 'POST':
+        keyword = request.POST.get('keyword', '')
+        if keyword:
+            collection = collection.filter(
+                Q(description__icontains=keyword) | Q(collection__icontains=keyword)
+            )
+    else:  
+        pass      
+        
+    count=collection.count()
+    paginator = Paginator(collection, 10)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+    context={
+        'collection':paged_products,
+        'count':count,
+        'all_products':paged_products
+    }
+    
+    return render(request,'owner/show_collection.html',context)
+
+
+def delete_collection(request,id):
+    category=Collection.objects.get(id=id)
+    category.delete()
+    messages.success(request,'collection has been deleted')
+    return redirect('/show_collection/')
+
+
+
+def edit_collection(request,id):
+    collection=Collection.objects.get(id=id)
+    if request.method=="POST":
+        large_image = request.FILES.get('image')
+        category_name = request.POST['category_name']
+        descriptions = request.POST['descriptions']
+        if large_image: 
+            collection.image = large_image        
+        if category_name:
+            collection.collection =category_name
+      
+        if descriptions:
+            collection.description = descriptions
+        collection.save()
+        messages.success(request,'item has been edited')
+        return redirect('/show_collection/')
+    
+    else:
+        context={
+            'collection':collection,
+            'id':id
+        }
+        
+    return render(request,'owner/edit_collection.html',context)    

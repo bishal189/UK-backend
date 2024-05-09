@@ -9,6 +9,7 @@ class Collection(models.Model):
     collection_slug=models.SlugField(max_length=200,unique=True)
     description=models.TextField(blank=True,null=True)
     image=models.ImageField(upload_to="collection/",blank=True,null=True)
+    created_date=models.DateTimeField(auto_now_add=True,blank=True,null=True)
     def save(self,*args,**kwargs):
         self.collection_slug=slugify(self.collection)
         super().save(*args,**kwargs)

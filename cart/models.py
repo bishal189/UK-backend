@@ -37,7 +37,7 @@ class Payment (models.Model):
     user =models.ForeignKey(Account,on_delete=models.CASCADE)
     payment_id=models.CharField(max_length=100)
     payment_method=models.CharField(max_length=100) #paypayel
-    amount_paid=models.CharField(max_length=100)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     status=models.CharField(max_length=100)
     created_at=models.DateTimeField(auto_now_add=True)
 
