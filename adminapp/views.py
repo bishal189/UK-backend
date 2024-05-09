@@ -12,8 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def dashboard(request):
-  
-    return render(request,'owner/index.html')
+    latest_users = Account.objects.order_by('-id')[:5]
+    latest_product = Product.objects.order_by('-id')[:5]
+    context={
+        'latest_users':latest_users,
+        'latest_product':latest_product
+    }
+    return render(request,'owner/index.html',context)
 
 
 @csrf_exempt
