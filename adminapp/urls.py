@@ -3,6 +3,7 @@
 from django.urls import path,include
 from . import views
 urlpatterns = [
+    path('add_collection/',views.add_collection,name='add_collection'),
     path('dashboard/',views.dashboard,name='dashboard' ),
     path('add_item/',views.add_item,name='add_item'),
     path('catalog/',views.catalog,name='catalog'),
@@ -12,6 +13,11 @@ urlpatterns = [
     path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
     path('delete_user/<int:id>/',views.delete_user,name='delete_user'),
     path('active_user/<int:id>/',views.active_user,name='active_user'),
+    path('show_collection/',views.show_collection,name='show_collection'),
+    path('delete_collection/<int:id>',views.delete_collection,name='delete_collection'),
+    path('edit_collection/<int:id>',views.edit_collection,name='edit_collection'),
+
+    
     
     # path('catalog/',views.catalog,name='catalog'),
     # path('users/',views.user_list,name='user_list'),
