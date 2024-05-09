@@ -90,7 +90,7 @@
 										{% for user_total in user_totals_list %}
 										
 										{% if user_total.user == user %}
-										<div class="main__table-text">{{user_total.total_paid}}</div>
+										<div class="main__table-text">{{user_total.total_paid|floatformat:2}}</div>
 										{% else %}
 										<div class="main__table-text">0</div>
 										{% endif %}

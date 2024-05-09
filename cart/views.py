@@ -332,7 +332,7 @@ def payement(request):
 # reduce the quantity of sold products
        
         product_item=Product.objects.get(id=item.product.id)
-        product_item.stock-=item.quantity
+        
         product_item.save()
 
 

@@ -135,40 +135,57 @@ def edit_product(request,id):
     return render(request,'owner/edit_product.html',context)
 
 
+import re
 
 def user_list(request):
-    if request.method=="POST":
-       toSearch=request.POST['user_name']
-       userlist = Account.objects.filter(Q(first_name__icontains=toSearch) | Q(email__icontains=toSearch) | Q(last_name__icontains=toSearch)).order_by('-id')
+    if request.method == "POST":
+        toSearch = request.POST['user_name']
+        userlist = Account.objects.filter(
+            Q(first_name__icontains=toSearch) | Q(email__icontains=toSearch) | Q(last_name__icontains=toSearch)
+        ).order_by('-id')
     else:
-         
-      userlist=Account.objects.all().order_by('-id')
+        userlist = Account.objects.all().order_by('-id')
 
-    payment=Payment.objects.all().order_by('-id')
-    count=userlist.count()
-    paginator=Paginator(userlist,20)
-    page=request.GET.get('page')
-    paged_products=paginator.get_page(page)  
+    payment = Payment.objects.all().order_by('-id')
+    count = userlist.count()
+    paginator = Paginator(userlist, 20)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+
+    # Initialize user_totals dictionary to store total paid amount for each user
     user_totals = {}
-    
-    # Calculate the total amount paid by each user
+
     for payment_record in payment:
         user = payment_record.user
-        amount_paid = payment_record.amount_paid
-        if user in user_totals:
-            user_totals[user]['total_paid'] += amount_paid
+        amount_paid_str = payment_record.amount_paid
+        # Extract numerical values using regular expressions
+        amount_paid_match = re.findall(r'\d+\.\d+', amount_paid_str)
+        if amount_paid_match:
+            amount_paid = float(amount_paid_match[0])  # Convert to float
+            if user in user_totals:
+                user_totals[user]['total_paid'] += amount_paid
+            else:
+                user_totals[user] = {'user': user, 'total_paid': amount_paid}
         else:
-            user_totals[user] = {'user': user, 'total_paid': amount_paid}
+            if user in user_totals:
+                user_totals[user]['total_paid'] += 0  # Add 0 if no payment amount found for a record
+            else:
+                user_totals[user] = {'user': user, 'total_paid': 0}  # Initialize total_paid if not exist
 
+    # Update user_totals_list with calculated totals
     user_totals_list = user_totals.values()
-    context={
+    print(user_totals_list)
+
+    context = {
         'users': paged_products,
-        'count':count,
+        'count': count,
         'user_totals_list': user_totals_list,
-        'all_products':paged_products
+        'all_products': paged_products
     }
 
     return render(request, 'owner/users.html', context)
+
+
 
 def suspended_user(request,id):
 
