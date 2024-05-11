@@ -8,9 +8,14 @@ from cart.models import Payment
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Sum,Count
 import json
+from django.contrib.auth.decorators import user_passes_test
 # Create your views here.
 
 
+def is_superadmin(user):
+    return user.is_authenticated and user.is_superadmin
+
+@user_passes_test(is_superadmin)
 
 def dashboard(request):
     latest_users = Account.objects.order_by('-id')[:5]
@@ -29,6 +34,7 @@ def dashboard(request):
     return render(request,'owner/index.html',context)
 
 
+@user_passes_test(is_superadmin)
 @csrf_exempt
 def add_item(request):
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
@@ -70,6 +76,7 @@ def add_item(request):
 
     return render(request,'owner/add-item.html',context)
 
+@user_passes_test(is_superadmin)
 @csrf_exempt
 def catalog(request):
     context = {}
@@ -97,7 +104,7 @@ def catalog(request):
     return render(request, 'owner/catalog.html', context)
 
 
-
+@user_passes_test(is_superadmin)
 def remove_product(request,id):
   product=Product.objects.get(id=id)
   product.delete()
@@ -105,7 +112,7 @@ def remove_product(request,id):
   return redirect('catalog')
 
 
-
+@user_passes_test(is_superadmin)
 @csrf_exempt
 def edit_product(request,id):
     product=Product.objects.get(id=id)
@@ -150,8 +157,8 @@ def edit_product(request,id):
     return render(request,'owner/edit_product.html',context)
 
 
-import re
 
+@user_passes_test(is_superadmin)
 def user_list(request):
     if request.method == "POST":
         toSearch = request.POST['user_name']
@@ -192,7 +199,7 @@ def user_list(request):
     return render(request, 'owner/users.html', context)
 
 
-
+@user_passes_test(is_superadmin)
 def suspended_user(request,id):
 
   user=Account.objects.get(id=id)
@@ -202,14 +209,14 @@ def suspended_user(request,id):
     return redirect('user_list')
 
 
-
+@user_passes_test(is_superadmin)
 def delete_user(request,id):
   user=Account.objects.get(id=id)
   user.delete()
   return redirect('user_list')
 
 
-
+@user_passes_test(is_superadmin)
 def active_user(request,id):
 
   user=Account.objects.get(id=id)
@@ -219,7 +226,7 @@ def active_user(request,id):
     return redirect('user_list')
     
     
-    
+@user_passes_test(is_superadmin)  
 def add_collection(request):
     if request.method=='POST':
         category=request.POST['category_name']
@@ -232,7 +239,7 @@ def add_collection(request):
         
     return render(request,'owner/add_collection.html')    
 
-
+@user_passes_test(is_superadmin)
 def show_collection(request):
     collection=Collection.objects.all()
     context={}
@@ -257,7 +264,7 @@ def show_collection(request):
     
     return render(request,'owner/show_collection.html',context)
 
-
+@user_passes_test(is_superadmin)
 def delete_collection(request,id):
     category=Collection.objects.get(id=id)
     category.delete()
@@ -265,7 +272,7 @@ def delete_collection(request,id):
     return redirect('/show_collection/')
 
 
-
+@user_passes_test(is_superadmin)
 def edit_collection(request,id):
     collection=Collection.objects.get(id=id)
     if request.method=="POST":
