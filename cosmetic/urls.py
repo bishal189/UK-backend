@@ -15,10 +15,11 @@ urlpatterns = [
     path('',include('home.urls')),
     path('',include('account.urls')),
     path('',include('products.urls')),#no url provided here to work with both product and collection
-    path('admin/',include('adminapp.urls')),
+    path('admin-access/',include('adminapp.urls')),
     path('review/',include('review.urls')),
     path('',include('cart.urls')),
-   
+    path('<str:any>',custom_404_view) ,
+    path('<str:any>/',custom_404_view) 
 ]
 
 
