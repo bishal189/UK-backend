@@ -131,11 +131,26 @@
                               <div class="product-meta__labels"></div>
                            </div>
                            <div class="product-meta product-meta--mobile">
-                              <h1 class="product-meta__title">{{product.name}}</h1>
+                              <h1 class="product-meta__title">{{product.product_name}}</h1>
                               <div class="product__reviews-badge">
                               </div>
                               <div class="product-meta__prices">
                                  <span class="product-meta__price" data-money-convertible>£{{product.price}}</span>
+                              </div>
+                                <div class="rating-star">
+                                 <span>
+                                 <i style="{% if average_rating < 1 %} color:black!important{% endif %}" class="fa fa-star"
+                                    aria-hidden="true"></i>
+                                 <i style="{% if average_rating < 2 %} color:black!important{% endif %}" class="fa fa-star"
+                                    aria-hidden="true"></i>
+                                 <i style="{% if average_rating < 3 %} color:black!important{% endif %}" class="fa fa-star"
+                                    aria-hidden="true"></i>
+                                 <i style="{% if average_rating < 4 %} color:black!important{% endif %}" class="fa fa-star"
+                                    aria-hidden="true"></i>
+                                 <i style="{% if average_rating < 5 %} color:black!important{% endif %}" class="fa fa-star"
+                                    aria-hidden="true"></i>
+                                 </span>
+                                 ({{reviews.count}} Reviews)
                               </div>
                               <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
                               <div class="product-meta__labels"></div>
