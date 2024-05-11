@@ -30,21 +30,48 @@
             </div>
           </header>
 
-          <form action="/cart" method="POST">
             <div class="cart--mobile">
               <ul class="cart__items">
+                  {% for cartitem in cart_items %}
+
                 <li class="cart-item" data-variant-id="11281174462500" data-index="1">
                   <div class="cart-item__left">
                     <a href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500" class="cart-item__link">
-                      <img class="cart-item__image" src="//www.lotusartstudio.co.uk/cdn/shop/products/131BH-6_180x.jpg?v=1645536009">
+                    {% if '/static/' in cartitem.product.image.url %}
+                      <img class="cart-item__image" src="{{cartitem.product.image}}">
+                      {% else %}
+
+                      <img class="cart-item__image" src="{{cartitem.product.image.url}}">
+                      {% endif %}
                     </a>
                   </div>
                   <div class="cart-item__right">
-                    <a class="cart-item__title">Luxury Boxed Birthday Card 'Simply Beautiful'</a>
-                    <span class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">$32.16</span>
-                    <input type="text" pattern="[0-9]*" class="cart-item__quantity-input" name="quantity" value="1">
-                    <a class="cart-item__remove" href="/cart/change?quantity=0&amp;line=1">Remove</a>
-                    <p id="toggle_mob_1" class="cart-toggle">Show personalisation</p>
+                    <a class="cart-item__title">{{cartitem.product}}</a>
+                    <span style="margin:1px" class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cartitem.product.price}} each</span>
+
+                        <span><b>Quantity:{{cartitem.quantity}}</b></span>
+                        <br />
+                        <div style="display: inline-block;color: #7c5c5d;font-size: 14px;vertical-align: -13px;border: 1px solid #e4e4e4;border-radius: 20px;" class="quantity__actions">
+
+                        <a style="padding: 0 15px 0 18px;
+                  border-right: 1px solid #e4e4e4;" href="{% url 'remove_item' cartitem.product.id cartitem.id %}">
+                          <svg class="icon icon-minus">
+                            <use xlink:href="#icon-minus"></use>
+                          </svg>
+                        </a>
+                        <a style="padding: 0 15px 0 18px;" href="{% url 'add_cart' cartitem.product.id %}">
+                          <svg class="icon icon-plus">
+                            <use xlink:href="#icon-plus"></use>
+                          </svg>
+                        </a>
+                        </div>
+                        <br />
+                    <span  style="display:inline-block;margin-bottom:0px " class="cart-item__subtotal">SubTotal: £{{cartitem.subtotal}}</span>
+                    <br />
+                     <a href="{% url 'remove_cart_item' cartitem.product.id  cartitem.id %}">
+                       <span style="color:#c38052">Remove Item</span>
+                      </a>
+<!--                     <p id="toggle_mob_1" class="cart-toggle">Show personalisation</p> -->
                     <div id="cart_mob_1" style="height: 0; overflow: hidden; transition: height 0.5s ease;">
                       <p>
                         <span class="p_first">Cover Message:</span>
@@ -53,20 +80,9 @@
                       </p>
                     </div>
                   </div>
-                  <script>
-                    document.getElementById('toggle_mob_1').onclick = function() {
-                      this.__toggle = !this.__toggle;
-                      var target = document.getElementById('cart_mob_1');
-                      if (this.__toggle) {
-                        target.style.height = target.scrollHeight + "px";
-                        this.firstChild.nodeValue = "Hide personalisation";
-                      } else {
-                        target.style.height = 0;
-                        this.firstChild.nodeValue = "Show personalisation";
-                      }
-                    }
-                  </script>
+
                 </li>
+                {% endfor %}
               </ul>
             </div>
             <div class="cart--desktop">
@@ -93,10 +109,10 @@
                       <p>
                         <a class="cart-item__title" href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500">{{cartitem.product}}</a>
                       </p>
-                      <p class="cart-sku">
+                     <!-- <p class="cart-sku">
                         Product code: 131BH
-                      </p>
-                      <p id="cart_toggle_1" class="cart-toggle">Show personalisation</p>
+                      </p>-->
+<!--                       <p id="cart_toggle_1" class="cart-toggle">Show personalisation</p> -->
                       <div id="cart_personalisation_1" style="height: 0; overflow: hidden; transition: height 0.5s ease;">
                         <p>
                           <span class="p_first">Cover Message:</span>
@@ -105,7 +121,7 @@
                         </p>
                       </div>
                     </td>
-                    <td class="cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">{{cartitem.product.price}}each</td>
+                    <td class="cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cartitem.product.price}} each</td>
                     <td class="cart-item__quantity">
                       <span>{{cartitem.quantity}}</span>
                       <div class="quantity__actions">
@@ -121,7 +137,7 @@
                         </a>
                       </div>
                     </td>
-                    <td class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">${{cartitem.subtotal}}</td>
+                    <td class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cartitem.subtotal}}</td>
                     <td class="cart-item__remove">
                       <a href="{% url 'remove_cart_item' cartitem.product.id  cartitem.id %}" class="icon-cross-container">
                         <svg class="icon icon-close">
