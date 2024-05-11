@@ -5,11 +5,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls import handler404
 from store.views import custom_404_view
-
 handler404 = 'store.views.custom_404_view'
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
