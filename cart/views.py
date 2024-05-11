@@ -275,7 +275,7 @@ def checkout(request,total=0,quantity=0,cart_items=None):
 
 
 
-
+@login_required(login_url='Login')
 def payement(request):
     
     body=json.loads(request.body) 
@@ -387,7 +387,7 @@ def payement(request):
     return JsonResponse(data)
 
 
-
+@login_required(login_url='Login')
 def order_complete(request):
     order_number=request.GET.get('order_number')
     transID=request.GET.get('payment_id')

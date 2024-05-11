@@ -5,6 +5,9 @@ import json
 from store.models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='Login')
 @csrf_exempt
 def add_review(request):
     if request.method=="POST":
