@@ -5,7 +5,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls import handler404
 from store.views import custom_404_view
+from django.http import HttpResponse
 handler404 = 'store.views.custom_404_view'
+
+
+def test(request):
+    return HttpResponse("AOz25ufGqqhW4FOtHsECu8J43j-twNMBRr980zkmo4I.c9hdkjIPUGYjBWrlxTsr4QcoJHgD3gJ1FtidKgIPTEg")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
@@ -14,6 +19,7 @@ urlpatterns = [
     path('admin-access/',include('adminapp.urls')),
     path('review/',include('review.urls')),
     path('',include('cart.urls')),
+    path('.well-known/acme-challenge/AOz25ufGqqhW4FOtHsECu8J43j-twNMBRr980zkmo4I',test),
     path('<str:any>',custom_404_view) ,
     path('<str:any>/',custom_404_view) 
 ]
