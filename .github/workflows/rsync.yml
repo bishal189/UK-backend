@@ -19,7 +19,6 @@ jobs:
           echo "${{secrets.SSH_PRIVATE_KEY}}" >~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 92.205.56.184 >> ~/.ssh/known_hosts
-          ssh-keyscan -H github.com >>~/.ssh/known_hosts
         shell: bash
 
       - name: Sync files with rsync
@@ -29,19 +28,7 @@ jobs:
           RSYNC_RSH: 'ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no'
         shell: bash
 
-      - name: Configure Git to use SSh
-        run: |
-          git config --global user.name "sandeshsitaula"
-          git config --global user.email "navaltajohan@gmail.com"
-        shell: bash
 
-      - name: Prepare repo to push
-        run: |
-
-          git remote set-url origin git@github.com:bishal189/UK-backend.git
-          git pull origin master
-          git push origin master
-        shell: bash
 
 
 

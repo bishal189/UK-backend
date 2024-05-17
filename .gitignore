@@ -1,4 +1,5 @@
-
+.github/
+rsync.yml
 env
 # .gitignore for Django
 #ignoring the input video
