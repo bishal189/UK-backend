@@ -17,14 +17,10 @@ Maple Court Yard
                      <h2 class="section__title">Shop for cards</h2>
                      <div class="list-collections list-collections--grid grid grid--middle grid--gallery">
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-                           <a href="{% url 'collection' collection_slug='birthday' %}"class="collection__link"
-                              style="background: url(./assets/handmade_birthday_lg.avif)">
-                              <div class="aspect-ratio" style="padding-bottom: 140.0%">
-                                 <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="{% static 'assets/handmade_birthday_lg.avif' %}">
-                                 </div>
-                              </div>
-                              <div class="collection__overlay"></div>
+                           <a href="{% url 'collection' collection_slug='birthday' %}" class="collection__link"
+                              >
+
+                              <img src="{% static 'assets/handmade_birthday_lg.avif' %}" />
                            </a>
                            <a href="{% url 'collection' collection_slug='birthday' %}" class="collection__link">
                               <h3 class="collection__title">Birthday </h3>
@@ -35,14 +31,8 @@ Maple Court Yard
                            </a>
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-                           <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link"
-                              style="background: url({% static 'assets/thankful_for_you.avif' %})">
-                              <div class="aspect-ratio" style="padding-bottom: 140.0%">
-                                 <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="{% static 'assets/thankful_for_you_lg.jpg' %}">
-                                 </div>
-                              </div>
-                              <div class="collection__overlay"></div>
+                           <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link">
+                              <img src="{% static 'assets/thankful_for_you_lg.jpg' %} "/>
                            </a>
                            <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link">
                               <h3 class="collection__title">New Baby </h3>
@@ -54,14 +44,8 @@ Maple Court Yard
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a  href="{% url 'collection' collection_slug='wedding' %}" class="collection__link"
-                              style="background: url({% static 'assets/get_wellsoon_second_lg.webp' %})">
-                              <div class="aspect-ratio" style="padding-bottom: 140.0%">
-                                 <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="{% static 'assets/get_wellsoon_second_lg.webp' %}">
-                                 </div>
-
-                              </div>
-                              <div class="collection__overlay"></div>
+                              >
+                              <img src="{% static 'assets/get_wellsoon_second_lg.webp' %}" />
                            </a>
                            <a href="{% url 'collection' collection_slug='wedding' %}" class="collection__link">
                               <h3 class="collection__title">Wedding </h3>
@@ -73,6 +57,7 @@ Maple Court Yard
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="{% url 'collection' collection_slug='anniversary' %}" class="collection__link"
                               style="background: url({% static 'assets/scenic.avif' %})">
+
                               <div class="aspect-ratio" style="padding-bottom: 140.0%">
                                  <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
                                     data-bgset="{% static 'assets/handmade_wedding_lg.jpg' %}">

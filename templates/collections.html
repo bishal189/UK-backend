@@ -33,14 +33,12 @@
                   <div class="aspect-ratio" style="padding-bottom: 140.0%">
                      {% if '/static/' in collection.image.url %}
 
-                     <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4" data-bgset="{{collection.image}}"></div>
+                     <img src={{collection.image}} />
                      {% else %}
 
-                     <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4" data-bgset="{{collection.image.url}}"></div>
+                     <img src={{collection.image.url}} />
                      {% endif %}
-                     <noscript>
-                        <div class="collection__image-background" style="background-image:{{collection.image.url}}"></div>
-                     </noscript>
+
                   </div>
                   <div class="collection__overlay"></div>
                </a>
