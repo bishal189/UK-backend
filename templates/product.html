@@ -89,13 +89,14 @@
                               <li class="product__slideshow-slide" data-type="image" data-index="0" data-image-id="29280734412960"  >
                                  <div class="aspect-ratio" style="padding-bottom: 100.0%">
                                     {% if '/static/' in product.image.url %}
-                                    <img class="product__slideshow-image lazyload image--fade-in"
+                                    <img
+                                    src={{product.image}}
                                        data-sizes="auto"
                                        data-src={{product.image}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"
                                        alt={{product.name}}>
                                     {% else %}
-                                    <img class="product__slideshow-image lazyload image--fade-in"
+                                    <img src={{product.image.url}}
                                        data-sizes="auto"
                                        data-src={{product.image.url}}
                                        data-widths="[200,300,400,600,800,900,1000,1200]"

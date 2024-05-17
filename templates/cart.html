@@ -36,7 +36,7 @@
 
                 <li class="cart-item" data-variant-id="11281174462500" data-index="1">
                   <div class="cart-item__left">
-                    <a href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500" class="cart-item__link">
+                    <a href=="{% url 'get_product' cartitem.product.slug %}" class="cart-item__link">
                     {% if '/static/' in cartitem.product.image.url %}
                       <img class="cart-item__image" src="{{cartitem.product.image}}">
                       {% else %}
@@ -101,13 +101,13 @@
                   {% for cartitem in cart_items %}
                   <tr data-variant-id="11281174462500" data-index="1">
                     <td class="cart-item__product">
-                      <a href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500" class="cart-item__link">
+                      <a href="{% url 'get_product' cartitem.product.slug %}" class="cart-item__link">
                         <img class="cart-item__image" src="{{cartitem.product.image}}">
                       </a>
                     </td>
                     <td class="cart-item__info table__left">
                       <p>
-                        <a class="cart-item__title" href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500">{{cartitem.product}}</a>
+                        <a class="cart-item__title" href=="{% url 'get_product' cartitem.product.slug %}">{{cartitem.product}}</a>
                       </p>
                      <!-- <p class="cart-sku">
                         Product code: 131BH
