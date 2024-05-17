@@ -1,0 +1,52 @@
+name: Deploy and Sync
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_and_sync:
+    runs_on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh 
+          echo "${{secrets.SSH_PRIVATE_KEY}}" >~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H maplecourt@92.205.56.184 >> ~/.ssh/known_hosts
+          ssh-keyscan -H github.com >>~/.ssh/known_hosts
+        shell: bash
+
+      - name: Sync files with rsync
+        run: |
+          rsync -arv ./ maplecourt@92.205.56.184:UK-backend/
+        env:
+          RSYNC_RSH: 'ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no'
+        shell: bash
+
+      - name: Configure Git to use SSh
+        run: |
+          git config --global user.name "sandeshsitaula"
+          git config --global user.email "navaltajohan@gmail.com"
+        shell: bash
+
+      - name: Prepare repo to push
+        run: |
+          rm -rf .github
+          git add -A
+          git commit -m "Remove .github directory for push"
+          git rebase -i HEAD~2
+          git remote ser-url origin git@github.com:bishal189/UK-backend.git
+          git push origin master --force
+        shell: bash
+
+
+
+
+
+
