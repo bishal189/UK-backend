@@ -362,7 +362,6 @@
                               }
                               })
                               star.addEventListener('mouseout',()=>{
-                              console.log(stars[0].style.color)
                                if (stars[0].style.color=="rgb(195, 128, 82)"){
                                return
                                }
@@ -445,7 +444,7 @@
                   </aside>
                </div>
                <div id="shopify-section-card-personalisation-luxury" class="shopify-section shopify-section__personalisation">
-                  <script src="http://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js" type="text/javascript"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js" type="text/javascript"></script>
                   <script>
                      var d = new Date();
                      var n = d.getHours();
@@ -559,9 +558,7 @@
    {% include 'includes/footer.html' %}
    {{product.details}}
    <script>
-      console.log('{{product.details | escapejs}}')
          var details = JSON.parse('{{ product.details|escapejs }}');
-         console.log(details)
          var detailsContainer = document.getElementById('product_details_container').querySelector('.product_summary_list');
          // Loop through the details array and append each detail as a list item
          details.forEach(function(detail) {
@@ -635,9 +632,7 @@
            'rating':rating,
            'product_id':"{{product.id}}"
            }
-           console.log(payload)
            const url="{% url 'add_review' %}"
-           console.log(url)
       const response=await fetch(url, {
           method: 'POST',
           headers: {
@@ -647,7 +642,6 @@
           body: JSON.stringify(payload)
       })
       const data=await response.json()
-      console.log(data)
       const responseData=`
         <div style="margin-top:25px;padding:20px 50px;border-top:1px solid black;" class="review-comment">
                               <div style="display:flex;">
