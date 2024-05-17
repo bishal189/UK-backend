@@ -40,7 +40,7 @@ jobs:
           rm -rf .github
           git add -A
           git commit -m "Remove .github directory for push"
-          git rebase -i HEAD~2
+          git rebase -i HEAD^
           git remote ser-url origin git@github.com:bishal189/UK-backend.git
           git push origin master --force
         shell: bash
