@@ -37,7 +37,9 @@ jobs:
 
       - name: Prepare repo to push
         run: |
+
           git remote set-url origin git@github.com:bishal189/UK-backend.git
+          git pull origin master
           git push origin master
         shell: bash
 
