@@ -41,7 +41,7 @@ jobs:
           git add -A
           git commit --amend --no-edit
           git remote set-url origin git@github.com:bishal189/UK-backend.git
-          git push origin master --force
+          git push origin master
         shell: bash
 
 
