@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+    <meta name="title" content="Contact Us - Maple Court Yard">
+    <meta name="description" content="Contact Maple Court Yard for inquiries, customer support, or partnership opportunities regarding our handmade greeting cards.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Us - Maple Court Yard">
+    <meta property="og:description" content="Contact Maple Court Yard for inquiries, customer support, or partnership opportunities regarding our handmade greeting cards.">
+    <meta property="og:image" content="https://maplecourtyarddesigns.co.uk/static/img/image.png">
+    <meta property="og:url" content="https://www.maplecourtyard.com/contact_us/">
+{% endblock %}
 {% block content %}
           <body class="kagami--v5 template-product ">
       {% include 'includes/header.html' %}
@@ -10,7 +19,7 @@
   <div class="inner">
     <ul class="breadcrumb__list" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <span class="breadcrumb__title" itemprop="name"><a href="https://www.lotusartstudio.co.uk/">Home</a></span>
+        <span class="breadcrumb__title" itemprop="name"><a href="{% url 'index' %}">Home</a></span>
         <meta itemprop="position" content="1">
       </li>
 
@@ -41,16 +50,16 @@
       
 <h2 class="page__title">GET IN TOUCH</h2>
 <br>
-<p>For order enquiries, help with ordering or any advice, you can email us direct at <strong><a style="color: #dc7f41;" href="mailto:info@lotusartstudio.co.uk">info@lotusartstudio.co.uk</a></strong>. We'll respond to your email as soon as possible.</p>
+<p>For order enquiries, help with ordering or any advice, you can email us direct at <strong><a style="color: #dc7f41;" href="#">info@maplecourtyarddesigns.co.uk</a></strong>. We'll respond to your email as soon as possible.</p>
 <br>
 <h2 class="page__title">FAQ</h2>
 <br>
-<p>Many inquiries we receive are common questions people ask every time. So for our customers' convenience we answered a few of them in our <strong><a href="https://www.lotusartstudio.co.uk/pages/faqs" style="color: #dc7f41;">FAQ section</a></strong>.</p>
+<p>Many inquiries we receive are common questions people ask every time. So for our customers' convenience we answered a few of them in our <strong><a href="{% url 'faqs' %}" style="color: #dc7f41;">FAQ section</a></strong>.</p>
 <br>
 <h2 class="page__title">SOCIAL CONTACT LINKS</h2>
 <br>
-<p>Get in touch on Instagram - <strong><a style="color: #dc7f41;" href="https://www.instagram.com/lotusartstudio/" target="_blank">@lotusartstudio</a></strong></p>
-<p>Get in touch on Facebook messenger - <strong><a style="color: #dc7f41;" href="https://m.me/lotusartstudio" target="_blank">@lotusartstudio</a></strong></p>
+<p>Get in touch on Instagram - <strong><a style="color: #dc7f41;" href="#" target="_blank">@maplecourtyarddesigns</a></strong></p>
+<p>Get in touch on Facebook messenger - <strong><a style="color: #dc7f41;" href="#" target="_blank">@maplecourtyarddesigns</a></strong></p>
     </div>
     <br>
   </div>

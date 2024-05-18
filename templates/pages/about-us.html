@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+    <meta name="title" content="About Us - Maple Court Yard">
+    <meta name="description" content="Learn about Maple Court Yard, our mission, and the team behind our handmade greeting cards.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About Us - Maple Court Yard">
+    <meta property="og:description" content="Learn about Maple Court Yard, our mission, and the team behind our handmade greeting cards.">
+    <meta property="og:image" content="https://maplecourtyarddesigns.co.uk/static/img/image.png">
+    <meta property="og:url" content="https://www.maplecourtyard.com/about_us/">
+{% endblock %}
+
 {% block content %}
           <body class="kagami--v5 template-product ">
       {% include 'includes/header.html' %}
@@ -10,7 +20,7 @@
   <div class="inner">
     <ul class="breadcrumb__list" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <span class="breadcrumb__title" itemprop="name"><a href="https://www.lotusartstudio.co.uk/">Home</a></span>
+        <span class="breadcrumb__title" itemprop="name"><a href="{% url 'index' %}">Home</a></span>
         <meta itemprop="position" content="1">
       </li>
 
@@ -42,8 +52,7 @@
 <p>Perfect for any occasion, we truly make our cards by hand from scratch so each one is unique and has its own personal touch. And you can be sure that all our cards are produced to the highest standard using high quality materials. All our greeting cards are handmade and designed Britain.</p>
 <p>----</p>
 <p>To all of you, from all of us at Maple Court Yard - Thank you and Happy Shopping!</p>
-<h4><em>Vilija White</em></h4>
-<p>Founder of Maple Court Yard</p>
+
 <p> </p>
     </div>
   </div>
