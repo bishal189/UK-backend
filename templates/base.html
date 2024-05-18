@@ -11,12 +11,11 @@
          {% block title %}{% endblock %}
       </title>
       <meta name="robots" content="index, follow">
-      <link rel="canonical" href="index.html">
 
+      <link rel="canonical" href="index.html">
       <link rel="shortcut icon" href="{% static 'cdn/shop/files/logo.png' %}" type="image/png">
-      <meta property="og:type" content="website">
-      <meta property="og:title" content="Handmade Greeting Cards - Bespoke and Personalised">
-      <meta propery="og:description" content="Maple court Yard is a website that will provide you the most personalized Cards for every ocassion."
+      {% block meta %} {% endblock %}
+
       {% comment %} for paypal  {% endcomment %}
       <script src="https://www.paypal.com/sdk/js?client-id=ASVIPoEwfl2ZHSkVLL_9K1PV4MtylM8abITOqpU9cvkszFfx4zfdWditSBplZl-7Xq79MnYmLwD11pdQ&currency=USD"></script>
       <link
