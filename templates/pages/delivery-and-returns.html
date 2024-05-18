@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+    <meta name="title" content="Delivery & Returns - Maple Court Yard">
+    <meta name="description" content="Learn about our delivery and returns policies for handmade greeting cards at Maple Court Yard.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Delivery & Returns - Maple Court Yard">
+    <meta property="og:description" content="Learn about our delivery and returns policies for handmade greeting cards at Maple Court Yard.">
+    <meta property="og:image" content="https://maplecourtyarddesigns.co.uk/static/img/image.png">
+    <meta property="og:url" content="https://www.maplecourtyard.com/delivery_and_returns/">
+{% endblock %}
 {% block content %}
           <body class="kagami--v5 template-product ">
       {% include 'includes/header.html' %}
@@ -11,7 +20,7 @@
   <div class="inner">
     <ul class="breadcrumb__list" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <span class="breadcrumb__title" itemprop="name"><a href="https://www.lotusartstudio.co.uk/">Home</a></span>
+        <span class="breadcrumb__title" itemprop="name"><a href="{% url 'index' %}">Home</a></span>
         <meta itemprop="position" content="1">
       </li>
 
@@ -62,7 +71,7 @@
 <p class="international_delivery_available"> </p>
 <h2>RETURNS AND EXCHANGES</h2>
 <p>At Maple Court Yard we aim to exceed your expectations. We carefully produce our cards of the highest quality and describe our products in as much detail as possible to avoid any disappointment when they arrive. If, however, you receive goods from us that do not meet your expectations for whatever reason, you can return them to within 30 days for a refund or exchange.</p>
-<p>To request a return, please email us at <a style="color: #dc7f41;" href="mailto:info@lotusartstudio.co.uk">info@lotusartstudio.co.uk</a>. Please state your order number and/or name and address and the reason for the return and we will advise you how to return your goods.</p>
+<p>To request a return, please email us at <a style="color: #dc7f41;" href="#">info@maplecourtyarddesigns.co.uk</a>. Please state your order number and/or name and address and the reason for the return and we will advise you how to return your goods.</p>
 <p>We will normally process your refund to your credit/debit card or PayPal account within 7 working days of its receipt or will provide a replacement where agreed.</p>
     </div>
   </div>

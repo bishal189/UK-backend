@@ -1,6 +1,16 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+    <meta name="title" content="Frequently Asked Questions - Maple Court Yard">
+    <meta name="description" content="Find answers to common questions about our handmade greeting cards, delivery, returns, and more at Maple Court Yard.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Frequently Asked Questions - Maple Court Yard">
+    <meta property="og:description" content="Find answers to common questions about our handmade greeting cards, delivery, returns, and more at Maple Court Yard.">
+    <meta property="og:image" content="https://maplecourtyarddesigns.co.uk/static/img/image.png">
+    <meta property="og:url" content="https://www.maplecourtyard.com/faqs/">
+{% endblock %}
+
 {% block content %}
           <body class="kagami--v5 template-product ">
       {% include 'includes/header.html' %}
@@ -85,7 +95,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>The full collection of our handmade cards is available to purchase exclusively at our website - www.lotusartstudio.co.uk.</p></div>
+      <div class="faq__answer page__description"><p>The full collection of our handmade cards is available to purchase exclusively at our website - www.maplecourtyarddesigns.co.uk.</p></div>
     </div>
   
     <div class="faq__item" >
@@ -121,7 +131,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>We are pretty quick at making our cards and posting them out. If you&#x27;ve noticed any mistakes in your order confirmation email, please <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a> as soon as you can and we&#x27;ll do our very best to apply your changes before dispatch. Unfortunately it is not possible to make any alterations to your order after it is dispatched.</p></div>
+      <div class="faq__answer page__description"><p>We are pretty quick at making our cards and posting them out. If you&#x27;ve noticed any mistakes in your order confirmation email, please <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a> as soon as you can and we&#x27;ll do our very best to apply your changes before dispatch. Unfortunately it is not possible to make any alterations to your order after it is dispatched.</p></div>
     </div>
   
     <div class="faq__item" >
@@ -161,7 +171,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>You are supposed to receive an order confirmation email after your order being placed. If you haven&#x27;t received a confirmation email, please check your junk or spam mail filter. If you still can&#x27;t find this email, please <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a> and we will investigate.</p></div>
+      <div class="faq__answer page__description"><p>You are supposed to receive an order confirmation email after your order being placed. If you haven&#x27;t received a confirmation email, please check your junk or spam mail filter. If you still can&#x27;t find this email, please <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a> and we will investigate.</p></div>
     </div>
   
     <div class="faq__item" >
@@ -171,7 +181,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>Unfortunately it is not possible for us to take orders over the phone at the moment.  All orders need to be placed via our website. If you are having trouble placing an order online, please do not hesitate to <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a> and we will try to help you in every possible way to fix any issues you may be having. </p></div>
+      <div class="faq__answer page__description"><p>Unfortunately it is not possible for us to take orders over the phone at the moment.  All orders need to be placed via our website. If you are having trouble placing an order online, please do not hesitate to <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a> and we will try to help you in every possible way to fix any issues you may be having. </p></div>
     </div>
   
     <div class="faq__item" >
@@ -198,7 +208,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>We  aim to dispatch orders for individual cards in 1-2 days, Monday to Friday. </p><p>If you choose our Royal Mail 48 delivery option, your order should arrive to you within 2-4 business days from dispatch day.</p><p>Larger orders  - we aim to dispatch within 5-7 working days.</p><p>International orders can take up to 3 weeks to be delivered. </p><p>Please see our <a href="https://www.lotusartstudio.co.uk/pages/delivery-and-returns" title="Delivery & Returns"><strong>delivery terms</strong></a> for more information.</p><p></p></div>
+      <div class="faq__answer page__description"><p>We  aim to dispatch orders for individual cards in 1-2 days, Monday to Friday. </p><p>If you choose our Royal Mail 48 delivery option, your order should arrive to you within 2-4 business days from dispatch day.</p><p>Larger orders  - we aim to dispatch within 5-7 working days.</p><p>International orders can take up to 3 weeks to be delivered. </p><p>Please see our <a href="{% url 'delivery_and_returns' %}" title="Delivery & Returns"><strong>delivery terms</strong></a> for more information.</p><p></p></div>
     </div>
   
     <div class="faq__item" >
@@ -268,7 +278,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>Don&#x27;t worry. If your order never arrived, please <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a>, tell us your order number and what you ordered, and we’ll try to help you in very possible way.</p><p></p><p>Please also remember that during busy times (especially in December around Christmas) deliveries can take a little bit longer than usual to arrive.</p></div>
+      <div class="faq__answer page__description"><p>Don&#x27;t worry. If your order never arrived, please <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a>, tell us your order number and what you ordered, and we’ll try to help you in very possible way.</p><p></p><p>Please also remember that during busy times (especially in December around Christmas) deliveries can take a little bit longer than usual to arrive.</p></div>
     </div>
   
     <div class="faq__item" >
@@ -278,7 +288,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>All our orders are suitably packaged in outer protective sturdy packaging to ensure that they arrive to you in perfect condition. But occasionally parcel can still be damaged during transit by Royal Mail or courier. If your order arrived incomplete or damaged, please <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a>, tell us your order number and what you ordered, and we’ll send out a replacement as soon as possible.</p></div>
+      <div class="faq__answer page__description"><p>All our orders are suitably packaged in outer protective sturdy packaging to ensure that they arrive to you in perfect condition. But occasionally parcel can still be damaged during transit by Royal Mail or courier. If your order arrived incomplete or damaged, please <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a>, tell us your order number and what you ordered, and we’ll send out a replacement as soon as possible.</p></div>
     </div>
   
     <div class="faq__item" >
@@ -288,7 +298,7 @@
           <use xlink:href="#icon-dropdown-arrow"></use>
         </svg>
       </h3>
-      <div class="faq__answer page__description"><p>We would like you to be 100% satisfied with your Maple Court Yard purchase. We carefully produce our cards of the highest quality and describe our products in as much detail as possible to avoid any disappointment when they arrive. If you need to return your order, you must do so within 30 days of receipt.</p><p></p><p>To request a return, please <a href="https://www.lotusartstudio.co.uk/pages/contact-us" title="Contact Us"><strong>contact us</strong></a>,  state your order number and/or name and address and the reason for the return and we will advise you how to return your goods.</p></div>
+      <div class="faq__answer page__description"><p>We would like you to be 100% satisfied with your Maple Court Yard purchase. We carefully produce our cards of the highest quality and describe our products in as much detail as possible to avoid any disappointment when they arrive. If you need to return your order, you must do so within 30 days of receipt.</p><p></p><p>To request a return, please <a href="{% url 'contact_us' %}" title="Contact Us"><strong>contact us</strong></a>,  state your order number and/or name and address and the reason for the return and we will advise you how to return your goods.</p></div>
     </div>
   
 </section>
@@ -315,7 +325,7 @@
       <br>
       
     <div class="contact">
-      <form method="post" action="https://www.lotusartstudio.co.uk/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact__form"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" />
+      <form method="post" action="{% url 'contact_us' %}" id="contact_form" accept-charset="UTF-8" class="contact__form"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" />
         
 
         
