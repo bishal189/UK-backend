@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block meta %}
+    <meta name="title" content="Get {{ product.product_name }} at Maple Court Yard">
+    <meta name="index" content="greeting cards, {{ product.product_name }}, handmade cards, personalized cards, custom greeting cards, Maple Court Yard, all products">
+    <meta name="description" content="Discover our {{ product.product_name }} - a handmade greeting card perfect for {{ product.occasion }}. Personalize your card today at Maple Court Yard.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Get {{ product.product_name }} at Maple Court Yard">
+    <meta property="og:description" content="Discover our {{ product.product_name }} - a handmade greeting card perfect for {{ product.occasion }}. Personalize your card today at Maple Court Yard.">
+    {% if '/static/' in product.image.url %}
+        <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{ product.image }}">
+    {% else %}
+        <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{ product.image.url }}">
+    {% endif %}
+    <meta property="og:url" content="https://www.maplecourtyard.com/products/{{ product.slug }}/">
+{% endblock %}
+
+
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>

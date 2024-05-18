@@ -12,12 +12,9 @@
         <meta property="og:description" content="Discover our unique {{ collection.name }} collection of handmade greeting cards. Personalize your card today at Maple Court Yard!">
       {% if '/static/' in collection.image.url %}
         <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{collection.image}} ">
-
                      {% else %}
         <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{collection.image.url}}">
-
                      {% endif %}
-
         <meta property="og:url" content="https://www.maplecourtyard.com/products/{{ collection.slug }}">
     {% else %}
         <meta name="title" content="Handmade Greeting Cards - Shop All Products | Maple Court Yard">
