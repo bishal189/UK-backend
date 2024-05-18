@@ -1,6 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Collection for now{% endblock %}
+
+{% block meta %}
+    {% if collection %}
+        <meta name="title" content="Handmade Greeting Cards - {{ collection.collection }} | Maple Court Yard">
+        <meta name="index" content="greeting cards, handmade cards, personalized cards, custom greeting cards, {{ collection.collection }}, Maple Court Yard">
+        <meta name="description" content="Explore our {{ collection.collection }} collection of handmade greeting cards at Maple Court Yard. Find the perfect personalized card for any occasion.">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Handmade Greeting Cards - {{ collection.collection }} | Maple Court Yard">
+        <meta property="og:description" content="Discover our unique {{ collection.name }} collection of handmade greeting cards. Personalize your card today at Maple Court Yard!">
+      {% if '/static/' in collection.image.url %}
+        <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{collection.image}} ">
+
+                     {% else %}
+        <meta property="og:image" content="https://maplecourtyarddesigns.co.uk{{collection.image.url}}">
+
+                     {% endif %}
+
+        <meta property="og:url" content="https://www.maplecourtyard.com/products/{{ collection.slug }}">
+    {% else %}
+        <meta name="title" content="Handmade Greeting Cards - Shop All Products | Maple Court Yard">
+        <meta name="index" content="greeting cards, handmade cards, personalized cards, custom greeting cards, Maple Court Yard, all products">
+        <meta name="description" content="Browse our wide selection of handmade greeting cards for every occasion. Find the perfect personalized card at Maple Court Yard.">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Handmade Greeting Cards - Shop All Products | Maple Court Yard">
+        <meta property="og:description" content="Explore our diverse range of handmade greeting cards for all occasions at Maple Court Yard. Personalize your card today!">
+        <meta property="og:image" content="https://maplecourtyarddesigns.co.uk/static/img/image.png">
+        <meta property="og:url" content="https://www.maplecourtyard.com/products/">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
