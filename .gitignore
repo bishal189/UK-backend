@@ -50,7 +50,7 @@ Pipfile.lock
 local_settings.py
 
 # Ignore static files
-/static/
+
 
 # Ignore database configuration files
 /dbconfig.yml
