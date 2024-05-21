@@ -24,15 +24,14 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     message = request.GET.get('message', '')
-    if message:
-        product = Product.objects.get(id=product_id)
-        Personalization.objects.create(product=product, message=message)
+
         
     current_user = request.user
     product = Product.objects.get(id=product_id)
     cart_id = _cart_id(request)
 
     if current_user.is_authenticated:
+        cart_item=None
         try:
             # Attempt to retrieve the cart item for this user and product
             cart_item = Cartitem.objects.get(product=product, user=current_user)
@@ -44,6 +43,10 @@ def add_cart(request, product_id):
         except Cartitem.DoesNotExist:
             # If it's a new item, create a new cart item for the user
             cart_item = Cartitem.objects.create(product=product, quantity=1, user=current_user)
+
+        if message and message!="JUST FOR YOU":
+            product = Product.objects.get(id=product_id)
+            Personalization.objects.create(cart=cart_item,product=product, message=message)
 
         return redirect('cart')
     else:
@@ -64,6 +67,9 @@ def add_cart(request, product_id):
 
             # If it's a new item, create a new cart item for the cart
             cart_item = Cartitem.objects.create(product=product, quantity=1, cart=cart)
+            if message and message!="JUST FOR YOU":
+                product = Product.objects.get(id=product_id)
+                Personalization.objects.create(cart=cart_item,product=product, message=message)
 
         return redirect('cart')
 
@@ -72,7 +78,6 @@ def add_cart(request, product_id):
 
     
 def cart(request,total=0,quantity=0,cart_items=None):
-    print('cart item where is gone')
     try:
         tax=0
         grand_total=0
@@ -86,8 +91,6 @@ def cart(request,total=0,quantity=0,cart_items=None):
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
         
         
-        print('cart items',cart_items)
-
         for cart_item in cart_items:
             
             total+=(cart_item.product.price*cart_item.quantity)
@@ -96,8 +99,6 @@ def cart(request,total=0,quantity=0,cart_items=None):
         tax=11
 
         grand_total=total;  
-        print(cart_items,'cart items')  
-
 
     except ObjectDoesNotExist:
         pass    
@@ -169,26 +170,24 @@ def remove_item(request,product_id,cart_item_id):
 # //for check out
 @login_required(login_url='Login')
 def checkout(request,total=0,quantity=0,cart_items=None):
-    print('check out page is trigerred')
     tax=0
     grand_total=0
     try:
      
         if request.user.is_authenticated:
             cart_items=Cartitem.objects.filter(user=request.user,is_active=True)
-        
+
+
 
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
        
 
-
         for cart_item in cart_items:
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
 
-        tax=11
         # grand_total=total+0.11*Decimal(total);    
         grand_total=total;    
 
@@ -199,8 +198,6 @@ def checkout(request,total=0,quantity=0,cart_items=None):
     
     if request.method == "POST":
         form=OrderForm(request.POST)
-        print(request.POST,'data printed')
-        print(form.is_valid())
         if form.is_valid():
             data=Order()
             data.user=request.user
@@ -222,8 +219,6 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             data.save()
 
 
-
-
             # generating order number
 
 
@@ -235,11 +230,6 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             order_number=current_date+ str(data.id)
             data.order_number=order_number
             data.save()
-
-
-
-
-
 
 
             order=Order.objects.get(user=request.user,is_ordered=False,order_number=order_number)
@@ -308,6 +298,9 @@ def payement(request):
 
     
     for item in cart_items:
+
+        personalize=Personalization.objects.filter(cart=item)
+
         print(item)
         orderproduct=Order_Product()
         orderproduct.order_id=order.id
@@ -318,37 +311,26 @@ def payement(request):
         orderproduct.product_price=item.product.price
         orderproduct.is_ordered=True
         orderproduct.save()
+        if len(personalize)>0:
+            personalize[0].order=orderproduct
+            print(personalize[0])
+            personalize[0].save()
         
 
 
         # for adding variation in that  particular item
 
         cart_item=Cartitem.objects.get(id=item.id)
-       
         orderproduct=Order_Product.objects.get(id=orderproduct.id)
         orderproduct.save()
 
-
-# reduce the quantity of sold products
-       
+            # reduce the quantity of sold products
         product_item=Product.objects.get(id=item.product.id)
-        
         product_item.save()
 
 
-
-
-
-
-
-# clear the cart
-
 #  after payement sucessfull the cartitem in the cart should be clear
     Cartitem.objects.filter(user=request.user).delete()
-
-
-
-
 
 
 # send order recived email to customer

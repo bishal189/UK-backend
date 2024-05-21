@@ -109,15 +109,14 @@ class Order_Product(models.Model):
     updated_at=models.DateTimeField(auto_now=True)
 
 
-
     def __str__(self):
         return self.product.product_name
 
 
-
-
 class Personalization(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cart=models.ForeignKey(Cartitem,on_delete=models.SET_NULL,null=True)
+    order=models.ForeignKey(Order_Product,on_delete=models.CASCADE,null=True)
     message = models.CharField(max_length=100)
     buyed=models.BooleanField(default=False)
 
