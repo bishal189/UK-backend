@@ -30,6 +30,8 @@ def Register(request):
             # Check if there is already an email associated
                 if Account.objects.filter(email=email).exists():
                     messages.error(request, f'{email} is already registered.')
+                    return redirect('/register')
+                    
                 else:
                 # Create the user account
                     user = Account.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
@@ -51,7 +53,7 @@ def Register(request):
                     return redirect('/login/')
             else:
             # Form is invalid, display error messages
-                messages.error(request, 'Please correct the errors below.')
+                messages.error(request, 'Please some Crenditials are incorrect')
         else:
             form = RegistrationForm()
         context = {'form': form}
