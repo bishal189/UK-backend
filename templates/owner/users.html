@@ -14,7 +14,7 @@
 					<div class="main__title">
 						<h2>Users</h2>
 
-						<span class="main__title-stat">{{users.count}} total</span>
+						<span class="main__title-stat">{{count}} total</span>
 
 						<div class="main__title-wrap">
 							<!-- filter sort -->
@@ -86,16 +86,19 @@
 									<td>
 										<div class="main__table-text">{{user.date_joined|date:"m/d/Y"}}</div>
 									</td>
-									<td>
+									<td>{% if user_totals_list %}
 										{% for user_total in user_totals_list %}
 										
-										{% if user_total.user == user %}
-										<div class="main__table-text">{{user_total.total_paid|floatformat:2}}</div>
-										{% else %}
-										<div class="main__table-text">0</div>
-										{% endif %}
+											{% if user_total.user == user %}
+											<div class="main__table-text">{{user_total.total_paid|floatformat:2}}</div>
+											{% else %}
+											{% endif %}
+										
 
 									  {% endfor %}
+									  {% else %}
+									  <div class="main__table-text">0</div>
+										{% endif %}	
 										
 									</td>
 									<td>
