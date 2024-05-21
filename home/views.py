@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from store.models import Product
-from django.db.models import Q
+from django.db.models import Q,Sum,Count
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -27,13 +27,18 @@ def customer_reviews(request):
 def search(request):
     if 'keyword'  in request.GET:
         keyword=request.GET['keyword']
-        print('i am get method')
         if keyword:
             products=Product.objects.order_by("-created_date").filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
             count=products.count()
+            products_with_avg_rating = products.annotate(
+            avg_rating=Sum("reviews__rating") / Count("reviews"),
+            reviews_count=Count("reviews"),
+        )
+        print(products_with_avg_rating)
+
 
         context={
-            'products':products,
+            'products':products_with_avg_rating,
             'count':count
         }
 

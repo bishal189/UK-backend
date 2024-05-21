@@ -42,7 +42,6 @@ def products(request):
 
         products = products_with_avg_rating.order_by("-view_count")
         context = {
-            # 'products':products,
             "products": products
         }
         return render(request, "products.html", context)
