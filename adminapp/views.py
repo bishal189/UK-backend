@@ -4,7 +4,7 @@ from django. contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from account.models import Account
-from cart.models import Payment,Order,Order_Product
+from cart.models import Payment,Order,Order_Product,Personalization
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Sum,Count
 import json
@@ -324,6 +324,10 @@ def pending_orders(request):
         total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
     ).order_by('-id')
         print(orders)
+        for order in orders:
+            personalize=Personalization.objects.filter(order=order)
+            if len(personalize)>0:
+                order.personalize=personalize[0].message
 
         context={
             'orders':orders
@@ -349,12 +353,11 @@ def accept_product_order(request,order_product_id):
             'error':str(e)
             }
         return render(request,'owner/pending_orders.html',context)
+
 @user_passes_test(is_superadmin)
 def cancel_product_order(request,order_product_id):
     try:
-        print(order_product_id)
         product=Order_Product.objects.get(id=order_product_id)
-        print(product)
         product.status="Cancelled"
         product.save()
         return redirect('pending_orders')

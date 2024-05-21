@@ -106,7 +106,13 @@
 
 									<td>
 
-										<div class="main__table-text">None</div>
+										<div class="main__table-text">
+										{% if order.personalize %}
+										{{order.personalize}}
+										{% else %}
+										None
+										{% endif %}
+										</div>
 									</td>
 										<td>
 										<div class="main__table-text">{{order.order.first_name}} {{order.order.last_name}}</div>
