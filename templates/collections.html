@@ -32,10 +32,10 @@
                   <div class="aspect-ratio" style="padding-bottom: 140.0%">
                      {% if '/static/' in collection.image.url %}
 
-                     <img src={{collection.image}} />
+                     <img src={{collection.image}} class="" data-sizes="auto" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
                      {% else %}
 
-                     <img src={{collection.image.url}} />
+                     <img src={{collection.image.url}} class="" data-sizes="auto" data-widths="[200,300,400,600,800,900,1000,1200]" alt="{{product.product_name}}">
                      {% endif %}
 
                   </div>
