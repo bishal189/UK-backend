@@ -29,21 +29,25 @@ Maple Court Yard
                   <div class="inner">
                      <h2 class="section__title">Shop for cards</h2>
                      <div class="list-collections list-collections--grid grid grid--middle grid--gallery">
+                        {% for item in product %}
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-                           <a href="{% url 'collection' collection_slug='birthday' %}" class="collection__link"
+                           <a href="{% url 'get_product' item.slug %}" class="collection__link"
                               >
+                              {% if '/static/' in item.image.url %}
+                              <img src="{{item.image}}" />
+                              {% else %}
+                              <img src="{{item.image.url}}" />
+                              {% endif %}
 
-                              <img src="{% static 'assets/handmade_birthday_lg.avif' %}" />
                            </a>
                            <a href="{% url 'collection' collection_slug='birthday' %}" class="collection__link">
-                              <h3 class="collection__title">Birthday </h3>
-                              <p class="col_short_desc">Spoil your family and with our exquisitely designed birthday cards.
-                                 Excellent quality, beautifully finished and well presented - these handmade birthday cards will be
-                                 much loved and well received.
+                              <h3 class="collection__title">{{item.product_name|truncatechars:50}}</h3>
+                              <p class="col_short_desc">{{item.description|truncatechars:500}}
                               </p>
                            </a>
                         </div>
-                        <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
+                        {% endfor %}
+                        {% comment %} <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link">
                               <img src="{% static 'assets/thankful_for_you_lg.jpg' %} "/>
                            </a>
@@ -68,24 +72,18 @@ Maple Court Yard
                            </a>
                         </div>
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-                           <a href="{% url 'collection' collection_slug='anniversary' %}" class="collection__link"
-                              style="background: url({% static 'assets/scenic.avif' %})">
-
-                              <div class="aspect-ratio" style="padding-bottom: 140.0%">
-                                 <div class="collection__image-background lazyload image--fade-in" data-optimumx="1.4"
-                                    data-bgset="{% static 'assets/handmade_wedding_lg.jpg' %}">
-                                 </div>
-
-                              </div>
-                              <div class="collection__overlay"></div>
+                           <a  href="{% url 'collection' collection_slug='anniversary' %}" class="collection__link"
+                              >
+                              <img src="{% static 'assets/get_wellsoon_second_lg.webp' %}" />
                            </a>
-                           <a href="{% url 'collection' collection_slug='anniversary' %}"  class="collection__link">
+                           <a href="{% url 'collection' collection_slug='wedding' %}" class="collection__link">
                               <h3 class="collection__title">Anniversary </h3>
                               <p class="col_short_desc">Handcrafted with sparkling crystals, fine ribbons, premium silk flowers, and
                                  expertly printed artwork, these luxurious anniversary cards are a testament to continued devotion.
                               </p>
                            </a>
-                        </div>
+                        </div> {% endcomment %}
+                       
                      </div>
                      <p class="p_read-more">
                         <a class="article__read-more" href="{% url 'collections' %}">
@@ -117,23 +115,13 @@ Maple Court Yard
                         </div>
                         <div class="grid__cell notice_box 1/3--handheld-and-up">
                            <h3>Handmade in the UK</h3>
-                           <p> All our cards are designed and handcrafted by us here in our studio in Nottinghamshire.</p>
+                           <p> All our cards are designed and handcrafted by us here in our studio in Liverpool .</p>
                         </div>
                      </div>
                   </div>
                </section>
             </div>
-            <div id="shopify-section-1532893505313" class="shopify-section shopify-section__featured-reviews">
-               <section class="index-module section section--padded section--secondary index-module__featured-text">
-                  <div class="inner-featured-review">
-                     <h2 class="section__title">Recent reviews by our customers</h2>
-                     <div class="section-wrapper rte" style="text-align: center">
-                        <p></p>
-                     </div>
-               <!-- implement review later -->
-                  </div>
-               </section>
-            </div>
+            
             <div id="shopify-section-featured-content" class="shopify-section shopify-section__featured-text">
                <section class="index-module section section--padded  index-module__featured-text">
                   <div class="container">

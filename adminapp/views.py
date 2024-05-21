@@ -190,7 +190,7 @@ def user_list(request):
             user_totals[user] = {'user': user, 'total_paid': amount_paid}
     # Update user_totals_list with calculated totals
     user_totals_list = user_totals.values()
-    print(user_totals_list)
+    print(user_totals_list,'user list')
 
     context = {
         'users': paged_products,

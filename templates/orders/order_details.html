@@ -113,23 +113,23 @@ $(document).ready(function() {
                                                     {% endif %}
                                                     
                                                     <td class="text-center">{{item.quantity}}</td>
-                                                    <td class="text-center">${{item.product_price}} USD</td>
+                                                    <td class="text-center">${{item.product_price}} EUR</td>
                                                 </tr>
                                               {% endfor %}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="2" class="text-right">Sub Total:</th>
-                                                    <th class="text-center">${{subtotal}} USD</th>
+                                                    <th class="text-center">${{subtotal}} EUR</th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2" class="text-right">Tax:</th>
-                                                    <th class="text-center">${{0}} USD</th>
+                                                    <th class="text-center">${{0}} EUR</th>
                                                 </tr>
     
                                                 <tr>
                                                     <th colspan="2" class="text-right">Grand Total:</th>
-                                                    <th class="text-center">${{order.total}} USD</th>
+                                                    <th class="text-center">${{order.total}} EUR</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

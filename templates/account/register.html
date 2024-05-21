@@ -36,6 +36,7 @@
 <div class="page__content">
   <section class="register-form">
     <div class="container container--shrink">
+      {% include "includes/alert.html"%}
       <form method="POST" action="{% url 'register' %}" id="create_customer"  class="form--shrinked" >
         
        {% csrf_token %}
