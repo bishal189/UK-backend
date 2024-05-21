@@ -4,7 +4,7 @@ from django. contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from account.models import Account
-from cart.models import Payment
+from cart.models import Payment,Order,Order_Product
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Sum,Count
 import json
@@ -300,3 +300,67 @@ def edit_collection(request,id):
         }
         
     return render(request,'owner/edit_collection.html',context)    
+from django.db.models import F, FloatField
+from django.db.models.functions import Cast
+from django.shortcuts import redirect
+@user_passes_test(is_superadmin)
+def completed_orders(request):
+    try:
+        orders = Order_Product.objects.exclude(status="New").annotate(
+        total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
+            ).order_by('-id')
+        context={
+            'orders':orders}
+
+        return render(request,'owner/completed_orders.html',context)
+    except Exception as e:
+        print(e)
+        return
+
+@user_passes_test(is_superadmin)
+def pending_orders(request):
+    try:
+        orders = Order_Product.objects.filter(status="New").annotate(
+        total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
+    ).order_by('-id')
+        print(orders)
+
+        context={
+            'orders':orders
+            }
+        return render(request,'owner/pending_orders.html',context)
+    except Exception as e:
+        print(e)
+        return
+
+@user_passes_test(is_superadmin)
+def accept_product_order(request,order_product_id):
+    try:
+        print(order_product_id)
+        product=Order_Product.objects.get(id=order_product_id)
+        print(product)
+        product.status="Accepted"
+        product.save()
+        return redirect('pending_orders')
+
+    except Exception as e:
+        print(e)
+        context={
+            'error':str(e)
+            }
+        return render(request,'owner/pending_orders.html',context)
+@user_passes_test(is_superadmin)
+def cancel_product_order(request,order_product_id):
+    try:
+        print(order_product_id)
+        product=Order_Product.objects.get(id=order_product_id)
+        print(product)
+        product.status="Cancelled"
+        product.save()
+        return redirect('pending_orders')
+    except Exception as e:
+        print(e)
+        context={
+            'error':str(e)
+            }
+        return render(request,'owner/pending_orders.html',context)

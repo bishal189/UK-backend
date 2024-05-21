@@ -91,6 +91,13 @@ class Order(models.Model):
 
 
 class Order_Product(models.Model):
+    STATUS=(
+        ('New','New'),
+        ('Accepted','Accepted'),
+        ('Cancelled','Cancelled'),
+    )
+    status=models.CharField(max_length=10,choices=STATUS,default='New')
+
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     payment =models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True,blank=True)
     user =models.ForeignKey(Account,on_delete=models.CASCADE)
