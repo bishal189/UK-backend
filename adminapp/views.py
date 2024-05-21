@@ -24,6 +24,8 @@ def dashboard(request):
     get_data=Product.objects.all().count()
     total_price =Payment.objects.aggregate(total_price=Sum('amount_paid'))
     sum_of_prices = total_price['total_price']
+    if sum_of_prices is None:
+        sum_of_prices=0
     context={
         'latest_users':latest_users,
         'latest_product':latest_product,
@@ -31,6 +33,7 @@ def dashboard(request):
         'get_data':get_data,
         'total':sum_of_prices
     }
+    print(context)
     return render(request,'owner/index.html',context)
 
 
