@@ -19,9 +19,8 @@ urlpatterns = [
     path('admin-access/',include('adminapp.urls')),
     path('review/',include('review.urls')),
     path('',include('cart.urls')),
-    path('.well-known/acme-challenge/AOz25ufGqqhW4FOtHsECu8J43j-twNMBRr980zkmo4I',test),
     path('<str:any>',custom_404_view) ,
-    path('<str:any>/',custom_404_view) 
+   
 ]
 
 
