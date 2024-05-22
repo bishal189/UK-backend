@@ -129,7 +129,14 @@
 					</div>
 				</div> {% endcomment %}
 				<!-- end paginator -->
-
+	<style>
+				.active{
+				background-color:#ff0000;
+				padding-left:10px;
+				margin-right:10px;
+				margin-left:10px;
+				}
+				</style>
 				<div class="col-12">
 					<div class="paginator">
 						<span class="paginator__pages">10 from {{count}}</span>
@@ -154,7 +161,7 @@
 									{% endif %}
 									{% endfor %}
 									{% if all_products.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page={{all_products.next_page_number}}" style='color:white; margin-left:13px;'>Next</a></li>
+									<li class="page-item"><a class="page-link " href="?page={{all_products.next_page_number}}" style='color:white; margin-left:13px;'>Next</a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" style='color:white;' href="#">Next</a></li>
 									{% endif %}

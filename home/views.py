@@ -1,16 +1,16 @@
 from django.shortcuts import render
-from store.models import Product
+from store.models import Product,Collection
 from django.db.models import Q,Sum,Count
 from review.models import Review
 # Create your views here.
 def index(request):
     review=Review.objects.order_by('-id')[:3]
-    product=Product.objects.order_by('-id')[:4]
+    collection=Collection.objects.all().order_by('-id')[:4]
   
 
     context={
         'review':review,
-        'product':product
+        'collections':collection
     }
     return render(request,'index.html',context)
 

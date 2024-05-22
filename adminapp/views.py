@@ -92,8 +92,6 @@ def catalog(request):
             products = products.filter(
                 Q(description__icontains=keyword) | Q(product_name__icontains=keyword)
             )
-    else:
-        products = Product.objects.all()
     
     count = products.count()
     paginator = Paginator(products, 10)

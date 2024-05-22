@@ -29,7 +29,9 @@ Maple Court Yard
                   <div class="inner">
                      <h2 class="section__title">Shop for cards</h2>
                      <div class="list-collections list-collections--grid grid grid--middle grid--gallery">
+                     {% comment %}
                         {% for item in product %}
+
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a href="{% url 'get_product' item.slug %}" class="collection__link"
                               >
@@ -47,18 +49,24 @@ Maple Court Yard
                            </a>
                         </div>
                         {% endfor %}
-                        {% comment %} <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
-                           <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link">
-                              <img src="{% static 'assets/thankful_for_you_lg.jpg' %} "/>
+                        {% endcomment %}
+                        {% for collection in collections %}
+                        <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
+                           <a href="{% url 'collection' collection_slug=collection.collection_slug %}" class="collection__link">
+                           {% if '/static/' in collection.image.url %}
+                              <img src="{{collection.image}} "/>
+                              {% else %}
+                              <img src="{{collection.image.url}} "/>
+                              {% endif %}
                            </a>
-                           <a href="{% url 'collection' collection_slug='new-baby' %}" class="collection__link">
-                              <h3 class="collection__title">New Baby </h3>
-                              <p class="col_short_desc">Congratulate lucky parents on arrival of a precious little one with
-                                 personalised handmade baby cards - a superb selection of designs for baby boys, baby girls and baby
-                                 twins.
+                           <a href="{% url 'collection' collection_slug=collection.collection_slug %}" class="collection__link">
+                              <h3 class="collection__title">{{collection.collection}} Collection</h3>
+                              <p class="col_short_desc">{{collection.description}}
                               </p>
                            </a>
                         </div>
+                        {% endfor %}
+                        {% comment %}
                         <div class="list-collections__item collection grid__cell 1/2 1/2--handheld 1/4--lap-and-up">
                            <a  href="{% url 'collection' collection_slug='wedding' %}" class="collection__link"
                               >
@@ -82,7 +90,8 @@ Maple Court Yard
                                  expertly printed artwork, these luxurious anniversary cards are a testament to continued devotion.
                               </p>
                            </a>
-                        </div> {% endcomment %}
+                        </div>
+                        {% endcomment %}
                        
                      </div>
                      <p class="p_read-more">
