@@ -9,4 +9,4 @@ class category_admin(admin.ModelAdmin):
 
 
 
-admin.site.register(Category,category_admin)
+# admin.site.register(Category,category_admin)

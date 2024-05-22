@@ -237,7 +237,7 @@ def add_collection(request):
         large_image=request.FILES['image']
         collection=Collection.objects.create(collection=category,description=descriptions,image=large_image)
         messages.success(request,'Collection has been added!')
-        return redirect('/add_collection/')
+        return redirect('add_collection')
         
         
     return render(request,'owner/add_collection.html')    
@@ -272,7 +272,7 @@ def delete_collection(request,id):
     category=Collection.objects.get(id=id)
     category.delete()
     messages.success(request,'collection has been deleted')
-    return redirect('/show_collection/')
+    return redirect('show_collection')
 
 
 @user_passes_test(is_superadmin)
@@ -291,7 +291,7 @@ def edit_collection(request,id):
             collection.description = descriptions
         collection.save()
         messages.success(request,'item has been edited')
-        return redirect('/show_collection/')
+        return redirect('show_collection')
     
     else:
         context={
