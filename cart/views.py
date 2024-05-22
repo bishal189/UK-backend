@@ -46,7 +46,9 @@ def add_cart(request, product_id):
 
         if message and message!="JUST FOR YOU":
             product = Product.objects.get(id=product_id)
-            Personalization.objects.create(cart=cart_item,product=product, message=message)
+            personalize,created=Personalization.objects.get_or_create(cart=cart_item,product=product)
+            personalize.message=message
+            personalize.save()
 
         return redirect('cart')
     else:

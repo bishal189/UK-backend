@@ -159,17 +159,10 @@
                               <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
                               <div class="product-meta__labels"></div>
                            </div>
-                           <div class="delivery_date">
-                              <p>Get it by <span id="toDate_48"></span> with FREE UK Delivery.<br>
-                                 Faster UK delivery options
-                                 are available.
-                                 <span class="more_info" id="scroll-delivery">More info</span>
-                              </p>
-                           </div>
                            <div class="product_personalise_button">
                               <div class="front-msg">
                                  <h3 class="personalisation_title">Personalise front page</h3>
-                                 <p>If you wish to change a message on the front of the card, please type it in the box below (maximum 100 characters).</p>
+                                 <p>If you wish to change a message on the front of the card, please type it in the box below.</p>
                                  <p class="line-item-property__field">
                                     <textarea maxlength="100" id="cart_message" rows="2" class="front-message" name="properties[Cover Message]" style="color:#8a434d; font-family:Jura;  font-size:24px; line-height: 26px;">JUST FOR YOU</textarea>
                                  </p>
@@ -248,7 +241,7 @@
                      <li   class="tabs__nav-item tabs__nav-item--active"  data-tab-index="0">Description
                         <span class="tabs__nav-line"></span>
                      </li>
-                     <li id="delivery-tab"  class="tabs__nav-item "  data-tab-index="1">Delivery & Returns</li>
+
                      <li  id="reviews-tab" class="tabs__nav-item "  data-tab-index="2">Reviews</li>
                   </ul>
                   <div class="tabs__content">
@@ -257,49 +250,7 @@
                            <p id="description">{{product.description}}</p>
                         </div>
                      </div>
-                     <div class="tabs__content-item ">
-                        <div class="container container--shrink rte">
-                           <p class="table-title">Delivery</p>
-                           <p>Delivery charges and times listed below are for a single card. For larger orders delivery time may vary and the price will be calculated at checkout.</p>
-                           <table width="100%">
-                              <tbody>
-                                 <tr>
-                                    <td class="table-title td-alternate" style="width: 27.931%;">Delivery Option</td>
-                                    <td class="table-title td-alternate" style="width: 54.069%;">Details</td>
-                                    <td class="table-title td-alternate" style="width: 43%;">Price</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="delivery-option" style="width: 27.931%;">UK Royal Mail 48 Tracked</td>
-                                    <td style="width: 54.069%;">Delivery by <span id="toDate_48_1"></span> </td>
-                                    <td class="table-title" style="width: 43%;">Free</td>
-                                 </tr>
-                                 <tr class="rm24_available">
-                                    <td class="delivery-option td-alternate" style="width: 27.931%;">UK Royal Mail 24 Tracked</td>
-                                    <td class="td-alternate" style="width: 54.069%;">Delivery by <span id="toDate1"></span></td>
-                                    <td class="table-title td-alternate" style="width: 43%;">£3.50</td>
-                                 </tr>
-                                 <tr class="special_delivery_available">
-                                    <td class="delivery-option" style="width: 27.931%;">UK Special Delivery</td>
-                                    <td style="width: 54.069%;">Delivery by <span id="sdDate"></span></td>
-                                    <td class="table-title" style="width: 43%;">£9.25</td>
-                                 </tr>
-                                 <tr class="international_delivery_available">
-                                    <td class="delivery-option" style="width: 27.931%;">Europe Delivery</td>
-                                    <td style="width: 54.069%;">Ships within 3 working days + delivery up to 7-10 working days</td>
-                                    <td class="table-title" style="width: 43%;">£9.55</td>
-                                 </tr>
-                                 <tr class="international_delivery_available">
-                                    <td class="delivery-option td-alternate" style="width: 27.931%;">Rest of the World</td>
-                                    <td class="td-alternate" style="width: 54.069%;">Ships within 3 working days + delivery up to 14 working days</td>
-                                    <td class="table-title td-alternate" style="width: 43%;">£15.15</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                           <p> </p>
-                           <p class="table-title">Returns</p>
-                           <p>If you changed your mind for whatever reason, you can always return your order back to us within 28 days for a replacement or refund.</p>
-                        </div>
-                     </div>
+
                      <div style="padding:20px" class="tabs__content-item  ">
                         <div style="display:flex;justify-content:space-between;" class="review-header">
                            <div style="padding:50px 30px;"  class="top-left">
@@ -559,7 +510,6 @@
       </form>
    </main>
    {% include 'includes/footer.html' %}
-   {{product.details}}
    <script>
          var details = JSON.parse('{{ product.details|escapejs }}');
          var detailsContainer = document.getElementById('product_details_container').querySelector('.product_summary_list');

@@ -370,7 +370,7 @@ async function addProducts() {
   for (const product of data) {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/products/run_script/",
+        "https://maplecourtyarddesigns.co.uk/products/run_script/",
         {
           method: "POST",
           headers: {
