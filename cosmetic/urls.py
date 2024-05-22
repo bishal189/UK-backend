@@ -9,8 +9,7 @@ from django.http import HttpResponse
 handler404 = 'store.views.custom_404_view'
 
 
-def test(request):
-    return HttpResponse("AOz25ufGqqhW4FOtHsECu8J43j-twNMBRr980zkmo4I.c9hdkjIPUGYjBWrlxTsr4QcoJHgD3gJ1FtidKgIPTEg")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
@@ -20,6 +19,8 @@ urlpatterns = [
     path('review/',include('review.urls')),
     path('',include('cart.urls')),
     path('<str:any>',custom_404_view) ,
+    path('<str:any>/',custom_404_view) ,
+
    
 ]
 
