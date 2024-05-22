@@ -21,7 +21,7 @@ def _cart_id(request):
     return cart 
 
 
-
+@login_required(login_url='Login')
 def add_cart(request, product_id):
     message = request.GET.get('message', '')
 

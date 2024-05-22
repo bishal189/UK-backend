@@ -253,7 +253,7 @@ def show_collection(request):
                 Q(description__icontains=keyword) | Q(collection__icontains=keyword)
             )
     else:  
-        pass      
+        pass
         
     count=collection.count()
     paginator = Paginator(collection, 10)
@@ -309,6 +309,16 @@ def completed_orders(request):
         orders = Order_Product.objects.exclude(status="New").annotate(
         total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
             ).order_by('-id')
+        if request.method == 'POST':
+            keyword = request.POST.get('keyword', '')
+            if keyword!="":
+                orders = orders.filter(
+                    Q(product__product_name__icontains=keyword) | Q(order__email__icontains=keyword) | Q(order__first_name__icontains=keyword) |Q(order__last_name__icontains=keyword) |
+                    Q(order__address_line_1__icontains=keyword)|
+                    Q(order__country__icontains=keyword)|
+                    Q(order__state__icontains=keyword)
+                )
+
         context={
             'orders':orders}
 
@@ -321,14 +331,22 @@ def completed_orders(request):
 def pending_orders(request):
     try:
         orders = Order_Product.objects.filter(status="New").annotate(
-        total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
-    ).order_by('-id')
-        print(orders)
+            total_price=Cast(F('quantity'), FloatField()) * Cast(F('product__price'), FloatField())
+            ).order_by('-id')
+        if request.method == 'POST':
+            keyword = request.POST.get('keyword', '')
+            if keyword!="":
+                orders = orders.filter(
+                    Q(product__product_name__icontains=keyword) | Q(order__email__icontains=keyword) | Q(order__first_name__icontains=keyword) |Q(order__last_name__icontains=keyword) |
+                    Q(order__address_line_1__icontains=keyword)|
+                    Q(order__country__icontains=keyword)|
+                    Q(order__state__icontains=keyword)
+                )
+
         for order in orders:
             personalize=Personalization.objects.filter(order=order)
             if len(personalize)>0:
                 order.personalize=personalize[0].message
-
         context={
             'orders':orders
             }
@@ -340,6 +358,7 @@ def pending_orders(request):
 @user_passes_test(is_superadmin)
 def accept_product_order(request,order_product_id):
     try:
+
         print(order_product_id)
         product=Order_Product.objects.get(id=order_product_id)
         print(product)
