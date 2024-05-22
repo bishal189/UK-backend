@@ -42,9 +42,9 @@ Maple Court Yard
                               {% endif %}
 
                            </a>
-                           <a href="{% url 'collection' collection_slug='birthday' %}" class="collection__link">
+                           <a href="{% url 'get_product' item.slug %}" class="collection__link">
                               <h3 class="collection__title">{{item.product_name|truncatechars:50}}</h3>
-                              <p class="col_short_desc">{{item.description|truncatechars:500}}
+                              <p class="col_short_desc">{{item.description|truncatechars:300}}
                               </p>
                            </a>
                         </div>
