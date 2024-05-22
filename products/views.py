@@ -115,6 +115,7 @@ def collection(request, collection_slug=None):
             try:
                 filter_products = request.GET.get("filter", "")
                 collection = Collection.objects.get(collection_slug=collection_slug)
+                print(collection,'collections***************')
                 products = Product.objects.annotate(
                     avg_rating=Sum("reviews__rating") / Count("reviews"),
                     reviews_count=Count("reviews"),
@@ -137,16 +138,15 @@ def collection(request, collection_slug=None):
                     content_html = render_to_string(
                         "renderer/products.html", context1, request=request
                     )
-                    print(content_html)
+                   
                     return JsonResponse({"content": content_html})
                 products = products.order_by("-avg_rating","-view_count")
-                print(products)
+             
                 context = {
                     "collection": collection,
                     "products": products,
                 }
-                print(context)
-
+                
                 return render(request, "products.html", context)
             except Exception as e:
                 context = {"error": str(e)}
