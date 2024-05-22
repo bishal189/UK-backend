@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
+
+{% block style %}
+<style>
+    @media only screen and (max-width: 800px) {
+        .product__showcase{
+            width:100%!important;
+        }
+        .grid{
+            display:block;
+        }
+        .cart-item__subtotal{
+            margin: 42px 0 18px!important;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
  {% include 'includes/header.html' %}
+ <body class="kagami--v5 template-cart ">
 <div id="shopify-section-custom-product-template-XL" class="shopify-section">
     <header class="page__header ">
 
@@ -23,7 +41,7 @@
 
             <div class="inner inner-product">
                 <div class="grid">
-                    <div class="product__showcase grid__cell 3/5--lap-and-up" style="width:50%;">
+                    <div class="product__showcase grid__cell 3/5--lap-and-up " style="width:50%;">
                         <div class="container container--shrink">
                             
                             <form method="post" action="{% url 'checkout' %}"
@@ -109,8 +127,85 @@
                     </div>
 
 
-                    <div class="product__info grid__cell 2/5--lap-and-up">
+                    <div class=" product__info grid__cell 2/5--lap-and-up">
                         <div class="cart--desktop">
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th></th>
+                                        
+                                        <th>Quantity</th>
+                                        <th>Item total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for cart_item in cart_items %}
+
+                                    <tr data-variant-id="11281174462500" data-index="1">
+                                        <td class="cart-item__product">
+                                            <a href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500"
+                                                class="cart-item__link">
+                                                {% if '/static/' in cart_item.product.image.url %}
+                                                <img class="cart-item__image"
+
+                                                    src="{{cart_item.product.image}}">
+                                                    {% else %}
+                                                    <img class="cart-item__image"
+
+                                                    src="{{cart_item.product.image.url}}">
+                                                    {% endif %}
+                                            </a>
+                                        </td>
+
+                                        <td class="cart-item__info table__left">
+
+
+                                            <p><a class="cart-item__title"
+                                                    href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500">
+                                                {{cart_item.product|truncatechars:55}}    
+                                                </a></p>
+                                          
+                                            <div id="cart_personalisation_1"
+                                                style="height: 0; overflow: hidden; transition: height 0.5s ease;">
+
+
+
+
+                                                <p>
+                                                    <span class="p_first">Cover Message:</span>
+
+                                                    <br>
+                                                    <span class="p_last">HAPPY BIRTHDAY</span>
+
+                                                </p>
+                                            </div>
+
+                                        </td>
+
+                                       
+
+                                        <td class="cart-item__quantity">
+                                            <span>{{cart_item.quantity}}</span>
+
+
+                                        </td>
+
+                                        <td class="cart-item__subtotal" data-money-convertible="">£{{cart_item.product.price}} each</td>
+
+                                       
+                                    </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart--mobile">
 
                             <table>
                                 <thead>
@@ -196,5 +291,6 @@
     </div>
 
 </div>
+</body>
 {% include 'includes/footer.html' %}
 {% endblock %}
