@@ -5,7 +5,7 @@ from review.models import Review
 # Create your views here.
 def index(request):
     review=Review.objects.order_by('-id')[:3]
-    collection=Collection.objects.all().order_by('-id')[:4]
+    collection=Collection.objects.all().order_by('id')[:4]
   
 
     context={
