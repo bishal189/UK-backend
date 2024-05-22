@@ -319,8 +319,15 @@ def completed_orders(request):
                     Q(order__state__icontains=keyword)
                 )
 
+        count=orders.count()
+        paginator = Paginator(orders, 10)
+        page = request.GET.get('page')
+        paged_orders= paginator.get_page(page)
+
+
         context={
-            'orders':orders}
+            'orders':paged_orders,
+            'count':count}
 
         return render(request,'owner/completed_orders.html',context)
     except Exception as e:
@@ -347,8 +354,15 @@ def pending_orders(request):
             personalize=Personalization.objects.filter(order=order)
             if len(personalize)>0:
                 order.personalize=personalize[0].message
+
+        count=orders.count()
+        paginator = Paginator(orders, 10)
+        page = request.GET.get('page')
+        paged_orders= paginator.get_page(page)
+
         context={
-            'orders':orders
+            'orders':paged_orders,
+            'count':count
             }
         return render(request,'owner/pending_orders.html',context)
     except Exception as e:
