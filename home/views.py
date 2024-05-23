@@ -43,7 +43,7 @@ def search(request):
             avg_rating=Sum("reviews__rating") / Count("reviews"),
             reviews_count=Count("reviews"),
         )
-        print(products_with_avg_rating)
+        
 
 
         context={

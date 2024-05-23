@@ -24,5 +24,5 @@ def add_review(request):
             return JsonResponse({'review':model_to_dict(review),'created_at':review.created_at},status=200)
         except Exception as e:
             error=str(e)
-            print(error)
+          
             return JsonResponse({'error':f"Unexpected error occured {error}"},status=400)

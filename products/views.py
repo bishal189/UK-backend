@@ -66,7 +66,7 @@ def products(request):
             # Return error response if required fields are missing
             return JsonResponse({"error": "Invalid data format"}, status=400)
         except Exception as e:
-            print(str(e))
+           
             # Return error response for other exceptions
             return JsonResponse({"error": str(e)}, status=500)
 
@@ -86,7 +86,7 @@ def get_product(request, product_name):
             else:
                 average_rating = 0
 
-            print(reviews)
+           
             similar_products = Product.objects.filter(~Q(id=product.id)).order_by("?")[
                 :4
             ]
@@ -99,7 +99,7 @@ def get_product(request, product_name):
             return render(request, "product.html", context)
         except Exception as e:
             error = str(e)
-            print(error)
+          
             context = {"error": error}
             return render(request, "product.html", context)
 
@@ -115,7 +115,7 @@ def collection(request, collection_slug=None):
             try:
                 filter_products = request.GET.get("filter", "")
                 collection = Collection.objects.get(collection_slug=collection_slug)
-                print(collection,'collections***************')
+               
                 products = Product.objects.annotate(
                     avg_rating=Sum("reviews__rating") / Count("reviews"),
                     reviews_count=Count("reviews"),
@@ -153,7 +153,7 @@ def collection(request, collection_slug=None):
                 return render(request, "collections.html", context)
     if request.method == "POST":
         try:
-            print("true")
+           
             # user=request.user
             # if not user.is_authenticated:
             #     raise Exception("user is not authenticated")
@@ -187,6 +187,6 @@ def run_script(request):
             # Return error response if required fields are missing
             return JsonResponse({"error": "Invalid data format"}, status=400)
         except Exception as e:
-            print(str(e))
+        
             # Return error response for other exceptions
             return JsonResponse({"error": str(e)}, status=500)

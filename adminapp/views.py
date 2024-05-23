@@ -33,7 +33,7 @@ def dashboard(request):
         'get_data':get_data,
         'total':sum_of_prices
     }
-    print(context)
+    
     return render(request,'owner/index.html',context)
 
 
@@ -70,7 +70,7 @@ def add_item(request):
         
     else:
         collection=Collection.objects.all()
-        print(collection)
+       
         context={
             'collections':collection
         }
@@ -188,7 +188,7 @@ def user_list(request):
             user_totals[user] = {'user': user, 'total_paid': amount_paid}
     # Update user_totals_list with calculated totals
     user_totals_list = user_totals.values()
-    print(user_totals_list,'user list')
+   
 
     context = {
         'users': paged_products,
@@ -329,7 +329,7 @@ def completed_orders(request):
 
         return render(request,'owner/completed_orders.html',context)
     except Exception as e:
-        print(e)
+     
         return
 
 @user_passes_test(is_superadmin)
@@ -364,22 +364,22 @@ def pending_orders(request):
             }
         return render(request,'owner/pending_orders.html',context)
     except Exception as e:
-        print(e)
+        
         return
 
 @user_passes_test(is_superadmin)
 def accept_product_order(request,order_product_id):
     try:
 
-        print(order_product_id)
+        
         product=Order_Product.objects.get(id=order_product_id)
-        print(product)
+       
         product.status="Accepted"
         product.save()
         return redirect('pending_orders')
 
     except Exception as e:
-        print(e)
+   
         context={
             'error':str(e)
             }
@@ -393,7 +393,7 @@ def cancel_product_order(request,order_product_id):
         product.save()
         return redirect('pending_orders')
     except Exception as e:
-        print(e)
+    
         context={
             'error':str(e)
             }

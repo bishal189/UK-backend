@@ -21,7 +21,7 @@ def _cart_id(request):
     return cart 
 
 
-@login_required(login_url='Login')
+
 def add_cart(request, product_id):
     message = request.GET.get('message', '')
 
@@ -85,7 +85,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
         grand_total=0
         if request.user.is_authenticated:
             cart_items=Cartitem.objects.filter(user=request.user,is_active=True)
-            print(cart_items,'cart item where is ')
+          
         
 
         else:
@@ -303,7 +303,7 @@ def payement(request):
 
         personalize=Personalization.objects.filter(cart=item)
 
-        print(item)
+       
         orderproduct=Order_Product()
         orderproduct.order_id=order.id
         orderproduct.payment=payment
@@ -315,7 +315,7 @@ def payement(request):
         orderproduct.save()
         if len(personalize)>0:
             personalize[0].order=orderproduct
-            print(personalize[0])
+            
             personalize[0].save()
         
 
@@ -389,7 +389,7 @@ def order_complete(request):
 
         total=subtotal+0.11*subtotal  
         
-        print('i am printing here ')  
+       
 
         context={
             'order':order,
@@ -400,7 +400,7 @@ def order_complete(request):
             'subtotal':subtotal,
             'order_total':total
         }
-        print(context)
+       
         return render(request,'orders/order_complete.html',context)
 
 
