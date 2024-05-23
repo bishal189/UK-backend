@@ -40,7 +40,7 @@ def products(request):
             )
             return JsonResponse({"content": content_html})
 
-        products = products_with_avg_rating.order_by("-view_count")
+        products = products_with_avg_rating.order_by("-id")
         context = {
             "products": products
         }
@@ -140,7 +140,7 @@ def collection(request, collection_slug=None):
                     )
                    
                     return JsonResponse({"content": content_html})
-                products = products.order_by("-avg_rating","-view_count")
+                products = products.order_by("-id")
              
                 context = {
                     "collection": collection,
