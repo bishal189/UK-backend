@@ -159,6 +159,12 @@
                               <!--                                       <span class="variant-sku">Product code : 602BH</span>-->
                               <div class="product-meta__labels"></div>
                            </div>
+                            <div class="delivery_date">
+                              <p>Get it by <span id="toDate_48"><br>
+
+                                 <span class="more_info" id="scroll-delivery">More info</span>
+                              </p>
+                           </div>
                            <div class="product_personalise_button">
                               <div class="front-msg">
                                  <h3 class="personalisation_title">Personalise front page</h3>
@@ -188,10 +194,15 @@
                                   });
                               });
                            </script>
-                           <div id="product_details_container">
+                           <div style="margin-bottom:5px;" id="product_details_container">
                               <h2 class="product_summary-title">Details</h2>
                               <ul class="product_summary_list">
                                  <!-- Details will be appended here -->
+                                 <li>Handmade</li>
+                                 <li>Delivery from a small business in United Kingdom</li>
+
+                                 <li>Returns And Exchange Not accepted</li>
+
                               </ul>
                            </div>
                            <div class="product__share">
@@ -432,7 +443,7 @@
                        dispatchDate_48 = dispatchDate_48.addDays(1);
                      }
 
-                     var toDate_48 = dispatchDate_48.addDays(4);
+                     var toDate_48 = dispatchDate_48.addDays(2);
 
                      if (toDate_48.is().sunday()) {
                        toDate_48 = toDate_48.next().monday();
