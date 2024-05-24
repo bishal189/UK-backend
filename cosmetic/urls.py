@@ -5,6 +5,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls import handler404
 from store.views import custom_404_view
+
 from django.http import HttpResponse
 handler404 = 'store.views.custom_404_view'
 
@@ -18,14 +19,12 @@ urlpatterns = [
     path('admin-access/',include('adminapp.urls')),
     path('review/',include('review.urls')),
     path('',include('cart.urls')),
-    path('<str:any>',custom_404_view) ,
-    path('<str:any>/',custom_404_view) ,
 
    
 ]
 
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 
