@@ -1,7 +1,9 @@
 
 # from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
 from . import views
+from store.views import custom_404_view
+
 urlpatterns = [
     path('add_collection/',views.add_collection,name='add_collection'),
     path('dashboard/',views.dashboard,name='dashboard' ),
@@ -21,5 +23,7 @@ urlpatterns = [
     path('accept_product_order/<order_product_id>/',views.accept_product_order,name='accept_product_order'),
 
     path('cancel_product_order/<order_product_id>/',views.cancel_product_order,name='cancel_product_order'),
-  
+    re_path(r'^.*$', custom_404_view),
+
+
 ]
