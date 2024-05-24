@@ -1,6 +1,5 @@
 from django.urls import path
 from products import views
-from store.views import custom_404_view
 
 urlpatterns=[
     path('products/',views.products,name="products"),
