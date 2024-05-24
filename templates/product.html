@@ -202,6 +202,7 @@
                                  <li style="margin-bottom:5px;">Delivery from a small business in United Kingdom</li>
                                  <li style="margin-bottom:5px;">Returns And Exchange Not accepted</li>
                                  <li style="margin-bottom:5px;">Delivery Time:3 Business Days</li>
+                                 <li style="margin-bottom:5px;">Delivery charge: Free of cost</li>
                               </ul>
                            </div>
                            <div class="product__share">
@@ -525,7 +526,7 @@
          var detailsContainer = document.getElementById('product_details_container').querySelector('.product_summary_list');
          // Loop through the details array and append each detail as a list item
          details.forEach(function(detail) {
-         if (!(detail=="Handmade"|| detail=="Delivery from a small business in United Kingdom"||detail=="Returns and exchanges not accepted"))
+         if (!(detail=="Handmade"|| detail=="Delivery from a small business in United Kingdom"||detail=="Returns and exchanges not accepted"||detail.startsWith('Delivery cost')))
          {
              var li = document.createElement('li');
              li.style.marginBottom='10px'
