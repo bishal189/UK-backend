@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block style %}
+
+<style>
+  @media only screen and (max-width: 550px) {
+    .cart--mobile{
+      display:block;
+    }
+    .cart--desktop{
+      display:none;
+    }
+
+  }
+  </style>
+{% endblock %}
 {% block content %}
   <body class="kagami--v5 template-cart ">
     {% include 'includes/header.html' %}
@@ -71,17 +86,7 @@
                      <a href="{% url 'remove_cart_item' cartitem.product.id  cartitem.id %}">
                        <span style="color:#c38052">Remove Item</span>
                       </a>
-<!--                     <p id="toggle_mob_1" class="cart-toggle">Show personalisation</p> -->
-                    <div id="cart_mob_1" style="height: 0; overflow: hidden; transition: height 0.5s ease;">
-                      <p>
-                        <span class="p_first">Cover Message:</span>
-                        <br>
-                        <span class="p_last">HAPPY BIRTHDAY</span>
-                      </p>
-                    </div>
-                  </div>
 
-                </li>
                 {% endfor %}
               </ul>
             </div>
