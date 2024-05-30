@@ -2,6 +2,40 @@
 
 {% block style %}
 <style>
+    @media only screen and (max-width:1380px){
+        
+        
+        .cart-item__quantity {
+            min-width:0px!important;
+        }
+    }
+
+
+    @media only screen and (max-width: 1200px) {
+        .cart--desktop .cart-item__quantity {
+            min-width: 0px!important;
+        }
+        .align{
+            padding:0!important;
+        }
+        .cart-item__price{
+            display:none!important;
+        } 
+        
+    }
+
+    @media only screen and (max-width: 940px) {
+        .cart--desktop .cart-item__quantity {
+            min-width: 0px!important;
+        }
+        .align{
+            padding:0!important;
+        }
+        .paragraph{
+            display:none!important;
+        }
+        
+    }
     @media only screen and (max-width: 800px) {
         .product__showcase{
             width:100%!important;
@@ -9,19 +43,27 @@
         .grid{
             display:block;
         }
-        .cart-item__subtotal{
-            margin: 42px 0 18px!important;
+        .cart-item__subtotal {
+            margin:0px !important;
         }
+        .cart--desktop{
+            display:none;
+        }
+
+        .cart--mobile{
+            display:block;
+        }
+
     }
-    @media only screen and (max-width: 1160px) {
-        .cart--desktop .cart-item__quantity {
-            min-width: 0px!important;
-        }
-        .cart--desktop th {
-            padding: 20px 0px;
-          
-        }
+       
+   
+
+    
+
+    @media only screen and (max-width:500px){
+       
     }
+
 </style>
 {% endblock %}
 
@@ -143,10 +185,11 @@
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-                                        <th></th>
+                                        <th class='paragraph'></th>
                                         
                                         <th>Quantity</th>
-                                        <th>Item total</th>
+                                        <th class="cart-item__price">Price</th>
+                                        <th class='align'>Item total</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -171,7 +214,7 @@
                                             </a>
                                         </td>
 
-                                        <td class="cart-item__info table__left">
+                                        <td class="cart-item__info table__left paragraph ">
 
 
                                             <p><a class="cart-item__title"
@@ -204,7 +247,8 @@
 
                                         </td>
 
-                                        <td class="cart-item__subtotal" data-money-convertible="">£{{cart_item.product.price}} each</td>
+                                        <td class="cart-item cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cart_item.product.price}} each</td>
+                                        <td class="cart-item__subtotal" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cart_item.subtotal}}</td>
 
                                        
                                     </tr>
@@ -221,7 +265,7 @@
   
                   <li class="cart-item" data-variant-id="11281174462500" data-index="1">
                     <div class="cart-item__left">
-                      <a href=="{% url 'get_product' cartitem.product.slug %}" class="cart-item__link">
+                      <a href="{% url 'get_product' cartitem.product.slug %}" class="cart-item__link">
                       {% if '/static/' in cartitem.product.image.url %}
                         <img class="cart-item__image" src="{{cartitem.product.image}}">
                         {% else %}
@@ -236,26 +280,10 @@
   
                           <span><b>Quantity:{{cartitem.quantity}}</b></span>
                           <br />
-                          <div style="display: inline-block;color: #7c5c5d;font-size: 14px;vertical-align: -13px;border: 1px solid #e4e4e4;border-radius: 20px;" class="quantity__actions">
-  
-                          <a style="padding: 0 15px 0 18px;
-                    border-right: 1px solid #e4e4e4;" href="{% url 'remove_item' cartitem.product.id cartitem.id %}">
-                            <svg class="icon icon-minus">
-                              <use xlink:href="#icon-minus"></use>
-                            </svg>
-                          </a>
-                          <a style="padding: 0 15px 0 18px;" href="{% url 'add_cart' cartitem.product.id %}">
-                            <svg class="icon icon-plus">
-                              <use xlink:href="#icon-plus"></use>
-                            </svg>
-                          </a>
-                          </div>
-                          <br />
+                          
                       <span  style="display:inline-block;margin-bottom:0px " class="cart-item__subtotal">SubTotal: £{{cartitem.subtotal}}</span>
                       <br />
-                       <a href="{% url 'remove_cart_item' cartitem.product.id  cartitem.id %}">
-                         <span style="color:#c38052">Remove Item</span>
-                        </a>
+                      
   
                   {% endfor %}
                 </ul>

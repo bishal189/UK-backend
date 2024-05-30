@@ -116,19 +116,10 @@
                     </td>
                     <td class="cart-item__info table__left">
                       <p>
-                        <a class="cart-item__title" href=="{% url 'get_product' cartitem.product.slug %}">{{cartitem.product}}</a>
+                        <a class="cart-item__title" href="{% url 'get_product' cartitem.product.slug %}">{{cartitem.product}}</a>
                       </p>
-                     <!-- <p class="cart-sku">
-                        Product code: 131BH
-                      </p>-->
-<!--                       <p id="cart_toggle_1" class="cart-toggle">Show personalisation</p> -->
-                      <div id="cart_personalisation_1" style="height: 0; overflow: hidden; transition: height 0.5s ease;">
-                        <p>
-                          <span class="p_first">Cover Message:</span>
-                          <br>
-                          <span class="p_last">HAPPY BIRTHDAY</span>
-                        </p>
-                      </div>
+                   
+                     
                     </td>
                     <td class="cart-item__price" data-money-convertible="" data-currency-gbp="£18.75" data-currency-cad="$32.16" data-currency="CAD">£{{cartitem.product.price}} each</td>
                     <td class="cart-item__quantity">
