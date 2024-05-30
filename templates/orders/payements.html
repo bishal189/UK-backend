@@ -4,21 +4,93 @@
 
 {% block style %}
 <style>
-@media only screen and (max-width: 498px) {
-    .mobile-view{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@media only screen and (max-width: 1300px) {
+   .mobile-view{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+   }
+   .product{
+    display:flex;
     width: 100%;
+    padding:0;
+
+    
+   }
+   .container{
+    padding:0px!important;
+   }
+   .responsive{
+    display:flex!important;
+   }
+   #paypal-button-container{
+    width:100%;
+   }
+   .right{
+    width:100%!important;
+   }
+  
+}
+
+@media only screen and (max-width:973px){
+    
+    .cart--desktop .cart-item__quantity {
+        min-width: 0px;
     }
-    table{
-        text-align:center;
-        width:100%;
+    .cart--desktop th {
+        padding: 20px 2px;
+        
     }
+}
+
+@media only screen and (max-width:840px){
+   
+    .mobile-view{
+        margin:0 auto;
+    }
+    .responsive{
+        justify-content:center;
+    }
+    .left{
+        margin-left:12px;
+    }
+
+
+}
+
+@media only screen and (max-width:613px){
+
+
+    .product__showcase{
+        display:flex;
+        flex-direction:column;
+        width:100%!important;
+        margin-top:2rem;
+        justify-content:center;
+    }
+    .responsive{
+        justify-content:space-between;
+    }
+}
+
+@media only screen and (max-width:500px){
     .product__showcase{
         width:100%!important;
+        padding:0;
     }
+    .responsive{
+        display:flex!important;
+        flex-direction:column;
+        width:100%;
+        justify-content:center;
+    }
+    .cart--mobile table{
+        width:100%;
+    }
+    .center{
+        vertical-align:initial;
+    }
+
 }
 </style>
 
@@ -39,15 +111,17 @@
       </header>
    
     
-    <div class="product" id="custom-product-template-XL-product-6782274044064" data-product="6782274044064">
-        <div id="product_details" class="product__details">
+    <div class="product responsive" id="custom-product-template-XL-product-6782274044064" data-product="6782274044064">
+        <div id="product_details" class="product__details" style='margin:0 auto;'>
 
 
             <div class="inner inner-product">
                 <div class="grid mobile-view">
-                    <div class="product__showcase grid__cell 3/5--lap-and-up" style="width:50%;">
+
+                    {% comment %} for left container  {% endcomment %}
+                    <div class="product__showcase grid__cell 3/5--lap-and-up product" style="width:50%">
                         <div class="container container--shrink">
-                            <form method="post" action="https://www.lotusartstudio.co.uk/account/login"
+                            <form method="post" action=""
                                 id="customer_login" accept-charset="UTF-8" data-login-with-shop-sign-in="true"
                                 class="form--shrinked"><input type="hidden" name="form_type"
                                     value="customer_login"><input type="hidden" name="utf8" value="✓">
@@ -69,8 +143,8 @@
                         </div>
 
                         </form>
-                        <div class="product__info grid__cell 2/5--lap-and-up">
-                            <div class="cart--desktop">
+                        <div class="product__info grid__cell 2/5--lap-and-up ">
+                            <div class="cart--desktop left">
 
                                 <table>
                                     <thead>
@@ -90,7 +164,7 @@
 
                                         <tr data-variant-id="11281174462500" data-index="1">
                                             <td class="cart-item__product">
-                                                <a href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500"
+                                                <a href="{% url 'get_product' cart_item.product.slug %}"
                                                     class="cart-item__link">
                                                     {% if '/static/' in cart_item.product.image.url %}
                                                     <img class="cart-item__image"
@@ -108,7 +182,7 @@
     
     
                                                 <p><a class="cart-item__title"
-                                                        href="/products/luxury-handmade-birthday-card-simply-beautiful?variant=11281174462500">
+                                                        href="{% url 'get_product' cart_item.product.slug %}">
                                                     {{cart_item.product|truncatechars:30}}    
                                                     </a></p>
                                               
@@ -146,25 +220,95 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {% comment %} <div class="">
-                                <h1 class="product-meta__title">Beautiful Handmade Birthday Card, Cheery floral
-                                    card,
-                                    Orange and Peach tones</h1>
-                                <div class="product__reviews-badge">
-                                </div>
-                                <div class="product-meta__prices">
-                                    <span class="product-meta__price" data-money-convertible="">£4.49</span>
-                                </div>
-                                <span class="variant-sku">Product code : 602BH</span>
-                                <div class="product-meta__labels"></div>
+
+                            <div class="cart--mobile">
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th></th>
+
+                                            <th>Quantity</th>
+                                            <th>Item total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        {% for cart_item in cart_items %}
+
+                                        <tr data-variant-id="11281174462500" data-index="1">
+                                            <td class="cart-item__product">
+                                                <a href="{% url 'get_product' cart_item.product.slug %}"
+                                                    class="cart-item__link">
+                                                    {% if '/static/' in cart_item.product.image.url %}
+                                                    <img class="cart-item__image"
+    
+                                                        src="{{cart_item.product.image}}">
+                                                        {% else %}
+                                                        <img class="cart-item__image"
+    
+                                                        src="{{cart_item.product.image.url}}">
+                                                        {% endif %}
+                                                </a>
+                                            </td>
+    
+                                            <td class="cart-item__info table__left">
+    
+    
+                                                <p><a class="cart-item__title"
+                                                        href="{% url 'get_product' cart_item.product.slug %}">
+                                                    {{cart_item.product|truncatechars:30}}    
+                                                    </a></p>
+                                              
+                                                <div id="cart_personalisation_1"
+                                                    style="height: 0; overflow: hidden; transition: height 0.5s ease;">
+    
+    
+    
+    
+                                                    <p>
+                                                        <span class="p_first">Cover Message:</span>
+    
+                                                        <br>
+                                                        <span class="p_last">HAPPY BIRTHDAY</span>
+    
+                                                    </p>
+                                                </div>
+    
+                                            </td>
+    
+                                           
+    
+                                            <td class="cart-item__quantity">
+                                                <span>{{cart_item.quantity}}</span>
+    
+    
+                                            </td>
+    
+                                            <td class="cart-item__subtotal" data-money-convertible="">£{{cart_item.product.price}} each</td>
+    
+                                           
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
                             </div>
-                            {% endcomment %}
+
+                            
 
                         </div>
                     </div>
-                    <div class="product__showcase grid__cell 3/5--lap-and-up" style="width:50%;">
-                        <div class="container container--shrink">
-                            <div class="cart--desktop">
+
+
+{% comment %} for right container  {% endcomment %}
+
+                    <div class="product__showcase grid__cell 3/5--lap-and-up right" style="width:50%;">
+                        <div class="container container--shrink responsive" style='margin-top:2rem;'>
+                            <div class="cart--desktop" style='margin-right:2rem'>
 
                                 <table>
                                     <thead>
@@ -197,13 +341,11 @@
                                     </tbody>
 
                                 </table>
-                                <div id="paypal-button-container" style="text-align: center;">
-                                    <!-- PayPal Button Will Load -->
-
-                                </div>
+                               
 
                             </div>
-                            {% comment %} <div class="">
+                            
+                            <div class="cart--mobile">
 
                                 <table>
                                     <thead>
@@ -217,8 +359,8 @@
 
                                     <tbody>
 
-                                        <tr data-variant-id="11281174462500" data-index="1">
-                                            <td class="cart-item__product">
+                                        <tr data-variant-id="11281174462500" data-index="1" style='text-align:center;'>
+                                            <td class="cart-item__product center">
                                                 {{total}}
                                             </td>
 
@@ -236,12 +378,15 @@
                                     </tbody>
 
                                 </table>
-                                <div id="paypal-button-container" style="text-align: center;">
-                                    <!-- PayPal Button Will Load -->
+                               
 
-                                </div>
+                            </div>
 
-                            </div> {% endcomment %}
+                            <div id="paypal-button-container" style="text-align;">
+                                <!-- PayPal Button Will Load -->
+
+                            </div>
+                      
 
                         </div>
 
