@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.counter',
                 'home.context_processors.collections_list_header',
+                'home.context_processors.canonical_url',
 
             ],
         },
